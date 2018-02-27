@@ -1,0 +1,50 @@
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">CHiT! - CHaT! Pub</h1>
+                <p>Talk about the place where you've got your job, house, and tips</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+            	<div class="col-lg-4 text-center">
+	            	<input id="pac-input" class="controls" type="text" placeholder="Search A Place">
+	   				<div id="map"></div>
+	                <!-- <input type="text" class="form-control">  -->
+	                <div>
+	                
+	                <p id="searchedmapplace" style="margin-top:10px;">Search A Place First</p>
+	                <input type="hidden" id="placename" name="placename" >
+	                <input type="hidden" id="placelocation" name="placelocation">
+	                <textarea id="placecomment" name="placecomment"  rows="5" cols="" class="form-control"  placeholder="Chit! Chat! about this place!"></textarea>
+	                <button class="btn btn-primary btn-block" type="button" onclick="addComment()">CHiT! CHaT!</button>
+                	</div>
+                </div>  
+            	<div class="col-lg-6 text-center">
+            		<div id="list">
+	                </div>
+	                <input type="hidden" id="paging" value="0">
+	                <button id="morebtn" class="btn btn-primary btn-block" type="button" onclick="getChitChatpubList()">More</button>
+            	</div>
+            	<div class="col-lg-2 text-center">
+            		<div class="well" style="width:100%;height:500px;">
+            		Ads
+            		</div>
+            		<!-- 
+	            	<p>Dreamer Ranking</p>
+	                <div class="well">
+		                <p>Ryan</p>
+	                </div>
+	                <div class="well">
+		                <p>George</p>
+	                </div>
+	                 -->
+            	</div>  
+            </div>
+        </div>
+    </section>
+

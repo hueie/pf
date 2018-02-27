@@ -1,0 +1,143 @@
+CREATE DATABASE `polarisfinder` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE polarisfinder;
+
+CREATE TABLE `articles` (
+  `article_id` int(5) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `bookarng` (
+  `ARNG_ID` int(11) DEFAULT NULL,
+  `BOX_ID` int(11) DEFAULT NULL,
+  `STACK_ID` tinytext,
+  `BOOKSF_ID` tinytext,
+  `BOOKSF_F_NO` int(11) DEFAULT NULL,
+  `BOOKSF_R_NO` int(11) DEFAULT NULL,
+  `BOOKSF_R_SNO` int(11) DEFAULT NULL,
+  `ARNG_CD` tinytext,
+  `BOX_ARNG_DT` tinytext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `booksf` (
+  `BOOKSF_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `STACK_ID` int(11) DEFAULT NULL,
+  `BOOKSF_NM` text,
+  `BOOKSF_REMK` text,
+  `BOOKSF_HEIGHT` int(11) DEFAULT '0',
+  `BOOKSF_ROW_CNT` int(11) DEFAULT '0',
+  PRIMARY KEY (`BOOKSF_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `booksf_flw` (
+  `STACK_ID` tinytext,
+  `BOOKSF_ID` tinytext,
+  `FLW_NO` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `box` (
+  `BOX_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BOX_NM` tinytext,
+  `BOX_REMK` tinytext,
+  PRIMARY KEY (`BOX_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cam` (
+  `cam_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fileupload_id` int(11) DEFAULT NULL,
+  `cam_nm` text,
+  `cam_imgsrc` text,
+  PRIMARY KEY (`cam_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cammapping` (
+  `cammapping_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fileupload_id` int(11) DEFAULT NULL,
+  `line_id` int(11) DEFAULT NULL,
+  `start_x` int(11) DEFAULT NULL,
+  `end_x` int(11) DEFAULT NULL,
+  `start_y` int(11) DEFAULT NULL,
+  `end_y` int(11) DEFAULT NULL,
+  `booksf_id` int(11) NOT NULL DEFAULT '0',
+  `cammapping_user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cammapping_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `cube_map` (
+  `cube_idx` int(11) NOT NULL,
+  `stack_id` int(11) DEFAULT NULL,
+  `pos_x` int(11) DEFAULT NULL,
+  `pos_y` int(11) DEFAULT NULL,
+  `pos_z` int(11) DEFAULT NULL,
+  `object_id` int(11) DEFAULT NULL,
+  `cube_type` int(11) DEFAULT NULL,
+  `linked_id` int(11) DEFAULT NULL,
+  `cube_size` int(11) DEFAULT NULL,
+  `cube_axis` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cube_idx`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `fileupload` (
+  `fileupload_id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_nm` text,
+  `file_path` text,
+  `fileupload_reg_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`fileupload_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+1	ADMIN
+
+CREATE TABLE `stack` (
+  `stack_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stack_nm` text,
+  `keep_booksf_cnt` int(11) DEFAULT NULL,
+  `stack_remk` text,
+  PRIMARY KEY (`stack_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `active` int(11) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`),
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `ysindex` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `bookarng` (
+  `ARNG_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BOX_ID` int(11) DEFAULT NULL,
+  `STACK_ID` tinytext,
+  `BOOKSF_ID` tinytext,
+  `BOOKSF_F_NO` int(11) DEFAULT NULL,
+  `BOOKSF_R_NO` int(11) DEFAULT NULL,
+  `BOOKSF_R_SNO` int(11) DEFAULT NULL,
+  `ARNG_CD` tinytext,
+  `BOX_ARNG_DT` tinytext,
+  PRIMARY KEY (`ARNG_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

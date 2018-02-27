@@ -1,0 +1,7 @@
+<!-- Ng-href SubPage, I do Not Use Subpage, Just Use Router
+<div>
+<a ng-href="subpage/wsfileupload.html">WSFileUpload</a>
+<a ng-href="subpage/cubemap.html">CubeMap</a>
+<a ng-href="subpage/cammapping.html">CamMapping</a>
+</div>
+ -->
