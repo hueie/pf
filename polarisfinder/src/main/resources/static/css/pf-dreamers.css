@@ -52,3 +52,10 @@
 	background-attachment: fixed;
 }
 
+
+.edit_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/edit_black_32.png');
+}

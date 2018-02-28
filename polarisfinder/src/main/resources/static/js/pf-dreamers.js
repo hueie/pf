@@ -27,11 +27,12 @@ function getDreamersList(){
         		html += "</div>"; 
         		*/
                 var substr = myContent;
-                html += "<div style='border:solid 1px grey; margin:0px 0px 30px 0px; padding:10px;background:rgba(255,255,255,1);'>";
+                html += "<div class='well'>";
                 html += "<div>" + substr + "</div>";
                 html += "<div>";
                 html += "<a href='#'><div class='like_black_32' style='margin:10px;'></div></a> ";
                 html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
+                html += "<a href='#'><div class='edit_black_32' style='margin:10px; float:right;'></div></a>";
                 html += "<a href='#'><div class='label_black_32' style='margin:10px; float:right;'></div></a>";
                 html += "</div>";
                 html += "<br>";
