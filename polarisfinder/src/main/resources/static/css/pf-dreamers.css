@@ -1,0 +1,54 @@
+
+.like_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/like_black_32.png');
+}
+
+.like_red_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/like_red_32.png');
+}
+
+
+.chat_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/chat_black_32.png');
+}
+
+.chat_red_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/chat_red_32.png');
+}
+
+
+
+.label_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/label_black_32.png');
+}
+
+.label_red_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/label_red_32.png');
+}
+
+.old_newspaper{
+	background-image: url(/img/back/old_newspaper2.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+

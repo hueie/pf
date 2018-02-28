@@ -56,3 +56,12 @@ html, body {
 #target {
 	width: 345px;
 }
+
+
+.old_pub{
+	background-image: url(/img/back/old_pub_image.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+}

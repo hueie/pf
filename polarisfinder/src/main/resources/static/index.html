@@ -28,6 +28,8 @@
 
     <link href="/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
     <link href="/css/polarisfinder.css" rel="stylesheet">
+    <link href="/css/pf-dreamers.css" rel="stylesheet">
+	<link href="/css/pf-treasuremap.css" rel="stylesheet">
 	
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/vendor/bootstrap/js/validator.min.js"></script>
@@ -86,6 +88,7 @@
                     <li>
                         <a class="page-scroll" href="#!chitchatpub">CHiT! - CHaT! Pub</a>
                     </li>
+                    <!-- 
                     <li>
                         <a class="page-scroll" href="#!tortugaisland">Tortuga Island</a>
                     </li>
@@ -95,13 +98,14 @@
                     <li>
                         <a class="page-scroll" href="#!atworldsend">At World's End</a>
                     </li>
-                    <!-- 
+                     -->
                     <li>
                         <a href="#" id="signin">Sign In</a>
                     </li>
                     <li>
                         <a href="#" id="signup">Sign Up</a>
                     </li>
+                    <!--
                     <li>
                         <a href="/huetap/index.jsp">MyPage</a>
                     </li>
@@ -120,7 +124,7 @@
 	
 	<div ng-view></div>
 
-
+	<!-- 
     <section class="bg-primary" id="contact">
         <div class="container">
             <div class="row">
@@ -136,7 +140,7 @@
             </div>
         </div>
     </section>
-
+	-->
 	<script>
 		var app = angular.module("myApp", [ "ngRoute" ]);
 		app.config(function($routeProvider) {
@@ -223,7 +227,8 @@
 				resolve : {
 					init : function() {
 						return function() {
-							signCheck();
+							var height = $("body").prop("clientWidth")/3*2-30;
+							$(".old_worldmap").height(height);
 							console.log('Loading treasuremap');
 						}
 					}
@@ -234,6 +239,9 @@
 				resolve : {
 					init : function() {
 						return function() {
+							var height = $("body").prop("clientHeight");
+							$(".old_pub").height(height);
+							
 							initAutocomplete();
 							getChitChatpubList();
 							//getCamList();
