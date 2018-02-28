@@ -160,6 +160,9 @@
 				resolve : {
 					init : function() {
 						return function() {
+							var height = $("body").prop("clientHeight");
+							$('.old_newspaper').css('min-height', height+'px');
+							
 							getDreamersList();
 							console.log('Loading dreamers');
 						}
@@ -181,6 +184,9 @@
 				resolve : {
 					init : function() {
 						return function() {
+							var height = $("body").prop("clientHeight");
+							$('.old_newspaper').css('min-height', height+'px');
+							
 							var editor = new MediumEditor('.editable');
 							$(function () {
 							    $('.editable').mediumInsert({
@@ -228,7 +234,6 @@
 					init : function() {
 						return function() {
 							var height = $("body").prop("clientWidth")/3*2-30;
-							//$(".old_worldmap").height(height);
 							$('.old_worldmap').css('min-height', height+'px');
 							console.log('Loading treasuremap');
 						}
@@ -241,7 +246,6 @@
 					init : function() {
 						return function() {
 							var height = $("body").prop("clientHeight");
-							//$(".old_pub").height(height);
 							$('.old_pub').css('min-height', height+'px');
 							
 							initAutocomplete();
