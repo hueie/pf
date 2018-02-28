@@ -204,21 +204,21 @@
 							
 							    $("#publish_article").click(function (){
 									var content = editor.getContent();
-									
-									$.ajax({
-								        type: "post",
-								        url: "/dreamers/DreamersAddContent",
-								        data: {
-								        	"content" : content
-								        	},
-								        success: function(msg){
-								        	alert("hi!!!");
-								        },
-								        error:function (xhr, ajaxOptions, thrownError){
-								            alert(xhr.status);
-								            alert(thrownError);
-								        } 
-								    });
+									if(content != ''){
+										$.ajax({
+									        type: "post",
+									        url: "/dreamers/DreamersAddContent",
+									        data: {
+									        	"content" : content
+									        	},
+									        success: function(msg){
+									        },
+									        error:function (xhr, ajaxOptions, thrownError){
+									            alert(xhr.status);
+									            alert(thrownError);
+									        } 
+									    });
+									}
 								});
 
 							});
