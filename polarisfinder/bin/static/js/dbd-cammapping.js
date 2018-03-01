@@ -168,8 +168,6 @@ function setImgSrc(fileupload_id, file_img_nm, fileupload_reg_id ) {
 					});
 					line_id++;
 					
-	        		//html += "<span><button class=\"btn btn-xs btn-warning\" onclick=\"updateBooksfIdToCammapping("+sub_cammapping_id+");\">서가 선 연동하기</button>"+ sub_fileupload_id + ", " + sub_line_id + "</span><br>"; 
-					
 	        	}
 	        	document.getElementById("canvas_list").innerHTML = html;
 	        },
@@ -178,12 +176,6 @@ function setImgSrc(fileupload_id, file_img_nm, fileupload_reg_id ) {
 	            alert(thrownError);
 	        } 
 	    });
-		/*
-		 * canvas.addEventListener('mousemove', function(evt) { var mousePos =
-		 * getMousePos(canvas, evt); var message = 'Mouse position: ' + mousePos.x +
-		 * ',' + mousePos.y + ''; //writediv.append(message); fillpoint(canvas,
-		 * mousePos.x, mousePos.y); }, false);
-		 */
 	}
 };
 

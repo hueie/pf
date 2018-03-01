@@ -168,64 +168,55 @@
 						}
 					}
 				}
-			}).when("/dreamers-view", {
-				controller : 'dreamersController',
-				templateUrl : "pf-dreamers-view.html",
-				resolve : {
-					init : function() {
-						return function() {
-							console.log('Loading dreamers');
-						}
-					}
-				}
-			}).when("/dreamers-editor", {
-				controller : 'dreamersController',
+			}).when("/dreamers-editor/:id", {
+				controller : 'dreamerseditController',
 				templateUrl : "pf-dreamers-editor.html",
 				resolve : {
-					init : function() {
-						return function() {
-							var height = $("body").prop("clientHeight");
-							$('.old_newspaper').css('min-height', height+'px');
-							
-							var editor = new MediumEditor('.editable');
-							$(function () {
+					"myDreamersedit": function( ) {
+				        return {
+							foo : function(dreamerseditService, id) {
+								console.log('Resolve id : ' + id);
+					            return dreamerseditService.getFoo(id);
+					        },
+							init : function() {
+								var height = $("body").prop("clientHeight");
+								$('.old_newspaper').css('min-height', height+'px');
+									
+								var editor = new MediumEditor('.editable');
 							    $('.editable').mediumInsert({
 							        editor: editor,
 							        addons: {
-					                    images: {
-					                        fileUploadOptions: {
-					                            url: '/dreamers/DreamersUpload'
-					                        }
-					                    }
-					                }
-							    });
-							    //var allContents = editor.serialize();
-							    //var elContent = allContents["element-0"].value;
-							
-							    $("#publish_article").click(function (){
+		  		                    	images: {
+						                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
+						            	}
+							    	}
+								});
+								//var allContents = editor.serialize();
+								//var elContent = allContents["element-0"].value;
+									
+								$("#publish_article").click(function (){
 									var content = editor.getContent();
 									if(content != ''){
 										$.ajax({
-									        type: "post",
-									        url: "/dreamers/DreamersAddContent",
-									        data: {
-									        	"content" : content
-									        	},
-									        success: function(msg){
-									        },
-									        error:function (xhr, ajaxOptions, thrownError){
-									            alert(xhr.status);
-									            alert(thrownError);
-									        } 
-									    });
+											type: "post",
+											url: "/dreamers/DreamersAddContent",
+											data: {
+												"content" : content
+											},
+											success: function(msg){
+											
+											},
+											error:function (xhr, ajaxOptions, thrownError){
+												alert(xhr.status);
+											    alert(thrownError);
+											} 
+										});
 									}
 								});
-
-							});
-							
-							console.log('Loading dreamers');
-						}
-					}
+								console.log('Loading dreamers');
+							}
+				        }
+				    }
 				}
 			}).when("/treasuremap", {
 				controller : 'treasuremapController',
@@ -299,9 +290,48 @@
 				init($route);
 			} ]
 		);
-		app.controller('dreamersController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
+		app.controller('dreamersController', [ '$scope', '$route', '$routeParams', 'init',
+			function($scope, $route, $routeParams, init) {
 				init($route);
+			} ]
+		);
+		app.service('dreamerseditService', ['$http', function($http){
+			console.log('make service');
+			var service={}; 
+			service.getFoo = function(id){
+				console.log('Service Get Foo : '+id);
+				var data = $.param({
+	                id: id
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/dreamers/Dreamersedit', data, config);
+			}
+			return service;
+		}]);
+		app.controller('dreamerseditController', [ '$scope', '$route', '$routeParams', 'dreamerseditService','myDreamersedit',
+			function($scope, $route, $routeParams, dreamerseditService, myDreamersedit) {
+				$scope.controllerName = "dreamerseditController";
+				$scope.id = $routeParams.id;
+				$scope.fooObj = {};
+				console.log('scope.id : ' + $scope.id);
+				if($scope.id != 0){
+					myDreamersedit.foo(dreamerseditService, $scope.id) //dreamerseditService.getFoo($scope.id)
+					.then(function (response) {
+			            data = response.data;
+			            //console.log(data.content);
+			            $scope.fooObj = data;
+			            $("#content").html(data.content);
+					},function (error){
+						alert('something went wrong!!!');
+					});
+					console.log($scope.fooObj);
+				}
+				//$("#id").val($routeParams.id);
+				myDreamersedit.init();
 			} ]
 		);
 		app.controller('treasuremapController', [ '$scope', '$route', 'init',

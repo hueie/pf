@@ -150,4 +150,12 @@ public class DreamersController {
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
+	@PostMapping("Dreamersedit")
+	public ResponseEntity<Dreamers> Dreamersedit(@RequestParam(
+			value="id", required = false)int id
+			) {
+		int paging = 0;
+		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
+		return new ResponseEntity<Dreamers>(list.get(0), HttpStatus.OK);
+	}
 }

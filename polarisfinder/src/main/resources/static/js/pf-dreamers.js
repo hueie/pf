@@ -1,4 +1,6 @@
 
+
+
 function getDreamersList(){
 	var id = $("#id").val();
 	var paging = $("#paging").val();
@@ -21,7 +23,7 @@ function getDreamersList(){
         		/*
         		var substr = $(myContent).text().substring(0, 100);
         		html += "<div class='well'>";
-        		html += "<a href=\"#!dreamers-view/"+obj[idx].id+"\">"; 
+        		html += "<a href='#!dreamers-view/"+obj[idx].id+"'>"; 
         		html += "<p>"+ substr + "</p>";
         		html += "</a>";
         		html += "</div>"; 
@@ -32,7 +34,7 @@ function getDreamersList(){
                 html += "<div>";
                 html += "<a href='#'><div class='like_black_32' style='margin:10px;'></div></a> ";
                 html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
-                html += "<a href='#'><div class='edit_black_32' style='margin:10px; float:right;'></div></a>";
+                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:10px; float:right;'></div></a>";
                 html += "<a href='#'><div class='label_black_32' style='margin:10px; float:right;'></div></a>";
                 html += "</div>";
                 html += "<br>";
