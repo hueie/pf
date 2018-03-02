@@ -123,6 +123,7 @@ public class DreamersController {
 
 	@PostMapping("DreamersAddContent")
 	public ResponseEntity<Void> DreamersAddContent(
+			@RequestParam(value="id", required = false)int id, 
 			@RequestParam(value="content", required = false)String content, 
 			UriComponentsBuilder builder
 			) throws Exception {
@@ -131,6 +132,7 @@ public class DreamersController {
 		
 		Dreamers dreamers = new Dreamers();
 		dreamers.setContent(content);
+		dreamers.setId(id);
 		
 		boolean flag = dreamersService.createDreamers(dreamers);
         if (flag == false) {

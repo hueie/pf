@@ -176,6 +176,7 @@
 				        return {
 							foo : function(dreamerseditService, id) {
 								console.log('Resolve id : ' + id);
+								$("#id").val(id);
 					            return dreamerseditService.getFoo(id);
 					        },
 							init : function() {
@@ -196,15 +197,21 @@
 									
 								$("#publish_article").click(function (){
 									var content = editor.getContent();
+									var id = $("#id").val();
 									if(content != ''){
 										$.ajax({
 											type: "post",
 											url: "/dreamers/DreamersAddContent",
 											data: {
+												"id" : id,
 												"content" : content
 											},
 											success: function(msg){
-											
+												var height = $("body").prop("clientHeight");
+												$('.old_newspaper').css('min-height', height+'px');
+												
+												getDreamersList();
+												console.log('Loading dreamers');
 											},
 											error:function (xhr, ajaxOptions, thrownError){
 												alert(xhr.status);

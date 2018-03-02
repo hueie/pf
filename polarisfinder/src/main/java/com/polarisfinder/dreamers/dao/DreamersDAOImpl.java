@@ -19,7 +19,11 @@ public class DreamersDAOImpl  implements DreamersDAO {
 
 	@Override
 	public void createDreamers(Dreamers Dreamers) {
-		entityManager.persist(Dreamers);
+		if(Dreamers.getId() == 0){
+			entityManager.persist(Dreamers);
+		} else{
+			entityManager.merge(Dreamers);
+		}
 	}
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings
