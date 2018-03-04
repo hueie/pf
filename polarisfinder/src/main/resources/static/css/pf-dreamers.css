@@ -14,6 +14,14 @@
 }
 
 
+.chat_black_16 {
+	height:16px;
+	width:16px;
+	display:inline-block;
+    background-image: url('/img/icon/chat_black_16.png');
+}
+
+
 .chat_black_32 {
 	height:32px;
 	width:32px;
@@ -58,4 +66,11 @@
 	width:32px;
 	display:inline-block;
     background-image: url('/img/icon/edit_black_32.png');
+}
+
+.eraser_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/eraser_black_32.png');
 }

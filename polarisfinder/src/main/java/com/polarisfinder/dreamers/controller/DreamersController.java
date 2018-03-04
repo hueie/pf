@@ -31,6 +31,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.polarisfinder.chitchatpub.entity.Chitchatpub;
 import com.polarisfinder.chitchatpub.service.ChitchatpubService;
 import com.polarisfinder.dreamers.entity.Dreamers;
+import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.entity.UploadModel;
 import com.polarisfinder.dreamers.service.DreamersService;
 
@@ -119,7 +121,28 @@ public class DreamersController {
 	  }
 	]}
 	*/
-    
+    @PostMapping("DreamersDelContent")
+	public ResponseEntity<Void> DreamersDelContent(
+			@RequestParam(value="id", required = false)int id, 
+			UriComponentsBuilder builder
+			) throws Exception {
+		
+    	Dreamers dreamers = new Dreamers();
+		dreamers.setId(id);
+		
+		Dreamerscomment dreamerscomment = new Dreamerscomment();
+		dreamerscomment.setDreamers_id(id);
+		Dreamerslike dreamerslike = new Dreamerslike();
+		dreamerslike.setDreamers_id(id);
+
+		boolean flag = dreamersService.deleteDreamers(dreamers);
+		flag = dreamersService.deleteDreamerscomment(dreamerscomment);
+		flag = dreamersService.deleteDreamerslike(dreamerslike);
+        if (flag == false) {
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 
 	@PostMapping("DreamersAddContent")
 	public ResponseEntity<Void> DreamersAddContent(
@@ -142,6 +165,16 @@ public class DreamersController {
 	}
 	
 	
+	@PostMapping("DreamerscommentList")
+	public ResponseEntity<List<Dreamerscomment>> DreamerscommentList(@RequestParam(
+			value="dreamers_id", required = false)int dreamers_id,
+			@RequestParam(value="paging", required = false)int paging
+			) {
+		System.out.println("Paging : " + paging);
+		List<Dreamerscomment> list = dreamersService.getDreamerscommentById(dreamers_id, paging);
+		return new ResponseEntity<List<Dreamerscomment>>(list, HttpStatus.OK);
+	}
+	
 	@GetMapping("DreamersList")
 	public ResponseEntity<List<Dreamers>> DreamersList(@RequestParam(
 			value="id", required = false)int id,
@@ -149,6 +182,13 @@ public class DreamersController {
 			) {
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
+		/*
+		for(int idx = 0; idx < list.size(); idx++) {
+			int subid = list.get(0).getId();
+			List<Dreamerscomment> cmtlist = dreamersService.getDreamerscommentById(subid, paging);
+			List<Dreamerslike> likelist = dreamersService.getDreamerslikeById(subid, paging);
+		}
+		*/
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
@@ -160,4 +200,44 @@ public class DreamersController {
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
 		return new ResponseEntity<Dreamers>(list.get(0), HttpStatus.OK);
 	}
+	
+	@PostMapping("Dreamerslike")
+	public ResponseEntity<Void> Dreamerslike(
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
+			UriComponentsBuilder builder
+			) throws Exception {
+		
+		Dreamerslike dreamerslike = new Dreamerslike();
+		dreamerslike.setDreamers_id(dreamers_id); 
+		
+		Dreamers dreamers = new Dreamers();
+		dreamers.setId(dreamers_id);
+		
+		boolean flag = dreamersService.createDreamerslike(dreamerslike);
+		flag = dreamersService.increaseDreamerslikecnt(dreamers);
+		
+		if (flag == false) {
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@PostMapping("DreamerscommentAdd")
+	public ResponseEntity<Void> DreamerscommentAdd(
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
+			@RequestParam(value="dreamers_comment", required = false)String dreamers_comment, 
+			UriComponentsBuilder builder
+			) throws Exception {
+		
+		Dreamerscomment dreamerscomment = new Dreamerscomment();
+		dreamerscomment.setDreamers_id(dreamers_id);
+		dreamerscomment.setDreamers_comment(dreamers_comment);
+		
+		boolean flag = dreamersService.createDreamerscomment(dreamerscomment);
+        if (flag == false) {
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
+	}
+	
 }

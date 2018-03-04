@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="dreamers")
-public class Dreamers implements Serializable {
+@Table(name="dreamerscomment")
+public class Dreamerscomment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -19,12 +19,13 @@ public class Dreamers implements Serializable {
 	@Column(name="id")
     private int id;  
 
-	@Column(name="content")
-    private String content;
-	
-	@Column(name="like_cnt")
-    private int like_cnt;  
+	@Column(name="dreamers_id")
+    private int dreamers_id;  
 
+	@Column(name="dreamers_comment")
+    private String dreamers_comment;
+	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -40,24 +41,26 @@ public class Dreamers implements Serializable {
 	}
 
 
-	public String getContent() {
-		return content;
+	public int getDreamers_id() {
+		return dreamers_id;
 	}
 
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setDreamers_id(int dreamers_id) {
+		this.dreamers_id = dreamers_id;
 	}
 
 
-	public int getLike_cnt() {
-		return like_cnt;
+	public String getDreamers_comment() {
+		return dreamers_comment;
 	}
 
 
-	public void setLike_cnt(int like_cnt) {
-		this.like_cnt = like_cnt;
+	public void setDreamers_comment(String dreamers_comment) {
+		this.dreamers_comment = dreamers_comment;
 	}
+
+
 
 
 }
