@@ -269,9 +269,10 @@ DROP TABLE IF EXISTS `dreamers`;
 CREATE TABLE `dreamers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` longtext,
+  `like_cnt` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,3 +443,20 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2018-02-27 11:41:13
+
+
+CREATE TABLE `dreamerscomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dreamers_id` int(11) DEFAULT NULL,
+  `dreamers_comment` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `dreamerslike` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dreamers_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
