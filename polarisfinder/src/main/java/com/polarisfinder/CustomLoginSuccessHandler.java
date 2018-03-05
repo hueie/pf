@@ -21,8 +21,9 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         HttpSession session = request.getSession();
         if (session != null) {
             String redirectUrl = (String) session.getAttribute("prevPage");
-            //System.out.println("ROLE");
-            response.addCookie(new Cookie("ROLE", "ADMIN"));
+            Cookie crunchifyCookie = new Cookie("ROLE", "ADMIN");
+            crunchifyCookie.setMaxAge(60 * 60);
+            response.addCookie(crunchifyCookie);
             if (redirectUrl != null) {
                 session.removeAttribute("prevPage");
                 getRedirectStrategy().sendRedirect(request, response, redirectUrl);
