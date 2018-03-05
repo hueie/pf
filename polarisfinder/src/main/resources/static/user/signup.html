@@ -1,0 +1,48 @@
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Sign Up</h1>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+
+					<form id="signupform" class="signup-form" action="/user/Signup" method="POST">
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <input id="name" name="name" type="text" class="validate"/>
+					      <label for="name">name</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <input id="last_name" name="last_name" type="text" class="validate"/>
+					      <label for="last_name">last_name</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <input id="email" name="email" type="email" class="validate"/>
+					      <label for="email">Email</label>
+					    </div>
+					  </div>
+					  <div class="row">
+					    <div class="input-field col s12">
+					      <input id="password" name="password" type="password" class="validate"/>
+					      <label for="password">Password</label>
+					    </div>
+					  </div>
+					  <input class="signup-btn waves-effect waves-light btn" type="button" value="가입하기" onclick="signup()"/>
+					</form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+

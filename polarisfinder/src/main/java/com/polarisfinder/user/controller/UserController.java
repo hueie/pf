@@ -44,12 +44,12 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@GetMapping("Signin")
+	@PostMapping("Signin")
 	public ResponseEntity<Void> Signin(
-			//@RequestParam(value = "email", required = false) String email,
-			//@RequestParam(value = "password", required = false) String password
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "password", required = false) String password
 	) {
-		//System.out.println("Signin : "+email+","+password);
+		System.out.println("Signin : "+email+","+password);
 		//return new ResponseEntity<String>( "Sing In Success!!",HttpStatus.OK);
 		return new ResponseEntity<Void>( HttpStatus.OK);
 	}
@@ -107,6 +107,7 @@ public class UserController {
 			@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "password", required = false) String password
 	) {
+		System.out.println("Sign Up!!!");
 		User user = new User();
 		user.setActive(1);
 		user.setEmail(email);

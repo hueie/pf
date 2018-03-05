@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +53,8 @@ public class DreamersController {
     
 	@PostMapping("DreamersUpload")
 	public ResponseEntity<JSONObject> DreamersUpload(
-	                  @RequestParam("files[]") List<MultipartFile> uploadfiles) throws Exception {
+	    @RequestParam("files[]") List<MultipartFile> uploadfiles
+	    ) throws Exception {
 		System.out.println("hi");
         logger.debug("Multiple file upload!");
 
@@ -166,35 +169,50 @@ public class DreamersController {
 	
 	
 	@PostMapping("DreamerscommentList")
-	public ResponseEntity<List<Dreamerscomment>> DreamerscommentList(@RequestParam(
-			value="dreamers_id", required = false)int dreamers_id,
+	public ResponseEntity<List<Dreamerscomment>> DreamerscommentList(
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		System.out.println("Paging : " + paging);
 		List<Dreamerscomment> list = dreamersService.getDreamerscommentById(dreamers_id, paging);
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		System.out.println("username : "+username);
+
 		return new ResponseEntity<List<Dreamerscomment>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("DreamersList")
-	public ResponseEntity<List<Dreamers>> DreamersList(@RequestParam(
-			value="id", required = false)int id,
+	public ResponseEntity<List<Dreamers>> DreamersList(
+			@RequestParam(value="id", required = false)int id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
 		/*
-		for(int idx = 0; idx < list.size(); idx++) {
-			int subid = list.get(0).getId();
-			List<Dreamerscomment> cmtlist = dreamersService.getDreamerscommentById(subid, paging);
-			List<Dreamerslike> likelist = dreamersService.getDreamerslikeById(subid, paging);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+			for(int idx = 0; idx < list.size(); idx++) {
+				int subid = list.get(idx).getId();
+			}
+		} else {
+			username = principal.toString();
 		}
 		*/
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
 	@PostMapping("Dreamersedit")
-	public ResponseEntity<Dreamers> Dreamersedit(@RequestParam(
-			value="id", required = false)int id
+	public ResponseEntity<Dreamers> Dreamersedit(
+			@RequestParam(value="id", required = false)int id
 			) {
 		int paging = 0;
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);

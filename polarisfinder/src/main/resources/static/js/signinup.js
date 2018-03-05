@@ -1,3 +1,36 @@
+function signin(){
+	var frm = $('#signinform');
+    $.ajax({
+        type: frm.attr('method'),
+        url: frm.attr('action'),
+        data: frm.serialize(),
+        success: function (data) {
+            console.log('Submission was successful.');
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+    });
+}
+function signup(){    
+    var frm = $('#signupform');
+    $.ajax({
+        type: frm.attr('method'),
+        url: frm.attr('action'),
+        data: frm.serialize(),
+        success: function (data) {
+            console.log('Submission was successful.');
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+        },
+    });
+}
+
 function getDreamerscommentList(dreamers_id, paging){
 	$.ajax({
         type: "post",
@@ -49,11 +82,7 @@ function getDreamersList(){
                 html += "<div id='like_"+obj[idx].id+"' onclick='dreamerslike("+obj[idx].id+");' class='like_black_32' style='margin:5px;cursor: pointer;'></div>";
                 html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
                 //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
-                var cok = $.cookie("ROLE");
-                alert(cok);
-                if( cok == "ADMIN"){
-                	html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
-                }
+                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
                 html += "<div class='label_black_32' style='margin:5px; float:right; cursor: pointer;'></div>";
                 html += "</div>";
                 //Commoent Div Start

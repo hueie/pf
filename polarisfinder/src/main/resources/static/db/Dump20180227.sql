@@ -444,7 +444,7 @@ UNLOCK TABLES;
 
 -- Dump completed on 2018-02-27 11:41:13
 
-
+DROP TABLE IF EXISTS `dreamerscomment`;
 CREATE TABLE `dreamerscomment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dreamers_id` int(11) DEFAULT NULL,
@@ -453,6 +453,7 @@ CREATE TABLE `dreamerscomment` (
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `dreamerslike`;
 CREATE TABLE `dreamerslike` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dreamers_id` int(11) DEFAULT NULL,

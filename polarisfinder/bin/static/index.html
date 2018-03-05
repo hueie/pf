@@ -14,10 +14,13 @@
 <script src="/js/angular-1.6.5.min.js"></script>
 <script src="/js/angular-route-1.6.5.min.js"></script>
 <script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+
 
 	<!-- AIzaSyDD8VYV12Ujz_-Z_WNqAhMRouzkUewoO60 AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g&libraries=places"></script>
 	<script src="/js/pf-chitchatpub.js"></script>
+	<script src="/js/signinup.js"></script>
 
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -100,10 +103,10 @@
                     </li>
                      -->
                     <li>
-                        <a href="#" id="signin">Sign In</a>
+                        <a href="#!signin" id="signin">Sign In</a>
                     </li>
                     <li>
-                        <a href="#" id="signup">Sign Up</a>
+                        <a href="#!signup" id="signup">Sign Up</a>
                     </li>
                     <!--
                     <li>
@@ -209,7 +212,7 @@
 											success: function(msg){
 												var height = $("body").prop("clientHeight");
 												$('.old_newspaper').css('min-height', height+'px');
-												$('#paing').val(0);
+												$('#paging').val(0);
 												$("#id").val(0);
 									            getDreamersList();
 												console.log('Loading dreamers');
@@ -310,6 +313,26 @@
 						return function() {
 							//signCheck();
 							//getCamList();
+							console.log('Loading atworldsend');
+						}
+					}
+				}
+			}).when("/signin", {
+				controller : 'signinController',
+				templateUrl : "/user/signin.html",
+				resolve : {
+					init : function() {
+						return function() {
+							console.log('Loading atworldsend');
+						}
+					}
+				}
+			}).when("/signup", {
+				controller : 'signupController',
+				templateUrl : "/user/signup.html",
+				resolve : {
+					init : function() {
+						return function() {
 							console.log('Loading atworldsend');
 						}
 					}
