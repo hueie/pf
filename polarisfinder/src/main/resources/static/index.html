@@ -20,6 +20,7 @@
 	<!-- AIzaSyDD8VYV12Ujz_-Z_WNqAhMRouzkUewoO60 AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g&libraries=places"></script>
 	<script src="/js/pf-chitchatpub.js"></script>
+	<script src="/js/pf-treasuremap.js"></script>
 	<script src="/js/signinup.js"></script>
 
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -313,6 +314,20 @@
 							var height = $("body").prop("clientWidth")/3*2-30;
 							$('.old_us_map').css('min-height', height+'px');
 							$('.layer').css('min-height', height+'px');
+							console.log('Loading treasuremap');
+						}
+					}
+				}
+			}).when("/treasuremap-view", {
+				controller : 'treasuremapController',
+				templateUrl : "pf-treasuremap-view.html",
+				resolve : {
+					init : function() {
+						return function() {
+							var height = $("body").prop("clientHeight");
+							$('.old_newspaper').css('min-height', height+'px');
+							
+							getDreamersList();
 							console.log('Loading treasuremap');
 						}
 					}

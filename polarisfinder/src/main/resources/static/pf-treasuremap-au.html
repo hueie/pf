@@ -2,21 +2,20 @@
     <section class="old_au_map" id="old_au_map" >
    		<div class="container">
             <div class="row">
-            	<a href="#">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
+            	<div onclick="getinfo('au', 'visa');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
 					<h1>VISA</h1>
             	</div>
-            	</a>
-            	<a href="#">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
+            	<div onclick="getinfo('au', 'life');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
 					<h1>LIFE</h1>
             	</div>
-            	</a>
-            	<a href="#">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
+            	<div onclick="getinfo('au', 'money');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
 					<h1>MONEY</h1>
             	</div>
-            	</a>
+            </div>
+            <div class="row">
+            	<div id="info" class="col-lg-12 text-center well" style="display:none;">
+					<h1>VISA</h1>
+            	</div>
             </div>
         </div>
     </section>
