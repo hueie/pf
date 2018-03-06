@@ -265,6 +265,54 @@
 						}
 					}
 				}
+			}).when("/treasuremap-au", {
+				controller : 'treasuremapController',
+				templateUrl : "pf-treasuremap-au.html",
+				resolve : {
+					init : function() {
+						return function() {
+							var height = $("body").prop("clientWidth")/3*2-30;
+							$('.old_au_map').css('min-height', height+'px');
+							console.log('Loading treasuremap');
+						}
+					}
+				}
+			}).when("/treasuremap-ca", {
+				controller : 'treasuremapController',
+				templateUrl : "pf-treasuremap-ca.html",
+				resolve : {
+					init : function() {
+						return function() {
+							var height = $("body").prop("clientWidth")/3*2-30;
+							$('.old_ca_map').css('min-height', height+'px');
+							console.log('Loading treasuremap');
+						}
+					}
+				}
+			}).when("/treasuremap-jp", {
+				controller : 'treasuremapController',
+				templateUrl : "pf-treasuremap-jp.html",
+				resolve : {
+					init : function() {
+						return function() {
+							var height = $("body").prop("clientWidth")/3*2-30;
+							$('.old_jp_map').css('min-height', height+'px');
+							console.log('Loading treasuremap');
+						}
+					}
+				}
+			}).when("/treasuremap-us", {
+				controller : 'treasuremapController',
+				templateUrl : "pf-treasuremap-us.html",
+				resolve : {
+					init : function() {
+						return function() {
+							var height = $("body").prop("clientWidth")/3*2-30;
+							$('.old_us_map').css('min-height', height+'px');
+							console.log('Loading treasuremap');
+						}
+					}
+				}
 			}).when("/chitchatpub", {
 				controller : 'chitchatpubController',
 				templateUrl : "pf-chitchatpub.html",

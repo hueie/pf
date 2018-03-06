@@ -1,6 +1,33 @@
-
 .old_worldmap{
 	background-image: url(/img/back/old_worldmap.jpg);
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+.old_au_map{
+	background-image: url(/img/back/old_au_map.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.old_ca_map{
+	background-image: url(/img/back/old_ca_map.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.old_jp_map{
+	background-image: url(/img/back/old_jp_map.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.old_us_map{
+	background-image: url(/img/back/old_us_map.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.layer {
+    background-color: rgba(218,165,32, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

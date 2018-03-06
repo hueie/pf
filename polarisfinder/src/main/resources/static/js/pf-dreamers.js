@@ -50,7 +50,7 @@ function getDreamersList(){
                 html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
                 //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
                 var cok = $.cookie("ROLE");
-                alert(cok);
+                //alert(cok);
                 if( cok == "ADMIN"){
                 	html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
                 }
