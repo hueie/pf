@@ -1,35 +1,10 @@
-	<!-- 
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading">Treasure Map</h1>
-                <p>Give fast-line path to work or live in other place</p>
-            </div>
-        </div>
-    </header>
- -->
-    <section class="old_worldmap" id="old_worldmap" >
+    <section class="old_worldmap" id="old_worldmap" ng-controller="treasuremapController">
    		<div class="container">
             <div class="row">
-            	<a href="#!treasuremap-au">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>AUSTRALIA</h1>
-            	</div>
-            	</a>
-            	<a href="#!treasuremap-ca">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>CANADA</h1>
-            	</div>
-            	</a>
-            	<a href="#!treasuremap-jp">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>JAPAN</h1>
-            	</div>
-            	</a>
-            	<a href="#!treasuremap-us">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>US</h1>
-            	</div>
+            	<a ng-repeat="country in countrylist" href="#!treasuremap-{{country.code}}">
+	            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
+						<h1>{{country.id}} : {{country.country}}</h1>
+	            	</div>
             	</a>
             </div>
         </div>
