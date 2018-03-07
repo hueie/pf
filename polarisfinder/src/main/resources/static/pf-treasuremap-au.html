@@ -2,14 +2,8 @@
     <section class="old_au_map" id="old_au_map" >
    		<div class="container">
             <div class="row">
-            	<div onclick="getinfo('au', 'visa');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
-					<h1>VISA</h1>
-            	</div>
-            	<div onclick="getinfo('au', 'life');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
-					<h1>LIFE</h1>
-            	</div>
-            	<div onclick="getinfo('au', 'money');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
-					<h1>MONEY</h1>
+            	<div ng-repeat="topic in topiclist" onclick="getinfo('au', '{{topic.name}}');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
+            		<h1>{{topic.name}}</h1>
             	</div>
             </div>
             <div class="row">

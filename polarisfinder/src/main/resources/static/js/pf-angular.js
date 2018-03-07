@@ -295,14 +295,14 @@
 				console.log('Loading treasuremap');
 			}
 			this.getCountry = function(x){
-				return $http.get('/treasuremap/country');
+				return $http.get('/treasuremap/au');
 			}
 		}]);
 		app.controller('treasuremapauController', [ '$scope', 'treasuremapauService', 
 			function($scope, treasuremapauService) {
 				treasuremapauService.getCountry()
 				.then(function (response) {
-					$scope.countrylist = response.data;
+					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -317,14 +317,14 @@
 				console.log('Loading treasuremap');
 			}
 			this.getCountry = function(x){
-				return $http.get('/treasuremap/country');
+				return $http.get('/treasuremap/ca');
 			}
 		}]);
 		app.controller('treasuremapcaController', [ '$scope', 'treasuremapcaService', 
 			function($scope, treasuremapcaService) {
 				treasuremapcaService.getCountry()
 				.then(function (response) {
-					$scope.countrylist = response.data;
+					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -339,14 +339,14 @@
 				console.log('Loading treasuremap');
 			}
 			this.getCountry = function(x){
-				return $http.get('/treasuremap/country');
+				return $http.get('/treasuremap/jp');
 			}
 		}]);
 		app.controller('treasuremapjpController', [ '$scope', 'treasuremapjpService', 
 			function($scope, treasuremapjpService) {
 				treasuremapjpService.getCountry()
 				.then(function (response) {
-					$scope.countrylist = response.data;
+					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -361,14 +361,14 @@
 				console.log('Loading treasuremap');
 			}
 			this.getCountry = function(x){
-				return $http.get('/treasuremap/country');
+				return $http.get('/treasuremap/us');
 			}
 		}]);
 		app.controller('treasuremapusController', [ '$scope', 'treasuremapusService', 
 			function($scope, treasuremapusService) {
 				treasuremapusService.getCountry()
 				.then(function (response) {
-					$scope.countrylist = response.data;
+					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});

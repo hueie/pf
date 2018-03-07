@@ -44,4 +44,92 @@ public class TreasuremapController {
 		
 		return new ResponseEntity<List<Country>>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("au")
+	public ResponseEntity<List<Topic>> au() {
+		List<Topic> list = new ArrayList();
+		Topic g = new Topic();
+		g.setId(1);
+		g.setName("Visa");;
+		g.setCode("visa");
+		list.add(g);
+		g = new Topic();
+		g.setId(2);
+		g.setName("Life");;
+		g.setCode("life");
+		list.add(g);
+		g = new Topic();
+		g.setId(3);
+		g.setName("Money");;
+		g.setCode("money");
+		list.add(g);
+		
+		return new ResponseEntity<List<Topic>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("ca")
+	public ResponseEntity<List<Topic>> ca() {
+		List<Topic> list = new ArrayList();
+		Topic g = new Topic();
+		g.setId(1);
+		g.setName("Visa");
+		g.setCode("visa");
+		list.add(g);
+		g = new Topic();
+		g.setId(2);
+		g.setName("Life");
+		g.setCode("life");
+		list.add(g);
+		g = new Topic();
+		g.setId(3);
+		g.setName("Money");
+		g.setCode("money");
+		list.add(g);
+		
+		return new ResponseEntity<List<Topic>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("jp")
+	public ResponseEntity<List<Topic>> jp() {
+		List<Topic> list = new ArrayList();
+		Topic g = new Topic();
+		g.setId(1);
+		g.setName("Visa");
+		g.setCode("visa");
+		list.add(g);
+		g = new Topic();
+		g.setId(2);
+		g.setName("Life");
+		g.setCode("life");
+		list.add(g);
+		g = new Topic();
+		g.setId(3);
+		g.setName("Money");
+		g.setCode("money");
+		list.add(g);
+		
+		return new ResponseEntity<List<Topic>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("us")
+	public ResponseEntity<List<Topic>> us() {
+		List<Topic> list = new ArrayList();
+		Topic g = new Topic();
+		g.setId(1);
+		g.setName("Visa");
+		g.setCode("visa");
+		list.add(g);
+		g = new Topic();
+		g.setId(2);
+		g.setName("Life");
+		g.setCode("life");
+		list.add(g);
+		g = new Topic();
+		g.setId(3);
+		g.setName("Money");
+		g.setCode("money");
+		list.add(g);
+		
+		return new ResponseEntity<List<Topic>>(list, HttpStatus.OK);
+	}
 }
