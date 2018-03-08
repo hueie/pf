@@ -294,13 +294,14 @@
 				$('.old_au_map').css('min-height', height+'px');
 				console.log('Loading treasuremap');
 			}
-			this.getCountry = function(x){
+			this.getAuCountry = function(x){
+				console.log("111");
 				return $http.get('/treasuremap/au');
 			}
 		}]);
 		app.controller('treasuremapauController', [ '$scope', 'treasuremapauService', 
 			function($scope, treasuremapauService) {
-				treasuremapauService.getCountry()
+				treasuremapauService.getAuCountry()
 				.then(function (response) {
 					alert(response.data);
 					$scope.topiclist = response.data;

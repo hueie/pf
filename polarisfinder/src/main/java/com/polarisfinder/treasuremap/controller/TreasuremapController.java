@@ -47,6 +47,7 @@ public class TreasuremapController {
 	
 	@GetMapping("au")
 	public ResponseEntity<List<Topic>> au() {
+		System.out.println("au");
 		List<Topic> list = new ArrayList();
 		Topic g = new Topic();
 		g.setId(1);
