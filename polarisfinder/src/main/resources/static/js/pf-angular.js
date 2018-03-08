@@ -302,6 +302,7 @@
 			function($scope, treasuremapauService) {
 				treasuremapauService.getCountry()
 				.then(function (response) {
+					alert(response.data);
 					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
