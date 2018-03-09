@@ -1,4 +1,4 @@
-		var app = angular.module("myApp", [ "ngRoute" ]);
+		var app = angular.module("myApp", [ "ngRoute"]);
 		app.config(function($routeProvider) {
 			$routeProvider.when("/", {
 				controller : 'mainController',
@@ -302,8 +302,8 @@
 				return $http.get('/test/getok');
 			}
 		}]);
-		app.controller('treasuremapCountryController', [ '$scope', 'treasuremapCountryService', 
-			function($scope, treasuremapCountryService) {
+		app.controller('treasuremapCountryController', [ '$scope', '$compile','treasuremapCountryService', 
+			function($scope, $compile, treasuremapCountryService) {
 			$scope.init = function(countrycode){
 				$scope.countrycode = countrycode;
 				console.log(countrycode);
@@ -323,7 +323,10 @@
 			$scope.getinfo = function(countrycode, type){
 				treasuremapCountryService.getinfo(countrycode, type)
 				.then(function (response) {
-					$scope.listDiv = $scope.listDiv + '<br/><i>appended text</i>';
+					$scope.item="1234";
+					angular.element(document.getElementById('list'))
+					.append($compile("<div><p>{{item}}</p></div>")($scope));
+					
 					if($('#info').css('display') == 'none'){
 						$('#info').css('display','block');
 					} else {
