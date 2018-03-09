@@ -1,22 +1,15 @@
     <div class="layer"></div>
-    <section class="old_us_map" id="old_us_map" >
+    <section class="old_us_map" id="old_us_map" ng-controller="treasuremapCountryController" data-ng-init="init('us')">
    		<div class="container">
             <div class="row">
-            	<a href="#!treasuremap-view">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
+            	<div ng-repeat="topic in topiclist" ng-click="getinfo('{{countrycode}}', '{{topic.name}}')" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
+            		<h1>{{topic.name}}</h1>
+            	</div>
+            </div>
+            <div class="row">
+            	<div id="info" class="col-lg-12 text-center well" style="display:none;">
 					<h1>VISA</h1>
             	</div>
-            	</a>
-            	<a href="#!treasuremap-view">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>LIFE</h1>
-            	</div>
-            	</a>
-            	<a href="#!treasuremap-view">
-            	<div class="col-lg-3 text-center well" style="margin:20px; background-color:transparent;">
-					<h1>MONEY</h1>
-            	</div>
-            	</a>
             </div>
         </div>
     </section>
