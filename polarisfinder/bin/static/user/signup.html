@@ -7,7 +7,7 @@
         </div>
     </header>
 
-    <section id="about">
+    <section id="about" ng-controller="signupController">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -37,7 +37,7 @@
 					      <label for="password">Password</label>
 					    </div>
 					  </div>
-					  <input class="signup-btn waves-effect waves-light btn" type="button" value="가입하기" onclick="signup()"/>
+					  <input class="signup-btn waves-effect waves-light btn" type="button" value="가입하기" ng-click="signup()"/>
 					</form>
 
                 </div>

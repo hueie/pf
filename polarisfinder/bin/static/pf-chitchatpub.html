@@ -8,7 +8,7 @@
         </div>
     </header>
  	-->
-    <section class="old_pub">
+    <section class="old_pub" ng-controller="chitchatpubController"  data-ng-init="init()">
         <div class="container">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center">
@@ -25,14 +25,14 @@
 	                <input type="hidden" id="placename" name="placename" >
 	                <input type="hidden" id="placelocation" name="placelocation">
 	                <textarea id="placecomment" name="placecomment"  rows="5" cols="" class="form-control"  placeholder="Chit! Chat! about this place!"></textarea>
-	                <button class="btn btn-primary btn-block" type="button" onclick="addComment()">CHiT! CHaT!</button>
+	                <button class="btn btn-primary btn-block" type="button" ng-click="addComment()">CHiT! CHaT!</button>
                 	</div>
                 </div>  
             	<div class="col-lg-6 text-center">
             		<div id="list">
 	                </div>
 	                <input type="hidden" id="paging" value="0">
-	                <button id="morebtn" class="btn btn-primary btn-block" type="button" onclick="getChitChatpubList()">More</button>
+	                <button id="morebtn" class="btn btn-primary btn-block" type="button" ng-click="getChitChatpubList()">More</button>
             	</div>
             	<div class="col-lg-2 text-center">
             		<div class="well" style="width:100%;height:500px;">

@@ -1,4 +1,4 @@
-    <section class="old_worldmap" id="old_worldmap" ng-controller="treasuremapController">
+    <section class="old_worldmap" id="old_worldmap" ng-controller="treasuremapController" data-ng-init="init()">
    		<div class="container">
             <div class="row">
             	<a ng-repeat="country in countrylist" href="#!treasuremap-{{country.code}}">

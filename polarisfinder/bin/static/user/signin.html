@@ -5,7 +5,7 @@
             </div>
         </div>
     </header>
-    <section id="about">
+    <section id="about" ng-controller="signinController">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -22,7 +22,7 @@
 					      <label for="password">Password</label>
 					    </div>
 					  </div>
-					  <input class="login-btn waves-effect waves-light btn" type="button" value="로그인" onclick="signin()"/>
+					  <input class="login-btn waves-effect waves-light btn" type="button" value="로그인" ng-click="signin()"/>
 					</form>
 
                 </div>

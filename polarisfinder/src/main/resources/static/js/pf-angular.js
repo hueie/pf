@@ -3,13 +3,7 @@
 			$routeProvider.when("/", {
 				controller : 'mainController',
 				templateUrl : "pf-main.html",
-				resolve : {
-					init : function() {
-						return function() {
-							//signCheck();
-						}
-					}
-				}
+				resolve : { }
 			}).when("/dreamers", {
 				controller : 'dreamersController',
 				templateUrl : "pf-dreamers.html",
@@ -143,81 +137,32 @@
 			}).when("/chitchatpub", {
 				controller : 'chitchatpubController',
 				templateUrl : "pf-chitchatpub.html",
-				resolve : {
-					init : function() {
-						return function() {
-							var height = $("body").prop("clientHeight");
-							$('.old_pub').css('min-height', height+'px');
-							
-							initAutocomplete();
-							getChitChatpubList();
-							//getCamList();
-							console.log('Loading chitchatpub');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/tortugaisland", {
 				controller : 'tortugaislandController',
 				templateUrl : "pf-tortugaisland.html",
-				resolve : {
-					init : function() {
-						return function() {
-							//signCheck();
-							//getCamList();
-							console.log('Loading tortugaisland');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/portroyal", {
 				controller : 'portroyalController',
 				templateUrl : "pf-portroyal.html",
-				resolve : {
-					init : function() {
-						return function() {
-							//signCheck();
-							//getCamList();
-							console.log('Loading portroyal');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/atworldsend", {
 				controller : 'atworldsendController',
 				templateUrl : "pf-atworldsend.html",
-				resolve : {
-					init : function() {
-						return function() {
-							//signCheck();
-							//getCamList();
-							console.log('Loading atworldsend');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/signin", {
 				controller : 'signinController',
 				templateUrl : "/user/signin.html",
-				resolve : {
-					init : function() {
-						return function() {
-							console.log('Loading atworldsend');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/signup", {
 				controller : 'signupController',
 				templateUrl : "/user/signup.html",
-				resolve : {
-					init : function() {
-						return function() {
-							console.log('Loading atworldsend');
-						}
-					}
-				}
+				resolve : { }
 			});
 		});
 		
-		app.controller('mainController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
-				init($route);
+		app.controller('mainController', [ '$scope', 
+			function($scope) {
 			} ]
 		);
 		app.controller('dreamersController', [ '$scope', '$route', '$routeParams', 'init',
@@ -268,9 +213,7 @@
 		
 		app.service('treasuremapService', ['$http', function($http){
 			this.init = function(){
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_worldmap').css('min-height', height+'px');
-				console.log('Loading treasuremap');
+				
 			}
 			this.getCountry = function(x){
 				return $http.get('/treasuremap/country');
@@ -278,15 +221,22 @@
 		}]);
 		app.controller('treasuremapController', [ '$scope', 'treasuremapService', 
 			function($scope, treasuremapService) {
+			$scope.init = function(){
+				var height = $("body").prop("clientWidth")/3*2-30;
+				$('.old_worldmap').css('min-height', height+'px');
+				console.log('Loading treasuremap');
+				this.getCountry();
+			}
+			$scope.getCountry = function(){
 				treasuremapService.getCountry()
 				.then(function (response) {
 					$scope.countrylist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});
-				treasuremapService.init();
-			}]
-		);
+			}
+			
+		}]);
 		
 		app.service('treasuremapCountryService', ['$http', function($http){
 			this.init = function(){
@@ -304,7 +254,9 @@
 		}]);
 		app.controller('treasuremapCountryController', [ '$scope', '$compile','treasuremapCountryService', 
 			function($scope, $compile, treasuremapCountryService) {
+			
 			$scope.init = function(countrycode){
+				$scope.listDiv="";
 				$scope.countrycode = countrycode;
 				console.log(countrycode);
 				var height = $("body").prop("clientWidth")/3*2-30;
@@ -335,32 +287,168 @@
 				});
 			}
 			
-			}]
-		);
-
+		}]);
 
 		
-		
-		app.controller('chitchatpubController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
-				init($route);
+		app.service('chitchatpubService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.getChitChatpubList = function(placelocation, paging){
+				return $http.get('/chitchatpub/ChitchatpubList', {
+				    params: { placelocation: placelocation, paging: paging }
+				});
+			}
+			this.addComment = function(placename, placelocation, placecomment){
+				var data = $.param({
+					placename: placename, placelocation: placelocation, placecomment: placecomment
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/chitchatpub/ChitchatpubAddComment', data, config);
+			}
+		}]);
+		app.controller('chitchatpubController', [ '$scope', 'chitchatpubService',
+			function($scope, chitchatpubService) {
+			$scope.init = function(countrycode){
+				var height = $("body").prop("clientHeight");
+				$('.old_pub').css('min-height', height+'px');
+				
+				initAutocomplete();
+				$('#paging').val(0);
+				this.getChitChatpubList();
+				console.log('Loading chitchatpub');
+			}
+			$scope.getChitChatpubList = function(){
+				var placelocation = $("#placelocation").val();
+				var paging = $("#paging").val();
+				chitchatpubService.getChitChatpubList(placelocation, paging)
+				.then(function (response) {
+					var p = parseInt(paging) + 1;
+		        	$("#paging").val(p);
+
+		        	var obj = response.data;// objs.data;
+		        	var html = "";
+		        	for(var idx in obj){
+		        		html += "<div class='well'>";
+		        		html += "<p>"+obj[idx].placename + "</p>"; 
+		        		html += "<p>"+obj[idx].placecomment + "</p>";
+		        		html += "</div>"; 
+		        	}
+		        	if(obj.length < 5){
+		        		$("#morebtn").css("display", "none");
+		        	} else{
+		            	$("#morebtn").css("display", "block");
+		        	}
+		        	if(p == 1){
+		            	$("#list").html(html);
+		        	} else {
+		            	$("#list").append(html);
+		        	}
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
+			$scope.addComment = function(){
+				var placename = $("#placename").val();
+				var placelocation = $("#placelocation").val();
+				var placecomment = $("#placecomment").val();
+				var paging = $("#paging").val();
+				chitchatpubService.addComment(placename, placelocation, placecomment)
+				.then(function (response) {
+					alert("Chit! - Chat!");
+		    		$('#paging').val(0);
+				},function (error){
+					alert('something went wrong!!!');
+				});
+				this.getChitChatpubList();
+			}
+		}]);
+		app.controller('tortugaislandController', [ '$scope',
+			function($scope) {
 			} ]
 		);
-		app.controller('tortugaislandController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
-				init($route);
+		app.controller('portroyalController', [ '$scope',
+			function($scope) {
 			} ]
 		);
-		app.controller('portroyalController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
-				init($route);
-			} ]
-		);
-		app.controller('atworldsendController', [ '$scope', '$route', 'init',
-			function($scope, $route, init) {
-				init($route);
+		app.controller('atworldsendController', [ '$scope',
+			function($scope) {
 			} ]
 		);
 		
 		
 
+		app.service('signinService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.signin = function(email, password){
+				var data = $.param({
+					email: email, password: password
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/user/Signin', data, config);
+			}
+		}]);
+		app.controller('signinController', [ '$scope', 'signinService',
+			function($scope, signinService) {
+			$scope.init = function(){
+
+			}
+			$scope.signin = function(){
+				var email = $("#email").val();
+				var password = $("#password").val();
+				signinService.signin(email, password)
+				.then(function (response) {
+					alert('success');
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+		}]);
+		
+		app.service('signupService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.signup = function(email, password, name, last_name){
+				var data = $.param({
+					email: email, password: password, name: name, last_name: last_name
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/user/Signup', data, config);
+			}
+		}]);
+		app.controller('signupController', [ '$scope', 'signupService',
+			function($scope, signupService) {
+			$scope.init = function(){
+
+			}
+			$scope.signup = function(){
+				var email = $("#email").val();
+				var password = $("#password").val();
+				var name = $("#name").val();
+				var last_name = $("#last_name").val();
+				
+				signupService.signup(email, password, name, last_name)
+				.then(function (response) {
+					alert('success');
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+		}]);
+		
