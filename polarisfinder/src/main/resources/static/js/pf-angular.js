@@ -1,4 +1,4 @@
-		var app = angular.module("myApp", [ "ngRoute"]);
+		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
 		app.config(function($routeProvider) {
 			$routeProvider.when("/", {
 				controller : 'mainController',
@@ -323,9 +323,7 @@
 			$scope.getinfo = function(countrycode, type){
 				treasuremapCountryService.getinfo(countrycode, type)
 				.then(function (response) {
-					$scope.item="1234";
-					angular.element(document.getElementById('list'))
-					.append($compile("<div><p>{{item}}</p></div>")($scope));
+					$scope.listDiv = $scope.listDiv + "<div id='info' class='col-lg-12 text-center well' ><h1>VISA</h1></div>";
 					
 					if($('#info').css('display') == 'none'){
 						$('#info').css('display','block');
