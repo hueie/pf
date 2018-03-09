@@ -290,25 +290,47 @@
 		
 		app.service('treasuremapauService', ['$http', function($http){
 			this.init = function(){
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_au_map').css('min-height', height+'px');
-				console.log('Loading treasuremap');
+				
 			}
 			this.getAuCountry = function(x){
-				console.log("111");
 				return $http.get('/treasuremap/au');
+			}
+			this.getinfo = function(countrycode, name){
+				return $http.get('/test/getok');
+			}
+			this.httpTestCallBackfunction = function(){
+				return $http.get('/test/getok');
 			}
 		}]);
 		app.controller('treasuremapauController', [ '$scope', 'treasuremapauService', 
 			function($scope, treasuremapauService) {
+			$scope.init = function(){
+				var height = $("body").prop("clientWidth")/3*2-30;
+				$('.old_au_map').css('min-height', height+'px');
+				console.log('Loading treasuremap');
+				this.getAuCountry();
+			}
+			$scope.getAuCountry = function(){
 				treasuremapauService.getAuCountry()
 				.then(function (response) {
-					alert(response.data);
 					$scope.topiclist = response.data;
 				},function (error){
 					alert('something went wrong!!!');
 				});
-				treasuremapauService.init();
+			}
+			$scope.getinfo = function(countrycode, type){
+				treasuremapauService.getinfo(countrycode, type)
+				.then(function (response) {
+					if($('#info').css('display') == 'none'){
+						$('#info').css('display','block');
+					} else {
+						$('#info').css('display','none');
+					}
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
 			}]
 		);
 		

@@ -1,8 +1,8 @@
     <div class="layer"></div>
-    <section class="old_au_map" id="old_au_map" ng-controller="treasuremapauController">
+    <section class="old_au_map" id="old_au_map" ng-controller="treasuremapauController" data-ng-init="init()">
    		<div class="container">
             <div class="row">
-            	<div ng-repeat="topic in topiclist" onclick="getinfo('au', '{{topic.name}}');" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
+            	<div ng-repeat="topic in topiclist" ng-click="getinfo('au', '{{topic.name}}')" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
             		<h1>{{topic.name}}</h1>
             	</div>
             </div>
