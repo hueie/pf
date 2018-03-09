@@ -1,4 +1,5 @@
-function initAutocomplete() {
+/*
+function mapinit() {
 	var map = new google.maps.Map(document.getElementById('map'), {
 		center : {
 			lat : -33.8688,
@@ -30,7 +31,6 @@ function initAutocomplete() {
 	// more details for that place.
 	searchBox.addListener('places_changed', function() {
 		var places = searchBox.getPlaces();
-/*
 		if (places.length == 0) {
 			placelocation.value = "";
 			placename.value  = "";
@@ -40,7 +40,6 @@ function initAutocomplete() {
 			getChitChatpubList();			
 			return;
 		}
-*/
 		// Clear out the old markers.
 		markers.forEach(function(marker) {
 			marker.setMap(null);
@@ -85,4 +84,4 @@ function initAutocomplete() {
 		map.fitBounds(bounds);
 	});
 }
-
+*/
