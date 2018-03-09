@@ -9,6 +9,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
+	                <div ng-show="authenticated">
+						<p>LOGIN SUCCESS</p>
+					</div>
+					<div  ng-show="!authenticated">
+						<p>Login to see your greeting</p>
+					</div>
 					<form id="signinform" class="login-form" action="/user/Signin" method="POST">
 					  <div class="row">
 					    <div class="input-field col s12">

@@ -22,8 +22,6 @@
 	<!-- AIzaSyDD8VYV12Ujz_-Z_WNqAhMRouzkUewoO60 AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g&libraries=places"></script>
 	<script src="/js/pf-chitchatpub.js"></script>
-	<script src="/js/pf-treasuremap.js"></script>
-	<script src="/js/signinup.js"></script>
 
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -111,14 +109,7 @@
                     <li>
                         <a href="#!signup" id="signup">Sign Up</a>
                     </li>
-                    <!--
-                    <li>
-                        <a href="/huetap/index.jsp">MyPage</a>
-                    </li>
-                    <li>
-                        <a href="signout.jsp" id="signout">Sign Out</a>
-                    </li>
-                     -->
+                    <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

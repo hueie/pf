@@ -142,6 +142,7 @@ public class UserController {
 	
 	@GetMapping("findByEmail")
 	public ResponseEntity<User> findByEmail(@RequestParam(value = "email", required = false) String email) {
+		System.out.println("findByEmail");
 		User list = userService.findUserByEmail(email);
 		return new ResponseEntity<User>(list, HttpStatus.OK);
 	}

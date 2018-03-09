@@ -399,18 +399,21 @@
 				return $http.post('/user/Signin', data, config);
 			}
 		}]);
-		app.controller('signinController', [ '$scope', 'signinService',
-			function($scope, signinService) {
+		app.controller('signinController', [ '$rootScope', '$scope', 'signinService',
+			function($rootScope,$scope, signinService) {
 			$scope.init = function(){
 
 			}
 			$scope.signin = function(){
+				console.log("!!!!!signin");
 				var email = $("#email").val();
 				var password = $("#password").val();
 				signinService.signin(email, password)
 				.then(function (response) {
+					$rootScope.authenticated = true;
 					alert('success');
 				},function (error){
+					$rootScope.authenticated = false;
 					alert('something went wrong!!!');
 				});
 			}

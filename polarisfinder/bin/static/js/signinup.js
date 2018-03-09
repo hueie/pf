@@ -1,3 +1,4 @@
+/*
 function signin(){
 	var frm = $('#signinform');
     $.ajax({
@@ -31,3 +32,4 @@ function signup(){
     });
 }
 
+*/
