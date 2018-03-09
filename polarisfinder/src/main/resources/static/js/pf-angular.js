@@ -323,10 +323,11 @@
 			$scope.getinfo = function(countrycode, type){
 				treasuremapCountryService.getinfo(countrycode, type)
 				.then(function (response) {
+					$scope.listDiv = $scope.listDiv + '<br/><i>appended text</i>';
 					if($('#info').css('display') == 'none'){
 						$('#info').css('display','block');
 					} else {
-						$('#info').css('display','none');
+						//$('#info').css('display','none');
 					}
 				},function (error){
 					alert('something went wrong!!!');

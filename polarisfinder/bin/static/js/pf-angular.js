@@ -111,19 +111,19 @@
 				templateUrl : "pf-treasuremap.html",
 				resolve : { }
 			}).when("/treasuremap-au", {
-				controller : 'treasuremapauController',
+				controller : 'treasuremapCountryController',
 				templateUrl : "pf-treasuremap-au.html",
 				resolve : { }
 			}).when("/treasuremap-ca", {
-				controller : 'treasuremapcaController',
+				controller : 'treasuremapCountryController',
 				templateUrl : "pf-treasuremap-ca.html",
 				resolve : { }
 			}).when("/treasuremap-jp", {
-				controller : 'treasuremapjpController',
+				controller : 'treasuremapCountryController',
 				templateUrl : "pf-treasuremap-jp.html",
 				resolve : { }
 			}).when("/treasuremap-us", {
-				controller : 'treasuremapusController',
+				controller : 'treasuremapCountryController',
 				templateUrl : "pf-treasuremap-us.html",
 				resolve : { }
 			}).when("/treasuremap-view", {
@@ -288,12 +288,12 @@
 			}]
 		);
 		
-		app.service('treasuremapauService', ['$http', function($http){
+		app.service('treasuremapCountryService', ['$http', function($http){
 			this.init = function(){
 				
 			}
-			this.getAuCountry = function(x){
-				return $http.get('/treasuremap/au');
+			this.getCountryInfos = function(countrycode){
+				return $http.get('/treasuremap/'+countrycode);
 			}
 			this.getinfo = function(countrycode, name){
 				return $http.get('/test/getok');
@@ -302,16 +302,18 @@
 				return $http.get('/test/getok');
 			}
 		}]);
-		app.controller('treasuremapauController', [ '$scope', 'treasuremapauService', 
-			function($scope, treasuremapauService) {
-			$scope.init = function(){
+		app.controller('treasuremapCountryController', [ '$scope', 'treasuremapCountryService', 
+			function($scope, treasuremapCountryService) {
+			$scope.init = function(countrycode){
+				$scope.countrycode = countrycode;
+				console.log(countrycode);
 				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_au_map').css('min-height', height+'px');
+				$('.old_'+countrycode+'_map').css('min-height', height+'px');
 				console.log('Loading treasuremap');
-				this.getAuCountry();
+				this.getCountryInfos(countrycode);
 			}
-			$scope.getAuCountry = function(){
-				treasuremapauService.getAuCountry()
+			$scope.getCountryInfos = function(countrycode){
+				treasuremapCountryService.getCountryInfos(countrycode)
 				.then(function (response) {
 					$scope.topiclist = response.data;
 				},function (error){
@@ -319,12 +321,13 @@
 				});
 			}
 			$scope.getinfo = function(countrycode, type){
-				treasuremapauService.getinfo(countrycode, type)
+				treasuremapCountryService.getinfo(countrycode, type)
 				.then(function (response) {
+					$scope.listDiv = $scope.listDiv + '<br/><i>appended text</i>';
 					if($('#info').css('display') == 'none'){
 						$('#info').css('display','block');
 					} else {
-						$('#info').css('display','none');
+						//$('#info').css('display','none');
 					}
 				},function (error){
 					alert('something went wrong!!!');
@@ -333,72 +336,9 @@
 			
 			}]
 		);
+
+
 		
-		app.service('treasuremapcaService', ['$http', function($http){
-			this.init = function(){
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_ca_map').css('min-height', height+'px');
-				console.log('Loading treasuremap');
-			}
-			this.getCountry = function(x){
-				return $http.get('/treasuremap/ca');
-			}
-		}]);
-		app.controller('treasuremapcaController', [ '$scope', 'treasuremapcaService', 
-			function($scope, treasuremapcaService) {
-				treasuremapcaService.getCountry()
-				.then(function (response) {
-					$scope.topiclist = response.data;
-				},function (error){
-					alert('something went wrong!!!');
-				});
-				treasuremapcaService.init();
-			}]
-		);
-		
-		app.service('treasuremapjpService', ['$http', function($http){
-			this.init = function(){
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_jp_map').css('min-height', height+'px');
-				console.log('Loading treasuremap');
-			}
-			this.getCountry = function(x){
-				return $http.get('/treasuremap/jp');
-			}
-		}]);
-		app.controller('treasuremapjpController', [ '$scope', 'treasuremapjpService', 
-			function($scope, treasuremapjpService) {
-				treasuremapjpService.getCountry()
-				.then(function (response) {
-					$scope.topiclist = response.data;
-				},function (error){
-					alert('something went wrong!!!');
-				});
-				treasuremapjpService.init();
-			}]
-		);
-		
-		app.service('treasuremapusService', ['$http', function($http){
-			this.init = function(){
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_us_map').css('min-height', height+'px');
-				console.log('Loading treasuremap');
-			}
-			this.getCountry = function(x){
-				return $http.get('/treasuremap/us');
-			}
-		}]);
-		app.controller('treasuremapusController', [ '$scope', 'treasuremapusService', 
-			function($scope, treasuremapusService) {
-				treasuremapusService.getCountry()
-				.then(function (response) {
-					$scope.topiclist = response.data;
-				},function (error){
-					alert('something went wrong!!!');
-				});
-				treasuremapusService.init();
-			}]
-		);
 		
 		app.controller('chitchatpubController', [ '$scope', '$route', 'init',
 			function($scope, $route, init) {
