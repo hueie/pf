@@ -3,7 +3,7 @@
 	<input type="hidden" id="id" value="0">
 	                
 
-    <section class="old_newspaper">
+    <section class="old_newspaper" ng-controller="dreamersController" data-ng-init="init()">
         <div class="container">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center">
@@ -15,7 +15,7 @@
                 <div id="list" class="col-lg-8 col-lg-offset-2">
 					
                 </div>
-                <button id="morebtn" class="btn btn-primary btn-block" type="button" onclick="getDreamersList()">More</button>
+                <button id="morebtn" class="btn btn-primary btn-block" type="button" ng-click="getDreamersList()">More</button>
             </div>
         </div>
     </section>

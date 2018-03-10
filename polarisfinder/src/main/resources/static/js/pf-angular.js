@@ -7,17 +7,7 @@
 			}).when("/dreamers", {
 				controller : 'dreamersController',
 				templateUrl : "pf-dreamers.html",
-				resolve : {
-					init : function() {
-						return function() {
-							var height = $("body").prop("clientHeight");
-							$('.old_newspaper').css('min-height', height+'px');
-							
-							getDreamersList();
-							console.log('Loading dreamers');
-						}
-					}
-				}
+				resolve : { }
 			}).when("/dreamers-editor/:id", {
 				controller : 'dreamerseditController',
 				templateUrl : "pf-dreamers-editor.html",
@@ -165,11 +155,109 @@
 			function($scope) {
 			} ]
 		);
-		app.controller('dreamersController', [ '$scope', '$route', '$routeParams', 'init',
-			function($scope, $route, $routeParams, init) {
-				init($route);
-			} ]
-		);
+		app.service('dreamersService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.getDreamerscommentList = function(dreamers_id, paging){
+				return $http.get('/dreamers/DreamerscommentList', {
+				    params: { dreamers_id: dreamers_id, paging: paging }
+				});
+			}
+			this.getDreamersList = function(id, paging){
+				return $http.get('/dreamers/DreamersList', {
+				    params: { id: id, paging: paging }
+				});
+			}
+			this.dreamerslike = function(dreamers_id){
+				return $http.get('/dreamers/Dreamerslike', {
+				    params: { dreamers_id: dreamers_id }
+				});
+			}
+		}]);
+		app.controller('dreamersController', [ '$scope', 'dreamersService', function($scope, dreamersService) {
+			$scope.init = function(){
+				var height = $("body").prop("clientHeight");
+				$('.old_newspaper').css('min-height', height+'px');
+				
+				this.getDreamersList();
+				console.log('Loading dreamers');
+			}
+			$scope.getDreamerscommentList = function(dreamers_id, paging){
+				dreamersService.getDreamerscommentList(id, paging)
+				.then(function (response) {
+					var obj = data;// objs.data;
+		        	var html = "";
+		        	for(var idx in obj){
+		        		html += obj[idx].dreamers_comment + "<br>";
+		        	}
+		        	$("#dreamerscommentlist_"+dreamers_id).html(html);
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			$scope.getDreamersList = function(){
+				var id = $("#id").val();
+				var paging = $("#paging").val();
+				dreamersService.getDreamersList(id, paging)
+				.then(function (response) {
+					var p = parseInt(paging) + 1;
+		        	if(p == 1){
+		            	$("#list").html("");
+		        	} 
+		        	$("#paging").val(p);
+		        	var obj = response.data;// objs.data;
+		        	var html = "";
+		        	for(var idx in obj){
+		        		var myContent = obj[idx].content;
+		                var substr = myContent;
+		                html += "<div class='well'>";
+		                html += "<div style='background-color:white;'>" + substr + "</div>";
+		                html += "<div>";
+		                html += "<div id='like_"+obj[idx].id+"' ng-click='dreamerslike("+obj[idx].id+")' class='like_black_32' style='margin:5px;cursor: pointer;'></div>";
+		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
+		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
+		                
+		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
+		                
+		                html += "<div class='label_black_32' style='margin:5px; float:right; cursor: pointer;'></div>";
+		                html += "</div>";
+		                //Commoent Div Start
+		                html += "<div id='dreamerscommentlist_"+obj[idx].id+"'></div>";
+		                //Commoent Div End
+
+		                html += "<div class='input-group'>";
+		                html += "<textarea id='dreamerscomment_"+obj[idx].id+"' name='dreamerscomment_"+obj[idx].id+"' rows='1' cols='' class='form-control '  placeholder='Reply!'></textarea>";
+		                html += "<duv class='input-group-addon' onclick='addDreamersComment("+obj[idx].id+");' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
+		                html += "</div>";
+		                html += "</div>";
+		                
+		                $("#list").append(html);
+		                dreamersService.getDreamerscommentList(obj[idx].id, 0);
+		        	}
+		        	if(obj.length < 5){
+		        		$("#morebtn").css("display", "none");
+		        	} else{
+		            	$("#morebtn").css("display", "block");
+		        	}
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
+			$scope.dreamerslike = function(dreamers_id){
+				dreamersService.dreamerslike(dreamers_id)
+				.then(function (response) {
+					$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
+		        	var cnt = $("#like_text_"+dreamers_id).text();
+		        	cnt = parseInt(cnt) +1;
+		        	$("#like_text_"+dreamers_id).text(cnt);
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+		}]);
+		
 		app.service('dreamerseditService', ['$http', function($http){
 			console.log('make service');
 			var service={}; 

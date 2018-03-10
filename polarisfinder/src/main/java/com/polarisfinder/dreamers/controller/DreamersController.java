@@ -168,7 +168,7 @@ public class DreamersController {
 	}
 	
 	
-	@PostMapping("DreamerscommentList")
+	@GetMapping("DreamerscommentList")
 	public ResponseEntity<List<Dreamerscomment>> DreamerscommentList(
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id,
 			@RequestParam(value="paging", required = false)int paging
@@ -219,7 +219,7 @@ public class DreamersController {
 		return new ResponseEntity<Dreamers>(list.get(0), HttpStatus.OK);
 	}
 	
-	@PostMapping("Dreamerslike")
+	@GetMapping("Dreamerslike")
 	public ResponseEntity<Void> Dreamerslike(
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
 			UriComponentsBuilder builder

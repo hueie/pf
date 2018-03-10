@@ -1,6 +1,8 @@
+
+/*
 function getDreamerscommentList(dreamers_id, paging){
 	$.ajax({
-        type: "post",
+        type: "get",
         url: "/dreamers/DreamerscommentList",
         data: {
         	"dreamers_id" : dreamers_id,
@@ -20,7 +22,6 @@ function getDreamerscommentList(dreamers_id, paging){
         } 
     });
 }
-
 function getDreamersList(){
 	var id = $("#id").val();
 	var paging = $("#paging").val();
@@ -74,13 +75,6 @@ function getDreamersList(){
         	} else{
             	$("#morebtn").css("display", "block");
         	}
-        	/*
-        	if(p == 1){
-            	$("#list").html(html);
-        	} else {
-            	$("#list").append(html);
-        	}
-        	*/
         },
         error:function (xhr, ajaxOptions, thrownError){
             alert(xhr.status);
@@ -88,6 +82,8 @@ function getDreamersList(){
         } 
     });
 }
+
+
 function dreamerslike(dreamers_id){
 	$.ajax({
         type: "POST",
@@ -107,6 +103,7 @@ function dreamerslike(dreamers_id){
         } 
     });
 }
+*/
 
 function addDreamersComment(dreamers_id){
 	var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
