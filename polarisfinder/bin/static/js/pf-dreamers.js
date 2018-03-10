@@ -103,7 +103,6 @@ function dreamerslike(dreamers_id){
         } 
     });
 }
-*/
 
 function addDreamersComment(dreamers_id){
 	var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
@@ -124,3 +123,4 @@ function addDreamersComment(dreamers_id){
         } 
     });
 }
+*/

@@ -174,6 +174,18 @@
 				    params: { dreamers_id: dreamers_id }
 				});
 			}
+			this.addDreamersComment = function(dreamers_id, dreamers_comment){
+				var data = $.param({
+					dreamers_id: dreamers_id,
+					dreamers_comment: dreamers_comment
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/dreamers/DreamerscommentAdd', data, config);
+			}
 		}]);
 		app.controller('dreamersController', [ '$scope', 'dreamersService', function($scope, dreamersService) {
 			$scope.init = function(){
@@ -182,6 +194,16 @@
 				
 				this.getDreamersList();
 				console.log('Loading dreamers');
+			}
+			$scope.addDreamersComment = function(dreamers_id){
+				var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
+				dreamersService.addDreamersComment(dreamers_id, dreamers_comment)
+				.then(function (response){
+					$("#dreamerscomment_"+dreamers_id).val("");
+		        	getDreamerscommentList(dreamers_id, 0);
+				},function (error){
+					alert('something went wrong!!!');
+				});
 			}
 			$scope.getDreamerscommentList = function(dreamers_id, paging){
 				dreamersService.getDreamerscommentList(id, paging)
@@ -228,7 +250,7 @@
 
 		                html += "<div class='input-group'>";
 		                html += "<textarea id='dreamerscomment_"+obj[idx].id+"' name='dreamerscomment_"+obj[idx].id+"' rows='1' cols='' class='form-control '  placeholder='Reply!'></textarea>";
-		                html += "<duv class='input-group-addon' onclick='addDreamersComment("+obj[idx].id+");' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
+		                html += "<duv class='input-group-addon' ng-click='addDreamersComment('"+obj[idx].id+"');' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
 		                html += "</div>";
 		                html += "</div>";
 		                
