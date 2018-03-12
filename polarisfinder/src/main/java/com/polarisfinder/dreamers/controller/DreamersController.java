@@ -221,8 +221,7 @@ public class DreamersController {
 	
 	@GetMapping("Dreamerslike")
 	public ResponseEntity<Void> Dreamerslike(
-			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
-			UriComponentsBuilder builder
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id
 			) throws Exception {
 		
 		Dreamerslike dreamerslike = new Dreamerslike();
@@ -243,8 +242,7 @@ public class DreamersController {
 	@PostMapping("DreamerscommentAdd")
 	public ResponseEntity<Void> DreamerscommentAdd(
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
-			@RequestParam(value="dreamers_comment", required = false)String dreamers_comment, 
-			UriComponentsBuilder builder
+			@RequestParam(value="dreamers_comment", required = false)String dreamers_comment
 			) throws Exception {
 		
 		Dreamerscomment dreamerscomment = new Dreamerscomment();

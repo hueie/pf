@@ -83,12 +83,15 @@ public class DreamersDAOImpl  implements DreamersDAO {
 	
 	
 	@Override
-	public void createDreamerscomment(Dreamerscomment Dreamerscomment) {
+	public void createDreamerscomment(Dreamerscomment dreamerscomment) {
+		entityManager.persist(dreamerscomment);
+		/*
 		if(Dreamerscomment.getId() == 0){
 			entityManager.persist(Dreamerscomment);
 		} else{
 			entityManager.merge(Dreamerscomment);
 		}
+		*/
 	}
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings

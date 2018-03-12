@@ -200,7 +200,7 @@
 				return $http.post('/dreamers/DreamerscommentAdd', data, config);
 			}
 		}]);
-		app.controller('dreamersController', [ '$scope', 'dreamersService', function($scope, dreamersService) {
+		app.controller('dreamersController', [ '$scope', '$compile', 'dreamersService', function($scope, $compile, dreamersService) {
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -209,11 +209,12 @@
 				console.log('Loading dreamers');
 			}
 			$scope.addDreamersComment = function(dreamers_id){
+				console.log("Add Dreamers Comment : "+dreamers_id);
 				var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
 				dreamersService.addDreamersComment(dreamers_id, dreamers_comment)
 				.then(function (response){
 					$("#dreamerscomment_"+dreamers_id).val("");
-		        	getDreamerscommentList(dreamers_id, 0);
+		        	$scope.getDreamerscommentList(dreamers_id, 0);
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -243,7 +244,8 @@
 		        	$("#paging").val(p);
 		        	var obj = response.data;// objs.data;
 		        	var html = "";
-		        	for(var idx in obj){
+		        	var el = document.getElementById('list');
+	                for(var idx in obj){
 		        		var myContent = obj[idx].content;
 		                var substr = myContent;
 		                html += "<div class='well'>";
@@ -263,13 +265,14 @@
 
 		                html += "<div class='input-group'>";
 		                html += "<textarea id='dreamerscomment_"+obj[idx].id+"' name='dreamerscomment_"+obj[idx].id+"' rows='1' cols='' class='form-control '  placeholder='Reply!'></textarea>";
-		                html += "<duv class='input-group-addon' ng-click='addDreamersComment('"+obj[idx].id+"');' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
+		                html += "<duv class='input-group-addon' ng-click='addDreamersComment("+obj[idx].id+")' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
 		                html += "</div>";
 		                html += "</div>";
 		                
-		                $("#list").append(html);
 		                dreamersService.getDreamerscommentList(obj[idx].id, 0);
 		        	}
+	                angular.element(el).append( $compile(html)($scope) );
+	                
 		        	if(obj.length < 5){
 		        		$("#morebtn").css("display", "none");
 		        	} else{
@@ -281,6 +284,7 @@
 			}
 			
 			$scope.dreamerslike = function(dreamers_id){
+				console.log(dreamers_id);
 				dreamersService.dreamerslike(dreamers_id)
 				.then(function (response) {
 					$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
