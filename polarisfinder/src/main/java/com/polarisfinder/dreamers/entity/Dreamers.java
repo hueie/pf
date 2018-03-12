@@ -1,13 +1,18 @@
 package com.polarisfinder.dreamers.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="dreamers")
@@ -29,7 +34,11 @@ public class Dreamers implements Serializable {
 		return serialVersionUID;
 	}
 
-
+	//@OneToMany(targetEntity = Dreamerscomment.class, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "dreamers_id",referencedColumnName="id")
+	@Transient
+    private List dreamerscomment_list;
+	
 	public int getId() {
 		return id;
 	}
@@ -57,6 +66,16 @@ public class Dreamers implements Serializable {
 
 	public void setLike_cnt(int like_cnt) {
 		this.like_cnt = like_cnt;
+	}
+
+
+	public List getDreamerscomment_list() {
+		return dreamerscomment_list;
+	}
+
+
+	public void setDreamerscomment_list(List dreamerscomment_list) {
+		this.dreamerscomment_list = dreamerscomment_list;
 	}
 
 

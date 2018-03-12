@@ -265,8 +265,13 @@
 		                
 		                html += "<div class='label_black_32' style='margin:5px; float:right; cursor: pointer;'></div>";
 		                html += "</div>";
+		                
 		                //Commoent Div Start
-		                html += "<div id='dreamerscommentlist_"+obj[idx].id+"'></div>";
+		                html += "<div id='dreamerscommentlist_"+obj[idx].id+"'>";
+		                for( var idx2 in obj[idx].dreamerscomment_list){
+		                	html += obj[idx].dreamerscomment_list[idx2].dreamers_comment + "<br>";
+		                }
+		                html += "</div>";
 		                //Commoent Div End
 
 		                html += "<div class='input-group'>";
@@ -274,11 +279,11 @@
 		                html += "<duv class='input-group-addon' ng-click='addDreamersComment("+obj[idx].id+")' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
 		                html += "</div>";
 		                html += "</div>";
+		                
+		                
 		        	}
 	                angular.element(el).append( $compile(html)($scope) );
-	                for(var idx in obj){
-	                	$scope.getDreamerscommentList(obj[idx].id, 0);
-	                }
+	                
 	                
 		        	if(obj.length < 5){
 		        		$("#morebtn").css("display", "none");
@@ -288,6 +293,10 @@
 				},function (error){
 					alert('something went wrong!!!');
 				});
+				for(var idx in $scope.dreamers_ids){
+					this.getDreamerscommentList($scope.dreamers_ids[idx],0);
+				}
+				
 			}
 			
 			$scope.dreamerslike = function(dreamers_id){

@@ -195,6 +195,10 @@ public class DreamersController {
 			) {
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
+		for(int idx=0; idx < list.size(); idx++){
+			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
+			list.get(idx).setDreamerscomment_list(dr);
+		}
 		/*
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username="";
