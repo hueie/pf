@@ -209,25 +209,31 @@
 				console.log('Loading dreamers');
 			}
 			$scope.addDreamersComment = function(dreamers_id){
+				//alert(dreamers_id);
+				$scope.current_dreamers_id = dreamers_id;
 				console.log("Add Dreamers Comment : "+dreamers_id);
 				var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
 				dreamersService.addDreamersComment(dreamers_id, dreamers_comment)
 				.then(function (response){
-					$("#dreamerscomment_"+dreamers_id).val("");
-		        	$scope.getDreamerscommentList(dreamers_id, 0);
+					$("#dreamerscomment_"+$scope.current_dreamers_id).val("");
+		        	$scope.getDreamerscommentList($scope.current_dreamers_id, 0);
 				},function (error){
 					alert('something went wrong!!!');
 				});
 			}
 			$scope.getDreamerscommentList = function(dreamers_id, paging){
-				dreamersService.getDreamerscommentList(id, paging)
+				$scope.current_dreamers_id = dreamers_id;
+				dreamersService.getDreamerscommentList(dreamers_id, paging)
 				.then(function (response) {
-					var obj = data;// objs.data;
+					var obj = response.data;// objs.data;
 		        	var html = "";
 		        	for(var idx in obj){
 		        		html += obj[idx].dreamers_comment + "<br>";
 		        	}
-		        	$("#dreamerscommentlist_"+dreamers_id).html(html);
+		        	$("#dreamerscommentlist_"+$scope.current_dreamers_id).html(html);
+		        	//var el = document.getElementById('dreamerscommentlist_'+$scope.current_dreamers_id);
+	                //angular.element(el).append( $compile(html)($scope) );
+	                
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -268,10 +274,11 @@
 		                html += "<duv class='input-group-addon' ng-click='addDreamersComment("+obj[idx].id+")' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
 		                html += "</div>";
 		                html += "</div>";
-		                
-		                dreamersService.getDreamerscommentList(obj[idx].id, 0);
 		        	}
 	                angular.element(el).append( $compile(html)($scope) );
+	                for(var idx in obj){
+	                	$scope.getDreamerscommentList(obj[idx].id, 0);
+	                }
 	                
 		        	if(obj.length < 5){
 		        		$("#morebtn").css("display", "none");
