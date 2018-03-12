@@ -1,5 +1,6 @@
 		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
-		app.config(function($routeProvider) {
+		app.config(function($routeProvider, $httpProvider) {
+			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 			$routeProvider.when("/", {
 				controller : 'mainController',
 				templateUrl : "pf-main.html",
@@ -141,20 +142,32 @@
 				templateUrl : "pf-atworldsend.html",
 				resolve : { }
 			}).when("/signin", {
-				controller : 'signinController',
+				controller : 'userController',
 				templateUrl : "/user/signin.html",
 				resolve : { }
 			}).when("/signup", {
-				controller : 'signupController',
+				controller : 'userController',
 				templateUrl : "/user/signup.html",
 				resolve : { }
 			});
 		});
 		
+		app.controller('navigation', [ '$rootScope', '$scope', '$http',
+			function($rootScope, $scope, $http) {
+			$scope.logout = function() {
+				  $http.post('/user/Signout', {})
+				  .then(function() {
+				    $rootScope.authenticated = false;
+				    $location.path("/");
+				  },function(data) {
+				    $rootScope.authenticated = false;
+				  });
+				}
+		}]);
 		app.controller('mainController', [ '$scope', 
 			function($scope) {
-			} ]
-		);
+			
+		}]);
 		app.service('dreamersService', ['$http', function($http){
 			this.init = function(){
 				
@@ -569,49 +582,13 @@
 		
 		
 
-		app.service('signinService', ['$http', function($http){
+		app.service('userService', ['$http', function($http){
 			this.init = function(){
 				
 			}
-			this.signin = function(email, password){
+			this.signup = function(email, password, nickname){
 				var data = $.param({
-					email: email, password: password
-	            });
-	            var config = {
-	                headers : {
-	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-	                }
-	            }
-				return $http.post('/user/Signin', data, config);
-			}
-		}]);
-		app.controller('signinController', [ '$rootScope', '$scope', 'signinService',
-			function($rootScope,$scope, signinService) {
-			$scope.init = function(){
-
-			}
-			$scope.signin = function(){
-				console.log("!!!!!signin");
-				var email = $("#email").val();
-				var password = $("#password").val();
-				signinService.signin(email, password)
-				.then(function (response) {
-					$rootScope.authenticated = true;
-					alert('success');
-				},function (error){
-					$rootScope.authenticated = false;
-					alert('something went wrong!!!');
-				});
-			}
-		}]);
-		
-		app.service('signupService', ['$http', function($http){
-			this.init = function(){
-				
-			}
-			this.signup = function(email, password, name, last_name){
-				var data = $.param({
-					email: email, password: password, name: name, last_name: last_name
+					email: email, password: password, nickname: nickname
 	            });
 	            var config = {
 	                headers : {
@@ -620,24 +597,60 @@
 	            }
 				return $http.post('/user/Signup', data, config);
 			}
+			
 		}]);
-		app.controller('signupController', [ '$scope', 'signupService',
-			function($scope, signupService) {
+		app.controller('userController', [ '$rootScope', '$scope', '$http', '$location', 'userService',
+			function($rootScope,$scope, $http, $location, userService) {
 			$scope.init = function(){
 
 			}
+			var authenticate = function(credentials, callback) {
+
+			    var headers = credentials ? {authorization : "Basic "
+			        + btoa(credentials.username + ":" + credentials.password)
+			    } : {};
+
+			    $http.get('/user/login', {headers : headers})
+			    .then(function(response) {
+			      if (response.data.name) {
+			    	  $rootScope.username = response.data.name;
+			    	  $rootScope.authenticated = true;
+			      } else {
+			    	  $rootScope.authenticated = false;
+			      }
+			      callback && callback();
+			    }, function() {
+			    	$rootScope.authenticated = false;
+			    	callback && callback();
+			    });
+			}
+
+			//authenticate();
+			$scope.credentials = {};
+			$scope.login = function() {
+			    authenticate($scope.credentials, function() {
+			    	if ($rootScope.authenticated) {
+			        	$location.path("/");
+			        	$scope.error = false;
+			        } else {
+			        	$location.path("/signin");
+			        	$scope.error = true;
+			        }
+			    });
+			};
 			$scope.signup = function(){
 				var email = $("#email").val();
 				var password = $("#password").val();
-				var name = $("#name").val();
-				var last_name = $("#last_name").val();
+				var nickname = $("#nickname").val();
 				
-				signupService.signup(email, password, name, last_name)
+				userService.signup(email, password, nickname)
 				.then(function (response) {
+					$scope.login();
 					alert('success');
 				},function (error){
 					alert('something went wrong!!!');
 				});
 			}
 		}]);
+		
 		

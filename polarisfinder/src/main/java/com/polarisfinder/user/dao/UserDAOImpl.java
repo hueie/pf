@@ -23,8 +23,14 @@ public class UserDAOImpl  implements UserDAO {
 	private EntityManager entityManager;	
 
 	@Override
-	public void createUser(User user) {
-		entityManager.persist(user);
+	public boolean createUser(User user) {
+		if (!entityManager.contains(user)) {
+			entityManager.persist(user);
+			return true;
+		} else {
+			//em.merge(entity);
+			return false;
+		}
 	}	
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings

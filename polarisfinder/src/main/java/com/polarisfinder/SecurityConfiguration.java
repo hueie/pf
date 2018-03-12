@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -43,12 +46,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
+		.httpBasic().and()
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
 			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated()
 		.and()
-			.csrf().disable()
+			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+			.csrf().csrfTokenRepository(csrfTokenRepository())
+		.and()
+		   .logout();
+		
+			/*
 		.formLogin()
 			.loginPage("/user/Signin")
 			.failureUrl("/user/SigninFailure")
@@ -63,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.and()
 			.exceptionHandling()
 			.accessDeniedPage("/access-denied");
-			
+			*/
 		/*
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
@@ -87,6 +96,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.antMatchers("/resources/**", "/static/**", "/js/**", "/css/**", "/images/**", "/files/**", "/other-files/**");
 	}
 	
+	private CsrfTokenRepository csrfTokenRepository() {
+		  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		  repository.setHeaderName("X-XSRF-TOKEN");
+		  return repository;
+		}
 	
 	
 }

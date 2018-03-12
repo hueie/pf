@@ -44,6 +44,51 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@GetMapping("login")
+	public ResponseEntity<Principal> Signin2(Principal user) {
+		System.out.println(user.getName());
+		return new ResponseEntity<Principal>(user, HttpStatus.OK);
+	}
+	
+	@PostMapping("Signup")
+	public ResponseEntity<Void> createUser(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "nickname", required = false) String nickname,
+			@RequestParam(value = "password", required = false) String password
+	) {
+		System.out.println("Sign Up!!!");
+		User user = new User();
+		user.setActive(1);
+		user.setEmail(email);
+		user.setNickname(nickname);
+		// user.setPassword(password);
+		user.setPassword(bCryptPasswordEncoder.encode(password));
+
+		Role userRole = roleService.findByRole("ADMIN");
+		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
+		boolean flag = userService.createUser(user);
+		if (flag) {
+			System.out.println("sign up true");
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else{
+			System.out.println("sign up false");
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	/*
+	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	public ModelAndView home(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+		modelAndView.setViewName("admin/home");
+		return modelAndView;
+	}
+	
+	
 	@PostMapping("Signin")
 	public ResponseEntity<Void> Signin(
 			@RequestParam(value = "email", required = false) String email,
@@ -69,7 +114,7 @@ public class UserController {
 	}
 	
 	@GetMapping("Signcheck")
-	public ResponseEntity<String> Signcheck(Principal pr
+	public ResponseEntity<Principal> Signcheck(Principal pr
 			//@RequestParam(value = "email", required = false) String email,
 			//@RequestParam(value = "password", required = false) String password
 	) {
@@ -81,18 +126,18 @@ public class UserController {
 			userEmail = "";
 		}
 		System.out.println("Signcheck : "+userEmail);
-		return new ResponseEntity<String>(userEmail, HttpStatus.OK);
+		return new ResponseEntity<Principal>(pr, HttpStatus.OK);
 	}
 	
 	@GetMapping("SigninSuccess")
-	public ResponseEntity<String> SigninSuccess(Principal pr) {
+	public ResponseEntity<Principal> SigninSuccess(Principal pr) {
 		System.out.println("SigninSuccess");
 		
 		//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		//User user = userService.findUserByEmail(auth.getName());
 		//User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		return new ResponseEntity<String>(pr.getName(),HttpStatus.OK);
+		return new ResponseEntity<Principal>(pr,HttpStatus.OK);
 	}
 	
 	@GetMapping("SigninFailure")
@@ -101,50 +146,15 @@ public class UserController {
 		return new ResponseEntity<String>("Sing In Failure!!",HttpStatus.OK);
 	}
 	
-	@PostMapping("Signup")
-	public ResponseEntity<String> createUser(@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "last_name", required = false) String last_name,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "password", required = false) String password
-	) {
-		System.out.println("Sign Up!!!");
-		User user = new User();
-		user.setActive(1);
-		user.setEmail(email);
-		user.setLast_name(last_name);
-		user.setName(name);
-		// user.setPassword(password);
-		user.setPassword(bCryptPasswordEncoder.encode(password));
-
-		Role userRole = roleService.findByRole("ADMIN");
-		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
-		boolean flag = userService.createUser(user);
-		if (flag == false) {
-			return new ResponseEntity<String>("Sing Up Fail!!", HttpStatus.CONFLICT);
-		}
-		return new ResponseEntity<String>("Sing Up Success!!",HttpStatus.OK);
-	}
-
-	/*
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	public ModelAndView home(){
-		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("admin/home");
-		return modelAndView;
-	}
-	*/
-	
-	
 	@GetMapping("findByEmail")
 	public ResponseEntity<User> findByEmail(@RequestParam(value = "email", required = false) String email) {
 		System.out.println("findByEmail");
 		User list = userService.findUserByEmail(email);
 		return new ResponseEntity<User>(list, HttpStatus.OK);
 	}
+	*/
+	
+	
+	
 
 }

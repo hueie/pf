@@ -7,7 +7,7 @@
         </div>
     </header>
 
-    <section id="about" ng-controller="signupController">
+    <section id="about" ng-controller="userController">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
@@ -15,28 +15,23 @@
 					<form id="signupform" class="signup-form" action="/user/Signup" method="POST">
 					  <div class="row">
 					    <div class="input-field col s12">
-					      <input id="name" name="name" type="text" class="validate"/>
-					      <label for="name">name</label>
+					      <label for="email">Email:</label>
+					      <input id="email" name="email" type="email" ng-model="credentials.username" class="validate"/>
 					    </div>
 					  </div>
 					  <div class="row">
 					    <div class="input-field col s12">
-					      <input id="last_name" name="last_name" type="text" class="validate"/>
-					      <label for="last_name">last_name</label>
+					      <label for="password">Password:</label>
+					      <input id="password" name="password" type="password" ng-model="credentials.password" class="validate"/>
 					    </div>
 					  </div>
 					  <div class="row">
 					    <div class="input-field col s12">
-					      <input id="email" name="email" type="email" class="validate"/>
-					      <label for="email">Email</label>
+					      <label for="nickname">Nick name:</label>
+					      <input id="nickname" name="nickname" type="text" class="validate"/>
 					    </div>
 					  </div>
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <input id="password" name="password" type="password" class="validate"/>
-					      <label for="password">Password</label>
-					    </div>
-					  </div>
+					  
 					  <input class="signup-btn waves-effect waves-light btn" type="button" value="가입하기" ng-click="signup()"/>
 					</form>
 

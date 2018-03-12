@@ -42,13 +42,9 @@ public class User implements UserDetails {
 	@Transient
 	private String password;
 	
-	@Column(name="name")
-	@NotEmpty(message = "*Please provide your name")
-	private String name;
-	
-	@Column(name="last_name")
-	@NotEmpty(message = "*Please provide your last name")
-	private String last_name;
+	@Column(name="nickname")
+	@NotEmpty(message = "*Please provide your nickname")
+	private String nickname;
 	
 	@Column(name="active")
 	private int active;
@@ -81,21 +77,7 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
+	
 
 	public int getActive() {
 		return active;
@@ -151,6 +133,14 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	

@@ -19,6 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.polarisfinder.atestpage.entity.Article;
 
 public interface UserDAO {
-	void createUser(User user);
+	boolean createUser(User user);
 	User findUserByEmail(String email);
 }

@@ -19,8 +19,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public synchronized boolean createUser(User user){
-		userDAO.createUser(user);
-		return true;
+		return userDAO.createUser(user);
 	}
 	
 	@Override
