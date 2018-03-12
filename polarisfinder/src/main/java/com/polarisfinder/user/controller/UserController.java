@@ -75,7 +75,13 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	@GetMapping("findByEmail")
+	public ResponseEntity<User> findByEmail(@RequestParam(value = "email", required = false) String email) {
+		System.out.println("findByEmail");
+		User user = userService.findUserByEmail(email);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
 	/*
 	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
 	public ModelAndView home(){
@@ -146,12 +152,7 @@ public class UserController {
 		return new ResponseEntity<String>("Sing In Failure!!",HttpStatus.OK);
 	}
 	
-	@GetMapping("findByEmail")
-	public ResponseEntity<User> findByEmail(@RequestParam(value = "email", required = false) String email) {
-		System.out.println("findByEmail");
-		User list = userService.findUserByEmail(email);
-		return new ResponseEntity<User>(list, HttpStatus.OK);
-	}
+	
 	*/
 	
 	

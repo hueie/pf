@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,8 @@ import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.entity.UploadModel;
 import com.polarisfinder.dreamers.service.DreamersService;
+import com.polarisfinder.user.entity.User;
+import com.polarisfinder.user.service.UserService;
 
 
 @Controller
@@ -44,6 +47,9 @@ import com.polarisfinder.dreamers.service.DreamersService;
 public class DreamersController {
 	@Autowired
 	private DreamersService dreamersService;
+
+	@Autowired
+	private UserService userService;
 	
 	@Value("${polarisfinder.file.upload.dir}")
 	private String polarisfinder_FILE_UPLOAD_DIR;
@@ -53,9 +59,9 @@ public class DreamersController {
     
 	@PostMapping("DreamersUpload")
 	public ResponseEntity<JSONObject> DreamersUpload(
-	    @RequestParam("files[]") List<MultipartFile> uploadfiles
+			Principal pr,
+			@RequestParam("files[]") List<MultipartFile> uploadfiles
 	    ) throws Exception {
-		System.out.println("hi");
         logger.debug("Multiple file upload!");
 
         // Get file name
@@ -67,9 +73,12 @@ public class DreamersController {
         if (StringUtils.isEmpty(uploadedFileName)) {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
+        User user = userService.findUserByEmail(pr.getName());
+        
         String abspath = "";
+        String uploadpath = "/files/" + user.getUser_id() + "/";
         try {
-            abspath = saveUploadedFiles(uploadfiles);
+            abspath = saveUploadedFiles(uploadpath, uploadfiles);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -91,15 +100,15 @@ public class DreamersController {
 	}
 
     //save file
-    private String saveUploadedFiles(List<MultipartFile> files) throws IOException {
+    private String saveUploadedFiles(String uploadpath, List<MultipartFile> files) throws IOException {
     	String abspath = "";
     	for (MultipartFile file : files) {
             if (file.isEmpty()) {
                 continue; //next pls
             }
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(polarisfinder_FILE_UPLOAD_DIR +"/"+ file.getOriginalFilename());
-            abspath = "/files/"+ file.getOriginalFilename();
+            Path path = Paths.get(polarisfinder_FILE_UPLOAD_DIR +uploadpath+ file.getOriginalFilename());
+            abspath = uploadpath+ file.getOriginalFilename();
             Files.write(path, bytes);
         }
         return abspath;
@@ -141,10 +150,11 @@ public class DreamersController {
 		boolean flag = dreamersService.deleteDreamers(dreamers);
 		flag = dreamersService.deleteDreamerscomment(dreamerscomment);
 		flag = dreamersService.deleteDreamerslike(dreamerslike);
-        if (flag == false) {
+        if (flag) {
+    		return new ResponseEntity<Void>(HttpStatus.OK);
+        }else{
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@PostMapping("DreamersAddContent")
@@ -161,35 +171,30 @@ public class DreamersController {
 		dreamers.setId(id);
 		
 		boolean flag = dreamersService.createDreamers(dreamers);
-        if (flag == false) {
+        if(flag) {
+    		return new ResponseEntity<Void>(HttpStatus.CREATED);
+        }else{
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+
         }
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	
 	@GetMapping("DreamerscommentList")
 	public ResponseEntity<List<Dreamerscomment>> DreamerscommentList(
+			Principal pr,
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		System.out.println("Paging : " + paging);
 		List<Dreamerscomment> list = dreamersService.getDreamerscommentById(dreamers_id, paging);
 		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username="";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		System.out.println("username : "+username);
-
 		return new ResponseEntity<List<Dreamerscomment>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("DreamersList")
 	public ResponseEntity<List<Dreamers>> DreamersList(
+			Principal pr,
 			@RequestParam(value="id", required = false)int id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
@@ -199,18 +204,7 @@ public class DreamersController {
 			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
 			list.get(idx).setDreamerscomment_list(dr);
 		}
-		/*
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username="";
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails)principal).getUsername();
-			for(int idx = 0; idx < list.size(); idx++) {
-				int subid = list.get(idx).getId();
-			}
-		} else {
-			username = principal.toString();
-		}
-		*/
+		
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
@@ -235,12 +229,12 @@ public class DreamersController {
 		dreamers.setId(dreamers_id);
 		
 		boolean flag = dreamersService.createDreamerslike(dreamerslike);
-		flag = dreamersService.increaseDreamerslikecnt(dreamers);
-		
-		if (flag == false) {
+		if(flag) {
+			flag = dreamersService.increaseDreamerslikecnt(dreamers);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+        } else{
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PostMapping("DreamerscommentAdd")
