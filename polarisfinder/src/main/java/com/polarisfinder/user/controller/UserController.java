@@ -3,22 +3,14 @@ package com.polarisfinder.user.controller;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,12 +18,6 @@ import com.polarisfinder.user.entity.Role;
 import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.RoleService;
 import com.polarisfinder.user.service.UserService;
-import com.polarisfinder.cubemap.entity.Booksf;
-import com.polarisfinder.cubemap.entity.Cubemap;
-import com.polarisfinder.cubemap.entity.Stack;
-import com.polarisfinder.cubemap.service.CubemapService;
-import com.polarisfinder.fileupload.entity.Fileupload;
-import com.polarisfinder.fileupload.service.FileuploadService;
 
 @Controller
 @RequestMapping("user")

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.polarisfinder.fileupload.dao.FileuploadDAO;
 import com.polarisfinder.fileupload.entity.Fileupload;
-import com.polarisfinder.cubemap.dao.CubemapDAO;
-import com.polarisfinder.cubemap.entity.Cubemap;
 
 @Service
 public class FileuploadServiceImpl implements FileuploadService {

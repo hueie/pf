@@ -200,7 +200,7 @@
 				return $http.post('/dreamers/DreamerscommentAdd', data, config);
 			}
 		}]);
-		app.controller('dreamersController', [ '$scope', '$compile', 'dreamersService', function($scope, $compile, dreamersService) {
+		app.controller('dreamersController', [ '$rootScope','$scope', '$compile', 'dreamersService', function($rootScope, $scope, $compile, dreamersService) {
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -209,17 +209,21 @@
 				console.log('Loading dreamers');
 			}
 			$scope.addDreamersComment = function(dreamers_id){
-				//alert(dreamers_id);
-				$scope.current_dreamers_id = dreamers_id;
-				console.log("Add Dreamers Comment : "+dreamers_id);
-				var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
-				dreamersService.addDreamersComment(dreamers_id, dreamers_comment)
-				.then(function (response){
-					$("#dreamerscomment_"+$scope.current_dreamers_id).val("");
-		        	$scope.getDreamerscommentList($scope.current_dreamers_id, 0);
-				},function (error){
-					alert('something went wrong!!!');
-				});
+				if($rootScope.authenticated){
+					$scope.current_dreamers_id = dreamers_id;
+					console.log("Add Dreamers Comment : "+dreamers_id);
+					var dreamers_comment = $("#dreamerscomment_"+dreamers_id).val();
+					dreamersService.addDreamersComment(dreamers_id, dreamers_comment)
+					.then(function (response){
+						$("#dreamerscomment_"+$scope.current_dreamers_id).val("");
+			        	$scope.getDreamerscommentList($scope.current_dreamers_id, 0);
+					},function (error){
+						alert('something went wrong!!!');
+					});
+				}else{
+					alert("로그인을 해주세요.");
+				}
+				
 			}
 			$scope.getDreamerscommentList = function(dreamers_id, paging){
 				$scope.current_dreamers_id = dreamers_id;
@@ -261,7 +265,7 @@
 		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
 		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
 		                
-		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
+		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"' ng-show='authenticated'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
 		                
 		                html += "<div class='label_black_32' style='margin:5px; float:right; cursor: pointer;'></div>";
 		                html += "</div>";
@@ -300,16 +304,20 @@
 			}
 			
 			$scope.dreamerslike = function(dreamers_id){
-				console.log(dreamers_id);
-				dreamersService.dreamerslike(dreamers_id)
-				.then(function (response) {
-					$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
-		        	var cnt = $("#like_text_"+dreamers_id).text();
-		        	cnt = parseInt(cnt) +1;
-		        	$("#like_text_"+dreamers_id).text(cnt);
-				},function (error){
-					alert('something went wrong!!!');
-				});
+				if($rootScope.authenticated){
+					console.log(dreamers_id);
+					dreamersService.dreamerslike(dreamers_id)
+					.then(function (response) {
+						$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
+			        	var cnt = $("#like_text_"+dreamers_id).text();
+			        	cnt = parseInt(cnt) +1;
+			        	$("#like_text_"+dreamers_id).text(cnt);
+					},function (error){
+						alert('something went wrong!!!');
+					});
+				} else{
+					alert("로그인을 해주세요.");
+				}
 			}
 		}]);
 		

@@ -1,16 +1,10 @@
 package com.polarisfinder.user.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.polarisfinder.atestpage.entity.Article;
 import com.polarisfinder.user.dao.UserDAO;
 import com.polarisfinder.user.entity.User;
-import com.polarisfinder.cubemap.dao.CubemapDAO;
-import com.polarisfinder.cubemap.entity.Cubemap;
-import com.polarisfinder.cubemap.entity.Stack;
 
 @Service
 public class UserServiceImpl implements UserService {

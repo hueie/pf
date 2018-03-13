@@ -1,11 +1,8 @@
 package com.polarisfinder.fileupload.service;
 
-import com.polarisfinder.fileupload.entity.Fileupload;
-
 import java.util.List;
 
-import com.polarisfinder.cammapping.entity.Cammapping;
-import com.polarisfinder.cubemap.entity.Cubemap;
+import com.polarisfinder.fileupload.entity.Fileupload;
 
 public interface FileuploadService {
 
