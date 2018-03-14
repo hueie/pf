@@ -75,10 +75,11 @@ public class DreamersController {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
         
-        CurrentUser user = (CurrentUser) pr;
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
         
         String abspath = "";
-        String uploadpath = "/files/" + user.getUser_id() + "/";
+        String uploadpath = "/files/" + currentUser.getUser_id() + "/";
         try {
             abspath = saveUploadedFiles(uploadpath, uploadfiles);
         } catch (IOException e) {
