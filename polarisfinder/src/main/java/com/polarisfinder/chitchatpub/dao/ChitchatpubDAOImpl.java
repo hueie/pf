@@ -26,7 +26,7 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 	@Override
 	public List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging) {
 		String hql;
-		if(chitchatpub.getPlacelatitude() == null || chitchatpub.getPlacelatitude().equals("")) {
+		if(chitchatpub.getPlacelatitude() == 0 && chitchatpub.getPlacelongitude() == 0) {
 			System.out.println("paging : " + paging);
 			hql = "FROM Chitchatpub ORDER BY id DESC ";
 			Query q = entityManager.createQuery(hql);

@@ -24,8 +24,8 @@ public class ChitchatpubController {
 	@PostMapping("ChitchatpubAddComment")
 	public ResponseEntity<Void> CubemapAddStack(
 			@RequestParam(value="placename", required = false)String placename, 
-			@RequestParam(value="placelatitude", required = false)String placelatitude, 
-			@RequestParam(value="placelongitude", required = false)String placelongitude, 
+			@RequestParam(value="placelatitude", required = false)int placelatitude, 
+			@RequestParam(value="placelongitude", required = false)int placelongitude, 
 			@RequestParam(value="placecomment", required = false)String placecomment, 
 			UriComponentsBuilder builder
 			) throws Exception {
@@ -53,8 +53,8 @@ public class ChitchatpubController {
 	
 	@GetMapping("ChitchatpubList")
 	public ResponseEntity<List<Chitchatpub>> ChitchatpubList(
-			@RequestParam(value="placelatitude", required = false)String placelatitude, 
-			@RequestParam(value="placelongitude", required = false)String placelongitude, 
+			@RequestParam(value="placelatitude", required = false)int placelatitude, 
+			@RequestParam(value="placelongitude", required = false)int placelongitude, 
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		System.out.println("Paging : " + paging);

@@ -545,6 +545,7 @@
 				.then(function (response) {
 					alert("Chit! - Chat!");
 					$scope.paging = 0;
+					$scope.getChitChatpubList();
 				},function (error){
 					alert('something went wrong!!!');
 				});

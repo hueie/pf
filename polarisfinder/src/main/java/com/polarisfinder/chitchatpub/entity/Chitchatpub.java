@@ -22,9 +22,9 @@ public class Chitchatpub implements Serializable {
 	@Column(name="placename")
     private String placename;
 	@Column	(name="placelatitude")
-	private String placelatitude;
+	private int placelatitude;
 	@Column	(name="placelongitude")
-	private String placelongitude;
+	private int placelongitude;
 	
 	
 
@@ -68,22 +68,22 @@ public class Chitchatpub implements Serializable {
 	}
 
 
-	public final String getPlacelatitude() {
+	public final int getPlacelatitude() {
 		return placelatitude;
 	}
 
 
-	public final void setPlacelatitude(String placelatitude) {
+	public final void setPlacelatitude(int placelatitude) {
 		this.placelatitude = placelatitude;
 	}
 
 
-	public final String getPlacelongitude() {
+	public final int getPlacelongitude() {
 		return placelongitude;
 	}
 
 
-	public final void setPlacelongitude(String placelongitude) {
+	public final void setPlacelongitude(int placelongitude) {
 		this.placelongitude = placelongitude;
 	}
 
