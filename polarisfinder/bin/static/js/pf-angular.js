@@ -500,9 +500,10 @@
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_pub').css('min-height', height+'px');
-				
-				this.mapinit();
+				$scope.placelocation = '';
+				$scope.placename = '';
 				$scope.paging = 0;
+				this.mapinit();
 				this.getChitChatpubList();
 				console.log('Loading chitchatpub');
 			}
