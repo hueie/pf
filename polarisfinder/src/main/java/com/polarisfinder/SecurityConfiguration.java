@@ -60,7 +60,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-		.httpBasic().and()
+		.headers()
+		.contentTypeOptions().disable()
+		.xssProtection().disable()
+		.cacheControl().disable()
+		.frameOptions().disable()
+		.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
+		.and()
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
 			.antMatchers("/**").permitAll()
@@ -69,12 +75,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.csrf().csrfTokenRepository(csrfTokenRepository())
 		.and()
-		   .logout()
-		.and()
-		   .headers()
+		   .logout();
+		   //.frameOptions().disable()
            //.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youbube.com"))));
-		   .frameOptions().disable();
-		   /*
+		   /* 
 		.formLogin()
 			.loginPage("/user/Signin")
 			.failureUrl("/user/SigninFailure")

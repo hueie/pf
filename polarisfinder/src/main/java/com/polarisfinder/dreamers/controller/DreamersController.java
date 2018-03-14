@@ -77,7 +77,6 @@ public class DreamersController {
         
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-        
         String abspath = "";
         String uploadpath = "/files/" + currentUser.getUser_id() + "/";
         try {
