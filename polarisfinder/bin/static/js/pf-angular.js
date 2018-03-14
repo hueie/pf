@@ -72,8 +72,8 @@
 				  });
 				}
 		}]);
-		app.controller('mainController', [ '$scope', 
-			function($scope) {
+		app.controller('mainController', [ '$rootScope', '$scope', 
+			function($rootScope, $scope) {
 			
 		}]);
 		app.service('dreamersService', ['$http', function($http){
@@ -253,8 +253,8 @@
 				});
 			}
 		}]);
-		app.controller('dreamerseditController', [ '$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
-			function($location, $scope, $route, $routeParams, dreamerseditService) {
+		app.controller('dreamerseditController', [ '$rootScope','$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
+			function($rootScope, $location, $scope, $route, $routeParams, dreamerseditService) {
 			
 			$scope.init = function(){
 				$scope.id = $routeParams.id;
@@ -328,8 +328,8 @@
 				return $http.get('/treasuremap/country');
 			}
 		}]);
-		app.controller('treasuremapController', [ '$scope', 'treasuremapService', 
-			function($scope, treasuremapService) {
+		app.controller('treasuremapController', [ '$rootScope', '$scope', 'treasuremapService', 
+			function($rootScope, $scope, treasuremapService) {
 			$scope.init = function(){
 				var height = $("body").prop("clientWidth")/3*2-30;
 				$('.old_worldmap').css('min-height', height+'px');
@@ -420,8 +420,8 @@
 				return $http.post('/chitchatpub/ChitchatpubAddComment', data, config);
 			}
 		}]);
-		app.controller('chitchatpubController', [ '$scope', 'chitchatpubService',
-			function($scope, chitchatpubService) {
+		app.controller('chitchatpubController', [ '$rootScope', '$scope', 'chitchatpubService',
+			function($rootScope, $scope, chitchatpubService) {
 			$scope.mapinit = function(){
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center : {
@@ -551,16 +551,16 @@
 				this.getChitChatpubList();
 			}
 		}]);
-		app.controller('tortugaislandController', [ '$scope',
-			function($scope) {
+		app.controller('tortugaislandController', [ '$rootScope', '$scope',
+			function($rootScope, $scope) {
 			} ]
 		);
-		app.controller('portroyalController', [ '$scope',
-			function($scope) {
+		app.controller('portroyalController', [ '$rootScope', '$scope',
+			function($rootScope, $scope) {
 			} ]
 		);
-		app.controller('atworldsendController', [ '$scope',
-			function($scope) {
+		app.controller('atworldsendController', [ '$rootScope', '$scope',
+			function($rootScope, $scope) {
 			} ]
 		);
 		
