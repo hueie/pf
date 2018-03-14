@@ -24,9 +24,9 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings
 	@Override
-	public List<Chitchatpub> getChitchatpubByPlacelocation(String placelocation, int paging) {
+	public List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging) {
 		String hql;
-		if(placelocation == null || placelocation.equals("")) {
+		if(chitchatpub.getPlacelatitude() == null || chitchatpub.getPlacelatitude().equals("")) {
 			System.out.println("paging : " + paging);
 			hql = "FROM Chitchatpub ORDER BY id DESC ";
 			Query q = entityManager.createQuery(hql);
@@ -36,11 +36,12 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 			return (List<Chitchatpub>) q.getResultList();
 		} else {
 			System.out.println("paging : " + paging);
-			hql = "FROM Chitchatpub  WHERE placelocation = :placelocation ORDER BY id DESC ";
+			hql = "FROM Chitchatpub  WHERE placelatitude = :placelatitude AND placelongitude = :placelongitude ORDER BY id DESC ";
 			Query q = entityManager.createQuery(hql);
 			q.setFirstResult(paging*5);
 			q.setMaxResults(5);		
-			q.setParameter("placelocation", placelocation);
+			q.setParameter("placelatitude", chitchatpub.getPlacelatitude());
+			q.setParameter("placelongitude", chitchatpub.getPlacelongitude());
 			
 			return (List<Chitchatpub>) q.getResultList();
 		}

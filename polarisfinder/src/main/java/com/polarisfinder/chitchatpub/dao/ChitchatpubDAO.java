@@ -7,6 +7,6 @@ import com.polarisfinder.chitchatpub.entity.Chitchatpub;
 public interface ChitchatpubDAO {
 
     void createChitchatpub(Chitchatpub chitchatpub);
-	List<Chitchatpub> getChitchatpubByPlacelocation(String placelocation, int paging);
+	List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging);
 
 }

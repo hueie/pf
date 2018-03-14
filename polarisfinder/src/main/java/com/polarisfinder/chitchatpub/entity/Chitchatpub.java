@@ -21,8 +21,13 @@ public class Chitchatpub implements Serializable {
 	
 	@Column(name="placename")
     private String placename;
-	@Column	(name="placelocation")
-	private String placelocation;
+	@Column	(name="placelatitude")
+	private String placelatitude;
+	@Column	(name="placelongitude")
+	private String placelongitude;
+	
+	
+
 	@Column(name="placecomment")
 	private String placecomment;
 	
@@ -52,15 +57,6 @@ public class Chitchatpub implements Serializable {
 	}
 
 
-	public String getPlacelocation() {
-		return placelocation;
-	}
-
-
-	public void setPlacelocation(String placelocation) {
-		this.placelocation = placelocation;
-	}
-
 
 	public String getPlacecomment() {
 		return placecomment;
@@ -69,6 +65,26 @@ public class Chitchatpub implements Serializable {
 
 	public void setPlacecomment(String placecomment) {
 		this.placecomment = placecomment;
+	}
+
+
+	public final String getPlacelatitude() {
+		return placelatitude;
+	}
+
+
+	public final void setPlacelatitude(String placelatitude) {
+		this.placelatitude = placelatitude;
+	}
+
+
+	public final String getPlacelongitude() {
+		return placelongitude;
+	}
+
+
+	public final void setPlacelongitude(String placelongitude) {
+		this.placelongitude = placelongitude;
 	}
 
 

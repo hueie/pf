@@ -6,5 +6,5 @@ import com.polarisfinder.chitchatpub.entity.Chitchatpub;
 
 public interface ChitchatpubService {
 	boolean createChitchatpub(Chitchatpub chitchatpub);
-	List<Chitchatpub> getChitchatpubByPlacelocation(String placelocation, int paging);
+	List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging);
 }

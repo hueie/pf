@@ -24,7 +24,8 @@ public class ChitchatpubController {
 	@PostMapping("ChitchatpubAddComment")
 	public ResponseEntity<Void> CubemapAddStack(
 			@RequestParam(value="placename", required = false)String placename, 
-			@RequestParam(value="placelocation", required = false)String placelocation, 
+			@RequestParam(value="placelatitude", required = false)String placelatitude, 
+			@RequestParam(value="placelongitude", required = false)String placelongitude, 
 			@RequestParam(value="placecomment", required = false)String placecomment, 
 			UriComponentsBuilder builder
 			) throws Exception {
@@ -33,7 +34,8 @@ public class ChitchatpubController {
 		
 		Chitchatpub chitchatpub = new Chitchatpub();
 		chitchatpub.setPlacecomment(placecomment);
-		chitchatpub.setPlacelocation(placelocation);
+		chitchatpub.setPlacelatitude(placelatitude);
+		chitchatpub.setPlacelongitude(placelongitude);
 		chitchatpub.setPlacename(placename);
 		
 		boolean flag = chitchatpubService.createChitchatpub(chitchatpub);
@@ -50,12 +52,17 @@ public class ChitchatpubController {
 	}
 	
 	@GetMapping("ChitchatpubList")
-	public ResponseEntity<List<Chitchatpub>> ChitchatpubList(@RequestParam(
-			value="placelocation", required = false)String placelocation,
+	public ResponseEntity<List<Chitchatpub>> ChitchatpubList(
+			@RequestParam(value="placelatitude", required = false)String placelatitude, 
+			@RequestParam(value="placelongitude", required = false)String placelongitude, 
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		System.out.println("Paging : " + paging);
-		List<Chitchatpub> list = chitchatpubService.getChitchatpubByPlacelocation(placelocation, paging);
+
+		Chitchatpub chitchatpub = new Chitchatpub();
+		chitchatpub.setPlacelatitude(placelatitude);
+		chitchatpub.setPlacelongitude(placelongitude);
+		List<Chitchatpub> list = chitchatpubService.getChitchatpubByPlacelocation(chitchatpub, paging);
 		return new ResponseEntity<List<Chitchatpub>>(list, HttpStatus.OK);
 	}
 	

@@ -20,7 +20,7 @@ public class ChitchatpubServiceImpl implements ChitchatpubService {
 	}
 
 	@Override
-	public List<Chitchatpub> getChitchatpubByPlacelocation(String placelocation, int paging) {
-		return chitchatpubDAO.getChitchatpubByPlacelocation(placelocation, paging);
+	public List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging) {
+		return chitchatpubDAO.getChitchatpubByPlacelocation(chitchatpub, paging);
 	}
 }

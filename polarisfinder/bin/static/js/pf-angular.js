@@ -403,14 +403,14 @@
 			this.init = function(){
 				
 			}
-			this.getChitChatpubList = function(placelocation, paging){
+			this.getChitChatpubList = function(placelatitude, placelongitude, paging){
 				return $http.get('/chitchatpub/ChitchatpubList', {
-				    params: { placelocation: placelocation, paging: paging }
+				    params: { placelatitude, placelongitude, paging: paging }
 				});
 			}
-			this.addComment = function(placename, placelocation, placecomment){
+			this.addComment = function(placename, placelatitude, placelongitude, placecomment){
 				var data = $.param({
-					placename: placename, placelocation: placelocation, placecomment: placecomment
+					placename: placename, placelatitude, placelongitude, placecomment: placecomment
 	            });
 	            var config = {
 	                headers : {
@@ -482,8 +482,11 @@
 						}));
 						
 						//My Source Code
-						$scope.placelocation = place.geometry.location;
-						$scope.placename  = input.value;
+						var latitude = place.geometry.location.lat();
+						var longitude = place.geometry.location.lng();  
+						$scope.placelatitude = latitude;
+						$scope.placelongitude = longitude;
+						$scope.placename = input.value;
 						searchedmapplace.innerHTML  = input.value;
 						
 						if (place.geometry.viewport) {
@@ -500,7 +503,8 @@
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_pub').css('min-height', height+'px');
-				$scope.placelocation = '';
+				$scope.placelatitude = 0;
+				$scope.placelongitude = 0;
 				$scope.placename = '';
 				$scope.paging = 0;
 				this.mapinit();
@@ -508,7 +512,7 @@
 				console.log('Loading chitchatpub');
 			}
 			$scope.getChitChatpubList = function(){
-				chitchatpubService.getChitChatpubList($scope.placelocation, $scope.paging)
+				chitchatpubService.getChitChatpubList($scope.placelatitude, $scope.placelongitude, $scope.paging)
 				.then(function (response) {
 					$scope.paging = $scope.paging + 1;
 
@@ -537,7 +541,7 @@
 			
 			$scope.addComment = function(){
 				var placecomment = $("#placecomment").val();
-				chitchatpubService.addComment($scope.placename, $scope.placelocation, placecomment)
+				chitchatpubService.addComment($scope.placename, $scope.placelatitude, $scope.placelongitude, placecomment)
 				.then(function (response) {
 					alert("Chit! - Chat!");
 					$scope.paging = 0;
