@@ -1,10 +1,11 @@
 package com.polarisfinder;
 
+import java.util.Arrays;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,7 +19,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 
 @Configuration
 @EnableWebSecurity
@@ -67,9 +69,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.csrf().csrfTokenRepository(csrfTokenRepository())
 		.and()
-		   .logout();
-		
-			/*
+		   .logout()
+		.and()
+		   .headers()
+           //.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youbube.com"))));
+		   .frameOptions().disable();
+		   /*
 		.formLogin()
 			.loginPage("/user/Signin")
 			.failureUrl("/user/SigninFailure")
