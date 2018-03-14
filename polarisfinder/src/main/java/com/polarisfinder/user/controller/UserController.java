@@ -31,20 +31,20 @@ public class UserController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@GetMapping("login")
-	public ResponseEntity<Principal> Signin2(Principal user) {
+	public ResponseEntity<Principal> login(Principal user) {
 		System.out.println(user.getName());
 		return new ResponseEntity<Principal>(user, HttpStatus.OK);
 	}
 	
 	@PostMapping("Signup")
-	public ResponseEntity<Void> createUser(@RequestParam(value = "email", required = false) String email,
+	public ResponseEntity<Void> createUser(@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "nickname", required = false) String nickname,
 			@RequestParam(value = "password", required = false) String password
 	) {
 		System.out.println("Sign Up!!!");
 		User user = new User();
 		user.setActive(1);
-		user.setEmail(email);
+		user.setUsername(username);
 		user.setNickname(nickname);
 		// user.setPassword(password);
 		user.setPassword(bCryptPasswordEncoder.encode(password));
@@ -61,10 +61,10 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@GetMapping("findByEmail")
-	public ResponseEntity<User> findByEmail(@RequestParam(value = "email", required = false) String email) {
-		System.out.println("findByEmail");
-		User user = userService.findUserByEmail(email);
+	@GetMapping("findByUserName")
+	public ResponseEntity<User> findByUserName(@RequestParam(value = "username", required = false) String username) {
+		System.out.println("findByUserName");
+		User user = userService.findByUserName(username);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	

@@ -25,6 +25,8 @@ public class Dreamerscomment implements Serializable {
 	@Column(name="dreamers_comment")
     private String dreamers_comment;
 	
+	@Column(name="user_id")
+	private int user_id;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -58,6 +60,16 @@ public class Dreamerscomment implements Serializable {
 
 	public void setDreamers_comment(String dreamers_comment) {
 		this.dreamers_comment = dreamers_comment;
+	}
+
+
+	public final int getUser_id() {
+		return user_id;
+	}
+
+
+	public final void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 

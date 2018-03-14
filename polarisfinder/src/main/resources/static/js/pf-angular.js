@@ -12,85 +12,7 @@
 			}).when("/dreamers-editor/:id", {
 				controller : 'dreamerseditController',
 				templateUrl : "pf-dreamers-editor.html",
-				resolve : {
-					"myDreamersedit": function( ) {
-				        return {
-							foo : function(dreamerseditService, id) {
-								console.log('Resolve id : ' + id);
-								$("#id").val(id);
-					            return dreamerseditService.getFoo(id);
-					        },
-							init : function() {
-								var height = $("body").prop("clientHeight");
-								$('.old_newspaper').css('min-height', height+'px');
-									
-								var editor = new MediumEditor('.editable');
-							    $('.editable').mediumInsert({
-							        editor: editor,
-							        addons: {
-		  		                    	images: {
-						                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
-						            	}
-							    	}
-								});
-								//var allContents = editor.serialize();
-								//var elContent = allContents["element-0"].value;
-									
-								$("#publish_article").click(function (){
-									var content = editor.getContent();
-									var id = $("#id").val();
-									if(content != ''){
-										$.ajax({
-											type: "post",
-											url: "/dreamers/DreamersAddContent",
-											data: {
-												"id" : id,
-												"content" : content
-											},
-											success: function(msg){
-												var height = $("body").prop("clientHeight");
-												$('.old_newspaper').css('min-height', height+'px');
-												$('#paging').val(0);
-												$("#id").val(0);
-									            getDreamersList();
-												console.log('Loading dreamers');
-											},
-											error:function (xhr, ajaxOptions, thrownError){
-												alert(xhr.status);
-											    alert(thrownError);
-											} 
-										});
-									}
-								});
-								$("#delete_article").click(function (){
-									var id = $("#id").val();
-									if(content != ''){
-										$.ajax({
-											type: "post",
-											url: "/dreamers/DreamersDelContent",
-											data: {
-												"id" : id
-											},
-											success: function(msg){
-												var height = $("body").prop("clientHeight");
-												$('.old_newspaper').css('min-height', height+'px');
-												$('#paing').val(0);
-												$("#id").val(0);
-									            getDreamersList();
-												console.log('Loading dreamers');
-											},
-											error:function (xhr, ajaxOptions, thrownError){
-												alert(xhr.status);
-											    alert(thrownError);
-											} 
-										});
-									}
-								});
-								console.log('Loading dreamers');
-							}
-				        }
-				    }
-				}
+				resolve : { }
 			}).when("/treasuremap", {
 				controller : 'treasuremapController',
 				templateUrl : "pf-treasuremap.html",
@@ -111,20 +33,6 @@
 				controller : 'treasuremapCountryController',
 				templateUrl : "pf-treasuremap-us.html",
 				resolve : { }
-			}).when("/treasuremap-view", {
-				controller : 'treasuremapController',
-				templateUrl : "pf-treasuremap-view.html",
-				resolve : {
-					init : function() {
-						return function() {
-							var height = $("body").prop("clientHeight");
-							$('.old_newspaper').css('min-height', height+'px');
-							
-							getDreamersList();
-							console.log('Loading treasuremap');
-						}
-					}
-				}
 			}).when("/chitchatpub", {
 				controller : 'chitchatpubController',
 				templateUrl : "pf-chitchatpub.html",
@@ -322,44 +230,97 @@
 		}]);
 		
 		app.service('dreamerseditService', ['$http', function($http){
-			console.log('make service');
-			var service={}; 
-			service.getFoo = function(id){
-				console.log('Service Get Foo : '+id);
+			this.init = function(){
+				
+			}
+			this.getContent = function(id){
+				return $http.get('/dreamers/Dreamersedit', {
+				    params: { id: id }
+				});
+			}
+			this.publish_article = function(id, content){
 				var data = $.param({
-	                id: id
+					"id" : id,
+					"content" : content
 	            });
 	            var config = {
 	                headers : {
 	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
 	                }
 	            }
-				return $http.post('/dreamers/Dreamersedit', data, config);
+				return $http.post('/dreamers/DreamersAddContent', data, config);
 			}
-			return service;
+			this.delete_article = function(id){
+				return $http.get('/dreamers/DreamersDelContent', {
+				    params: { id: id }
+				});
+			}
 		}]);
-		app.controller('dreamerseditController', [ '$scope', '$route', '$routeParams', 'dreamerseditService','myDreamersedit',
-			function($scope, $route, $routeParams, dreamerseditService, myDreamersedit) {
-				$scope.controllerName = "dreamerseditController";
+		app.controller('dreamerseditController', [ '$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
+			function($location, $scope, $route, $routeParams, dreamerseditService) {
+			
+			$scope.init = function(){
 				$scope.id = $routeParams.id;
-				$scope.fooObj = {};
-				console.log('scope.id : ' + $scope.id);
-				if($scope.id != 0){
-					myDreamersedit.foo(dreamerseditService, $scope.id) //dreamerseditService.getFoo($scope.id)
+				var height = $("body").prop("clientHeight");
+				$('.old_newspaper').css('min-height', height+'px');
+					
+				var editor = new MediumEditor('.editable');
+			    $('.editable').mediumInsert({
+			        editor: editor,
+			        placeholder: {
+			            text: 'Type your text',
+			            hideOnClick: true
+			        },
+			        addons: {
+	                    	images: {
+		                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
+		            	}
+			    	}
+				});
+			    editor.subscribe('editableInput', function (event, editorElement) {
+			    	$scope.content = editor.getContent();
+			    });
+			    
+				this.getContent();
+			}
+			$scope.publish_article = function(){
+				//alert("111 : "+$scope.content);
+				if($scope.content!=''){
+					dreamerseditService.publish_article($scope.id, $scope.content)
 					.then(function (response) {
-			            data = response.data;
-			            //console.log(data.content);
-			            $scope.fooObj = data;
-			            $("#content").html(data.content);
+					    $location.path("/dreamers");
 					},function (error){
 						alert('something went wrong!!!');
 					});
-					console.log($scope.fooObj);
+				}else{
+				    $location.path("/dreamers");
 				}
-				//$("#id").val($routeParams.id);
-				myDreamersedit.init();
-			} ]
-		);
+			}
+			$scope.delete_article = function(){
+				var id = $scope.id;
+				dreamerseditService.delete_article(id)
+				.then(function (response) {
+				    $location.path("/dreamers");
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
+			$scope.getContent = function(){
+				console.log('scope.id : ' + $scope.id);
+				if($scope.id != 0){
+					dreamerseditService.getContent($scope.id)
+					.then(function (response) {
+			            data = response.data;
+			            //console.log(data.content);
+			            $scope.content = data.content;
+			            $("#content").html($scope.content);
+					},function (error){
+						alert('something went wrong!!!');
+					});
+				}
+			}	
+		}]);
 		
 		
 		app.service('treasuremapService', ['$http', function($http){
@@ -614,9 +575,9 @@
 			this.init = function(){
 				
 			}
-			this.signup = function(email, password, nickname){
+			this.signup = function(username, password, nickname){
 				var data = $.param({
-					email: email, password: password, nickname: nickname
+					username: username, password: password, nickname: nickname
 	            });
 	            var config = {
 	                headers : {
@@ -628,7 +589,7 @@
 			
 		}]);
 		app.controller('userController', [ '$rootScope', '$scope', '$http', '$location', 'userService',
-			function($rootScope,$scope, $http, $location, userService) {
+			function($rootScope, $scope, $http, $location, userService) {
 			$scope.init = function(){
 
 			}
@@ -667,11 +628,11 @@
 			    });
 			};
 			$scope.signup = function(){
-				var email = $("#email").val();
+				var username = $("#username").val();
 				var password = $("#password").val();
 				var nickname = $("#nickname").val();
 				
-				userService.signup(email, password, nickname)
+				userService.signup(username, password, nickname)
 				.then(function (response) {
 					$scope.login();
 					alert('success');

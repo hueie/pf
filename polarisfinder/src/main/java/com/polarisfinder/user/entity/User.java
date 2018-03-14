@@ -2,11 +2,13 @@ package com.polarisfinder.user.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,17 +26,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="user")
-public class User implements UserDetails {
+public class User {
+	public User() {
+        super();
+    }
+	public User(String username, String password, String nickname, int active, Set<Role> roles) {
+		super();		
+		this.username = username;
+		this.password = password;
+		this.nickname = nickname;
+		this.active = active;
+		this.roles = roles;
+	}
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
 	private int user_id;
 	
-	@Column(name="email")
+	@Column(name="username")
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide an email")
-	private String email;
+	private String username;
 	
 	@Column(name="password")
 	@Length(min = 5, message = "*Your password must have at least 5 characters")
@@ -50,7 +64,10 @@ public class User implements UserDetails {
 	private int active;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "user_role", 
+		joinColumns = {@JoinColumn(name = "user_id")},
+		inverseJoinColumns = {@JoinColumn(name = "role_id")}
+	)
 	private Set<Role> roles;
 
 	public int getUser_id() {
@@ -61,14 +78,6 @@ public class User implements UserDetails {
 		this.user_id = user_id;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -76,8 +85,6 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
 
 	public int getActive() {
 		return active;
@@ -99,41 +106,6 @@ public class User implements UserDetails {
 		return serialVersionUID;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public String getNickname() {
 		return nickname;
@@ -141,6 +113,13 @@ public class User implements UserDetails {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public final void setUsername(String username) {
+		this.username = username;
+	}
+	public final String getUsername() {
+		return username;
 	}
 	
 	

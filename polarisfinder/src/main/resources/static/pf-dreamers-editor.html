@@ -1,17 +1,16 @@
 	<input type="hidden" id="id" value="0">
 	
-    <section class="old_newspaper" ><!-- ng-controller="dreamerseditController" -->
+    <section class="old_newspaper" ng-controller="dreamerseditController" data-ng-init="init()">
         <div class="container">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center">
             		<div style="font-size: 64px;font-family: 'Times New Roman';">DREAMERS' NEWS
 					</div>
-					<a href="#!dreamers" id="publish_article" style="float:right;vertical-align:bottom;"><div class='edit_black_32' style='float:right;'></div></a>
-					<a href="#!dreamers" id="delete_article" style="float:right;vertical-align:bottom;"><div class='eraser_black_32' style='float:right;'></div></a>
-					
+					<div ng-click="publish_article()" class='edit_black_32' style='float:right;vertical-align:bottom;'></div>
+					<div ng-click="delete_article()" class='eraser_black_32' style='float:right;vertical-align:bottom;'></div>
             	</div>
                 <div class="col-lg-8 col-lg-offset-2">
-					<div id="content" class="editable well" data-placeholder="Type some text"> <!-- {{fooObj.content}} -->
+					<div id="content" class="editable well" >
 					
 					</div>
                 </div>

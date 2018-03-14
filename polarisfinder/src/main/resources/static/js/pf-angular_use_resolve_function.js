@@ -12,7 +12,86 @@
 			}).when("/dreamers-editor/:id", {
 				controller : 'dreamerseditController',
 				templateUrl : "pf-dreamers-editor.html",
-				resolve : { }
+				resolve : {
+					"myDreamersedit": function( ) {
+				        return {
+							foo : function(dreamerseditService, id) {
+								console.log('Resolve id : ' + id);
+								$("#id").val(id);
+					            return dreamerseditService.getFoo(id);
+					        },
+							init : function() {
+								var height = $("body").prop("clientHeight");
+								$('.old_newspaper').css('min-height', height+'px');
+									
+								var editor = new MediumEditor('.editable');
+							    $('.editable').mediumInsert({
+							        editor: editor,
+							        addons: {
+		  		                    	images: {
+						                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
+						            	}
+							    	}
+								});
+								//var allContents = editor.serialize();
+								//var elContent = allContents["element-0"].value;
+									
+								$("#publish_article").click(function (){
+									var content = editor.getContent();
+									alert(content);
+									var id = $("#id").val();
+									if(content != ''){
+										$.ajax({
+											type: "post",
+											url: "/dreamers/DreamersAddContent",
+											data: {
+												"id" : id,
+												"content" : content
+											},
+											success: function(msg){
+												var height = $("body").prop("clientHeight");
+												$('.old_newspaper').css('min-height', height+'px');
+												$('#paging').val(0);
+												$("#id").val(0);
+									            getDreamersList();
+												console.log('Loading dreamers');
+											},
+											error:function (xhr, ajaxOptions, thrownError){
+												alert(xhr.status);
+											    alert(thrownError);
+											} 
+										});
+									}
+								});
+								$("#delete_article").click(function (){
+									var id = $("#id").val();
+									if(content != ''){
+										$.ajax({
+											type: "post",
+											url: "/dreamers/DreamersDelContent",
+											data: {
+												"id" : id
+											},
+											success: function(msg){
+												var height = $("body").prop("clientHeight");
+												$('.old_newspaper').css('min-height', height+'px');
+												$('#paing').val(0);
+												$("#id").val(0);
+									            getDreamersList();
+												console.log('Loading dreamers');
+											},
+											error:function (xhr, ajaxOptions, thrownError){
+												alert(xhr.status);
+											    alert(thrownError);
+											} 
+										});
+									}
+								});
+								console.log('Loading dreamers');
+							}
+				        }
+				    }
+				}
 			}).when("/treasuremap", {
 				controller : 'treasuremapController',
 				templateUrl : "pf-treasuremap.html",
@@ -230,97 +309,44 @@
 		}]);
 		
 		app.service('dreamerseditService', ['$http', function($http){
-			this.init = function(){
-				
-			}
-			this.getContent = function(id){
-				return $http.get('/dreamers/Dreamersedit', {
-				    params: { id: id }
-				});
-			}
-			this.publish_article = function(id, content){
+			console.log('make service');
+			var service={}; 
+			service.getFoo = function(id){
+				console.log('Service Get Foo : '+id);
 				var data = $.param({
-					"id" : id,
-					"content" : content
+	                id: id
 	            });
 	            var config = {
 	                headers : {
 	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
 	                }
 	            }
-				return $http.post('/dreamers/DreamersAddContent', data, config);
+				return $http.post('/dreamers/Dreamersedit', data, config);
 			}
-			this.delete_article = function(id){
-				return $http.get('/dreamers/DreamersDelContent', {
-				    params: { id: id }
-				});
-			}
+			return service;
 		}]);
-		app.controller('dreamerseditController', [ '$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
-			function($location, $scope, $route, $routeParams, dreamerseditService) {
-			
-			$scope.init = function(){
+		app.controller('dreamerseditController', [ '$scope', '$route', '$routeParams', 'dreamerseditService','myDreamersedit',
+			function($scope, $route, $routeParams, dreamerseditService, myDreamersedit) {
+				$scope.controllerName = "dreamerseditController";
 				$scope.id = $routeParams.id;
-				var height = $("body").prop("clientHeight");
-				$('.old_newspaper').css('min-height', height+'px');
-					
-				var editor = new MediumEditor('.editable');
-			    $('.editable').mediumInsert({
-			        editor: editor,
-			        placeholder: {
-			            text: 'Type your text',
-			            hideOnClick: true
-			        },
-			        addons: {
-	                    	images: {
-		                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
-		            	}
-			    	}
-				});
-			    editor.subscribe('editableInput', function (event, editorElement) {
-			    	$scope.content = editor.getContent();
-			    });
-			    
-				this.getContent();
-			}
-			$scope.publish_article = function(){
-				//alert("111 : "+$scope.content);
-				if($scope.content!=''){
-					dreamerseditService.publish_article($scope.id, $scope.content)
-					.then(function (response) {
-					    $location.path("/dreamers");
-					},function (error){
-						alert('something went wrong!!!');
-					});
-				}else{
-				    $location.path("/dreamers");
-				}
-			}
-			$scope.delete_article = function(){
-				var id = $scope.id;
-				dreamerseditService.delete_article(id)
-				.then(function (response) {
-				    $location.path("/dreamers");
-				},function (error){
-					alert('something went wrong!!!');
-				});
-			}
-			
-			$scope.getContent = function(){
+				$scope.fooObj = {};
 				console.log('scope.id : ' + $scope.id);
 				if($scope.id != 0){
-					dreamerseditService.getContent($scope.id)
+					myDreamersedit.foo(dreamerseditService, $scope.id) //dreamerseditService.getFoo($scope.id)
 					.then(function (response) {
 			            data = response.data;
 			            //console.log(data.content);
-			            $scope.content = data.content;
-			            $("#content").html($scope.content);
+			            $scope.fooObj = data;
+			            $("#content").html(data.content);
 					},function (error){
 						alert('something went wrong!!!');
 					});
+					console.log($scope.fooObj);
 				}
-			}	
-		}]);
+				//$("#id").val($routeParams.id);
+				myDreamersedit.init();
+			} ]
+		);
 		
 		
 		app.service('treasuremapService', ['$http', function($http){

@@ -5,5 +5,5 @@ import com.polarisfinder.user.entity.User;
 public interface UserService {
 
     boolean createUser(User user);
-    User findUserByEmail(String email);
+    User findByUserName(String username);
 }

@@ -38,6 +38,7 @@ import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.entity.UploadModel;
 import com.polarisfinder.dreamers.service.DreamersService;
+import com.polarisfinder.user.entity.CurrentUser;
 import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
@@ -73,7 +74,8 @@ public class DreamersController {
         if (StringUtils.isEmpty(uploadedFileName)) {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
-        User user = userService.findUserByEmail(pr.getName());
+        
+        CurrentUser user = (CurrentUser) pr;
         
         String abspath = "";
         String uploadpath = "/files/" + user.getUser_id() + "/";
@@ -133,10 +135,9 @@ public class DreamersController {
 	  }
 	]}
 	*/
-    @PostMapping("DreamersDelContent")
+    @GetMapping("DreamersDelContent")
 	public ResponseEntity<Void> DreamersDelContent(
-			@RequestParam(value="id", required = false)int id, 
-			UriComponentsBuilder builder
+			@RequestParam(value="id", required = false)int id
 			) throws Exception {
 		
     	Dreamers dreamers = new Dreamers();
@@ -160,15 +161,13 @@ public class DreamersController {
 	@PostMapping("DreamersAddContent")
 	public ResponseEntity<Void> DreamersAddContent(
 			@RequestParam(value="id", required = false)int id, 
-			@RequestParam(value="content", required = false)String content, 
-			UriComponentsBuilder builder
+			@RequestParam(value="content", required = false)String content
 			) throws Exception {
-		
-		System.out.println("content : " + content);
-		
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Dreamers dreamers = new Dreamers();
 		dreamers.setContent(content);
 		dreamers.setId(id);
+		dreamers.setUser_id(currentUser.getUser_id());
 		
 		boolean flag = dreamersService.createDreamers(dreamers);
         if(flag) {
@@ -194,7 +193,6 @@ public class DreamersController {
 	
 	@GetMapping("DreamersList")
 	public ResponseEntity<List<Dreamers>> DreamersList(
-			Principal pr,
 			@RequestParam(value="id", required = false)int id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
@@ -208,7 +206,7 @@ public class DreamersController {
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
-	@PostMapping("Dreamersedit")
+	@GetMapping("Dreamersedit")
 	public ResponseEntity<Dreamers> Dreamersedit(
 			@RequestParam(value="id", required = false)int id
 			) {
@@ -219,11 +217,18 @@ public class DreamersController {
 	
 	@GetMapping("Dreamerslike")
 	public ResponseEntity<Void> Dreamerslike(
+			//Principal pr,
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id
 			) throws Exception {
-		
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//CurrentUser currentUser = (CurrentUser) pr;
+		System.out.println("Dreamerslike !!!");
+		System.out.println(currentUser.getUsername());
+		System.out.println(currentUser.getUser_id());
+		 
 		Dreamerslike dreamerslike = new Dreamerslike();
 		dreamerslike.setDreamers_id(dreamers_id); 
+		dreamerslike.setUser_id(currentUser.getUser_id());
 		
 		Dreamers dreamers = new Dreamers();
 		dreamers.setId(dreamers_id);
@@ -242,10 +247,12 @@ public class DreamersController {
 			@RequestParam(value="dreamers_id", required = false)int dreamers_id, 
 			@RequestParam(value="dreamers_comment", required = false)String dreamers_comment
 			) throws Exception {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		Dreamerscomment dreamerscomment = new Dreamerscomment();
 		dreamerscomment.setDreamers_id(dreamers_id);
 		dreamerscomment.setDreamers_comment(dreamers_comment);
+		dreamerscomment.setUser_id(currentUser.getUser_id());
 		
 		boolean flag = dreamersService.createDreamerscomment(dreamerscomment);
         if (flag == false) {

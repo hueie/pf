@@ -83,8 +83,7 @@ public class MyWebSocketHandler extends AbstractWebSocketHandler {
         	if (msginfo.equals("userId")) {
         		String userEmail = msg.substring(msg.indexOf(":")+1);
         		
-        		
-         		User user = userService.findUserByEmail(userEmail);
+         		User user = userService.findByUserName(userEmail);
          		userId = user.getUser_id();
                 System.out.println(userId+ "userId" + userId);
         		File file = new File(polarisfinder_FILE_UPLOAD_DIR+"/"+userId);
