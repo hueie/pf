@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.xssProtection().disable()
 		.cacheControl().disable()
 		.frameOptions().disable()
-		.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
+		//.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
 		.and()
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
