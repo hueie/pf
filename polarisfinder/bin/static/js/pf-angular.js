@@ -112,7 +112,9 @@
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
-				
+
+				$scope.paging = 0;
+				$scope.id = 0;
 				this.getDreamersList();
 				console.log('Loading dreamers');
 			}
@@ -151,15 +153,12 @@
 				});
 			}
 			$scope.getDreamersList = function(){
-				var id = $("#id").val();
-				var paging = $("#paging").val();
-				dreamersService.getDreamersList(id, paging)
+				dreamersService.getDreamersList($scope.id, $scope.paging)
 				.then(function (response) {
-					var p = parseInt(paging) + 1;
-		        	if(p == 1){
+					$scope.paging = $scope.paging + 1;
+		        	if($scope.paging == 1){
 		            	$("#list").html("");
 		        	} 
-		        	$("#paging").val(p);
 		        	var obj = response.data;// objs.data;
 		        	var html = "";
 		        	var el = document.getElementById('list');
@@ -192,10 +191,8 @@
 		                html += "</div>";
 		                html += "</div>";
 		                
-		                
 		        	}
 	                angular.element(el).append( $compile(html)($scope) );
-	                
 	                
 		        	if(obj.length < 5){
 		        		$("#morebtn").css("display", "none");
@@ -438,8 +435,6 @@
 				// Create the search box and link it to the UI element.
 				
 				var searchedmapplace = document.getElementById('searchedmapplace');
-				var placename = document.getElementById('placename');
-				var placelocation = document.getElementById('placelocation');
 				var input = document.getElementById('pac-input');
 				var searchBox = new google.maps.places.SearchBox(input);
 				
@@ -486,8 +481,9 @@
 							position : place.geometry.location
 						}));
 						
-						placelocation.value = place.geometry.location;
-						placename.value  = input.value;
+						//My Source Code
+						$scope.placelocation = place.geometry.location;
+						$scope.placename  = input.value;
 						searchedmapplace.innerHTML  = input.value;
 						
 						if (place.geometry.viewport) {
@@ -506,17 +502,14 @@
 				$('.old_pub').css('min-height', height+'px');
 				
 				this.mapinit();
-				$('#paging').val(0);
+				$scope.paging = 0;
 				this.getChitChatpubList();
 				console.log('Loading chitchatpub');
 			}
 			$scope.getChitChatpubList = function(){
-				var placelocation = $("#placelocation").val();
-				var paging = $("#paging").val();
-				chitchatpubService.getChitChatpubList(placelocation, paging)
+				chitchatpubService.getChitChatpubList($scope.placelocation, $scope.paging)
 				.then(function (response) {
-					var p = parseInt(paging) + 1;
-		        	$("#paging").val(p);
+					$scope.paging = $scope.paging + 1;
 
 		        	var obj = response.data;// objs.data;
 		        	var html = "";
@@ -531,7 +524,7 @@
 		        	} else{
 		            	$("#morebtn").css("display", "block");
 		        	}
-		        	if(p == 1){
+		        	if($scope.paging == 1){
 		            	$("#list").html(html);
 		        	} else {
 		            	$("#list").append(html);
@@ -542,14 +535,11 @@
 			}
 			
 			$scope.addComment = function(){
-				var placename = $("#placename").val();
-				var placelocation = $("#placelocation").val();
 				var placecomment = $("#placecomment").val();
-				var paging = $("#paging").val();
-				chitchatpubService.addComment(placename, placelocation, placecomment)
+				chitchatpubService.addComment($scope.placename, $scope.placelocation, placecomment)
 				.then(function (response) {
 					alert("Chit! - Chat!");
-		    		$('#paging').val(0);
+					$scope.paging = 0;
 				},function (error){
 					alert('something went wrong!!!');
 				});
