@@ -124,7 +124,7 @@
 				return $http.post('/dreamers/DreamerscommentAdd', data, config);
 			}
 		}]);
-		app.controller('dreamersController', [ '$rootScope','$scope', '$compile', 'dreamersService', function($rootScope, $scope, $compile, dreamersService) {
+		app.controller('dreamersController', [ '$rootScope','$scope', '$location','$compile', 'dreamersService', function($rootScope, $scope, $location, $compile, dreamersService) {
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -148,6 +148,7 @@
 					});
 				}else{
 					alert("로그인을 해주세요.");
+				    $location.path("/signin");
 				}
 				
 			}
@@ -264,6 +265,7 @@
 					}
 				} else{
 					alert("로그인을 해주세요.");
+				    $location.path("/signin");
 				}
 			}
 			
@@ -271,7 +273,7 @@
 				if($rootScope.authenticated){
 					var className = $("#bookmark_"+dreamers_id).attr('class');
 					if(className == "bookmark_black_32"){
-						dreamersService.dreamerslike(dreamers_id)
+						dreamersService.dreamersbookmark(dreamers_id)
 						.then(function (response) {
 							$("#bookmark_"+dreamers_id).removeClass( "bookmark_black_32" ).addClass( "bookmark_red_32" );
 				        	var cnt = $("#bookmark_text_"+dreamers_id).text();
@@ -293,6 +295,7 @@
 					}
 				} else{
 					alert("로그인을 해주세요.");
+					$location.path("/signin");
 				}
 			}
 		}]);
