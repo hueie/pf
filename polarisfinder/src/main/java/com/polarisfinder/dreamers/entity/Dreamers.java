@@ -1,6 +1,7 @@
 package com.polarisfinder.dreamers.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity
@@ -33,6 +35,10 @@ public class Dreamers implements Serializable {
 	@Column(name="user_id")
 	private int user_id;
 
+	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date reg_dt;
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -89,6 +95,16 @@ public class Dreamers implements Serializable {
 
 	public final void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+
+	public final Date getReg_dt() {
+		return reg_dt;
+	}
+
+
+	public final void setReg_dt(Date reg_dt) {
+		this.reg_dt = reg_dt;
 	}
 
 

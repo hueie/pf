@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 import com.polarisfinder.user.entity.CurrentUser;
 import com.polarisfinder.user.service.CustomUserDetailsService;
 
-@Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+//@Component
+public class CustomAuthenticationProvider //implements AuthenticationProvider 
+{
+	/*
 	@Autowired
     private CustomUserDetailsService userService;
 	
@@ -42,4 +44,5 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public boolean supports(Class<?> authentication) {
     	return true;
     }
+    */
 }

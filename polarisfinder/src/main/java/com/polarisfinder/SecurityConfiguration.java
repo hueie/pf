@@ -37,8 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	//private String usersQuery;
 	//@Value("${spring.queries.roles-query}")
 	//private String rolesQuery;
-	@Autowired
-	private CustomAuthenticationProvider authProvider;
+	//@Autowired
+	//private CustomAuthenticationProvider authProvider;
 	
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
@@ -59,12 +59,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http
-		.headers()
-		.contentTypeOptions().disable()
-		.xssProtection().disable()
-		.cacheControl().disable()
-		.frameOptions().disable()
+		http.httpBasic()
+//		.headers()
+		//.contentTypeOptions().disable()
+		//.xssProtection().disable()
+		//.cacheControl().disable()
+		//.frameOptions().disable()
 		//.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
 		.and()
 		.authorizeRequests()

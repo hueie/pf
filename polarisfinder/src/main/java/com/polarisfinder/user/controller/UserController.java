@@ -7,6 +7,7 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.polarisfinder.user.entity.CurrentUser;
 import com.polarisfinder.user.entity.Role;
 import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.RoleService;
@@ -31,9 +33,10 @@ public class UserController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@GetMapping("login")
-	public ResponseEntity<Principal> login(Principal user) {
-		System.out.println(user.getName());
-		return new ResponseEntity<Principal>(user, HttpStatus.OK);
+	public ResponseEntity<CurrentUser> login() {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("hi! : "+currentUser.getUsername());
+		return new ResponseEntity<CurrentUser>(currentUser, HttpStatus.OK);
 	}
 	
 	@PostMapping("Signup")

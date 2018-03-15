@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -60,11 +61,11 @@ public class DreamersController {
     
 	@PostMapping("DreamersUpload")
 	public ResponseEntity<JSONObject> DreamersUpload(
-			Principal pr,
 			@RequestParam("files[]") List<MultipartFile> uploadfiles
 	    ) throws Exception {
         logger.debug("Multiple file upload!");
-
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
         // Get file name
         String uploadedFileName="";
         for(int i=0; i<uploadfiles.size(); i++) {
@@ -75,8 +76,7 @@ public class DreamersController {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
         
-        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+        
         String abspath = "";
         String uploadpath = "/files/" + currentUser.getUser_id() + "/";
         try {
@@ -168,7 +168,7 @@ public class DreamersController {
 		dreamers.setContent(content);
 		dreamers.setId(id);
 		dreamers.setUser_id(currentUser.getUser_id());
-		
+		dreamers.setReg_dt(new Date());
 		boolean flag = dreamersService.createDreamers(dreamers);
         if(flag) {
     		return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -229,6 +229,7 @@ public class DreamersController {
 		Dreamerslike dreamerslike = new Dreamerslike();
 		dreamerslike.setDreamers_id(dreamers_id); 
 		dreamerslike.setUser_id(currentUser.getUser_id());
+		dreamerslike.setReg_dt(new Date());
 		
 		Dreamers dreamers = new Dreamers();
 		dreamers.setId(dreamers_id);
@@ -253,6 +254,7 @@ public class DreamersController {
 		dreamerscomment.setDreamers_id(dreamers_id);
 		dreamerscomment.setDreamers_comment(dreamers_comment);
 		dreamerscomment.setUser_id(currentUser.getUser_id());
+		dreamerscomment.setReg_dt(new Date());
 		
 		boolean flag = dreamersService.createDreamerscomment(dreamerscomment);
         if (flag == false) {

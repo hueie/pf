@@ -168,7 +168,13 @@
 		                html += "<div class='well'>";
 		                html += "<div style='background-color:white;'>" + substr + "</div>";
 		                html += "<div>";
-		                html += "<div id='like_"+obj[idx].id+"' ng-click='dreamerslike("+obj[idx].id+")' class='like_black_32' style='margin:5px;cursor: pointer;'></div>";
+		                html += "<div id='like_"+obj[idx].id+"' ng-click='dreamerslike("+obj[idx].id+")' ";
+		                //if($rootScope.currentuser.user_id == obj[idx].user_id){
+		                	html += "class='like_red_32'";
+		                //} else{
+		                //	html += "class='like_black_32'";
+		                //}
+		                html += " style='margin:5px;cursor: pointer;'></div>";
 		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
 		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
 		                
@@ -597,8 +603,9 @@
 
 			    $http.get('/user/login', {headers : headers})
 			    .then(function(response) {
-			      if (response.data.name) {
-			    	  $rootScope.username = response.data.name;
+			    	  $rootScope.currentuser = response.data;
+			      if ($rootScope.currentuser.username) {
+			    	  $rootScope.username = $rootScope.currentuser.username;
 			    	  $rootScope.authenticated = true;
 			      } else {
 			    	  $rootScope.authenticated = false;
