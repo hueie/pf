@@ -5,11 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,30 +14,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.polarisfinder.chitchatpub.entity.Chitchatpub;
-import com.polarisfinder.chitchatpub.service.ChitchatpubService;
 import com.polarisfinder.dreamers.entity.Dreamers;
+import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
-import com.polarisfinder.dreamers.entity.UploadModel;
 import com.polarisfinder.dreamers.service.DreamersService;
 import com.polarisfinder.user.entity.CurrentUser;
-import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
 
@@ -199,8 +189,10 @@ public class DreamersController {
 		CurrentUser currentUser = null;
 		try{
 			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			System.out.println("DreamersList : "+currentUser.getUsername());
 		} catch(Exception e){
 			currentUser = null;
+			System.out.println("null");
 		}
 		
 		//System.out.println("DreamersList : "+currentUser.getUsername());
@@ -217,6 +209,14 @@ public class DreamersController {
 					list.get(idx).setLike_checked(1);
 				}else{
 					list.get(idx).setLike_checked(0);
+				}
+				Dreamersbookmark dreamersbookmark = new Dreamersbookmark();
+				dreamersbookmark.setDreamers_id(list.get(idx).getId());
+				dreamersbookmark.setUser_id(currentUser.getUser_id());
+				if(dreamersService.checkDreamersbookmark(dreamersbookmark)){
+					list.get(idx).setBookmark_checked(1);
+				}else{
+					list.get(idx).setBookmark_checked(0);
 				}
 			}
 		}
@@ -306,4 +306,56 @@ public class DreamersController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
+	@GetMapping("Dreamersbookmark")
+	public ResponseEntity<Void> Dreamersbookmark(
+			//Principal pr,
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id
+			) throws Exception {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//CurrentUser currentUser = (CurrentUser) pr;
+		System.out.println("Dreamersbookmark !!!");
+		System.out.println(currentUser.getUsername());
+		System.out.println(currentUser.getUser_id());
+		 
+		Dreamersbookmark dreamersbookmark = new Dreamersbookmark();
+		dreamersbookmark.setDreamers_id(dreamers_id); 
+		dreamersbookmark.setUser_id(currentUser.getUser_id());
+		dreamersbookmark.setReg_dt(new Date());
+		
+		Dreamers dreamers = new Dreamers();
+		dreamers.setId(dreamers_id);
+		
+		boolean flag = dreamersService.createDreamersbookmark(dreamersbookmark);
+		if(flag) {
+			flag = dreamersService.increaseDreamersbookmarkcnt(dreamers);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+        } else{
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+	}
+	
+	@GetMapping("Dreamersdisbookmark")
+	public ResponseEntity<Void> Dreamersdisbookmark(
+			//Principal pr,
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id
+			) throws Exception {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("Dreamersbookmark !!!");
+		 
+		Dreamersbookmark dreamersbookmark = new Dreamersbookmark();
+		dreamersbookmark.setDreamers_id(dreamers_id); 
+		dreamersbookmark.setUser_id(currentUser.getUser_id());
+		dreamersbookmark.setReg_dt(new Date());
+		
+		Dreamers dreamers = new Dreamers();
+		dreamers.setId(dreamers_id);
+		
+		boolean flag = dreamersService.deleteDreamersbookmark(dreamersbookmark);
+		if(flag) {
+			flag = dreamersService.decreaseDreamersbookmarkcnt(dreamers);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+        } else{
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+	}
 }

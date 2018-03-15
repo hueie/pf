@@ -60,17 +60,18 @@
 			});
 		});
 		
-		app.controller('navigation', [ '$rootScope', '$scope', '$http',
-			function($rootScope, $scope, $http) {
+		app.controller('navigation', [ '$rootScope', '$scope', '$location','$http',
+			function($rootScope, $scope, $location, $http) {
 			$scope.logout = function() {
-				  $http.post('/user/Signout', {})
+				  $http.get('/user/logout', {})
 				  .then(function() {
 				    $rootScope.authenticated = false;
 				    $location.path("/");
 				  },function(data) {
+					$location.path("/");
 				    $rootScope.authenticated = false;
 				  });
-				}
+			}
 		}]);
 		app.controller('mainController', [ '$rootScope', '$scope', 
 			function($rootScope, $scope) {
@@ -97,6 +98,16 @@
 			}
 			this.dreamersdislike = function(dreamers_id){
 				return $http.get('/dreamers/Dreamersdislike', {
+				    params: { dreamers_id: dreamers_id }
+				});
+			}
+			this.dreamersbookmark = function(dreamers_id){
+				return $http.get('/dreamers/Dreamersbookmark', {
+				    params: { dreamers_id: dreamers_id }
+				});
+			}
+			this.dreamersdisbookmark = function(dreamers_id){
+				return $http.get('/dreamers/Dreamersdisbookmark', {
 				    params: { dreamers_id: dreamers_id }
 				});
 			}
@@ -185,7 +196,15 @@
 		                
 		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"' ng-show='authenticated'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
 		                
-		                html += "<div class='label_black_32' style='margin:5px; float:right; cursor: pointer;'></div>";
+		                html += "<div id='bookmark_"+obj[idx].id+"'";
+		                if(obj[idx].bookmark_checked == 1){
+		                	html += "ng-click='dreamersbookmark("+obj[idx].id+")' class='bookmark_red_32'";
+		                } else{
+		                	html += "ng-click='dreamersbookmark("+obj[idx].id+")' class='bookmark_black_32'";
+		                }
+		                html += " style='margin:5px;cursor: pointer; float:right;'></div>";
+		                html += "<span id='bookmark_text_"+obj[idx].id+"' style='float:right'>"+obj[idx].bookmark_cnt+"</span>";
+		                
 		                html += "</div>";
 		                
 		                //Commoent Div Start
@@ -239,6 +258,35 @@
 				        	var cnt = $("#like_text_"+dreamers_id).text();
 				        	cnt = parseInt(cnt) -1;
 				        	$("#like_text_"+dreamers_id).text(cnt);
+						},function (error){
+							alert('something went wrong!!!');
+						});
+					}
+				} else{
+					alert("로그인을 해주세요.");
+				}
+			}
+			
+			$scope.dreamersbookmark = function(dreamers_id){
+				if($rootScope.authenticated){
+					var className = $("#bookmark_"+dreamers_id).attr('class');
+					if(className == "bookmark_black_32"){
+						dreamersService.dreamerslike(dreamers_id)
+						.then(function (response) {
+							$("#bookmark_"+dreamers_id).removeClass( "bookmark_black_32" ).addClass( "bookmark_red_32" );
+				        	var cnt = $("#bookmark_text_"+dreamers_id).text();
+				        	cnt = parseInt(cnt) +1;
+				        	$("#bookmark_text_"+dreamers_id).text(cnt);
+						},function (error){
+							alert('something went wrong!!!');
+						});
+					}else{
+						dreamersService.dreamersdisbookmark(dreamers_id)
+						.then(function (response) {
+							$("#bookmark_"+dreamers_id).removeClass( "bookmark_red_32" ).addClass( "bookmark_black_32" );
+				        	var cnt = $("#bookmark_text_"+dreamers_id).text();
+				        	cnt = parseInt(cnt) -1;
+				        	$("#bookmark_text_"+dreamers_id).text(cnt);
 						},function (error){
 							alert('something went wrong!!!');
 						});

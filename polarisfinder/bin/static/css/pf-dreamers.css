@@ -38,14 +38,14 @@
 
 
 
-.label_black_32 {
+.bookmark_black_32 {
 	height:32px;
 	width:32px;
 	display:inline-block;
     background-image: url('/img/icon/label_black_32.png');
 }
 
-.label_red_32 {
+.bookmark_red_32 {
 	height:32px;
 	width:32px;
 	display:inline-block;

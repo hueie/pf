@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.polarisfinder.dreamers.dao.DreamersDAO;
 import com.polarisfinder.dreamers.entity.Dreamers;
+import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 @Service
@@ -84,4 +85,39 @@ public class DreamersServiceImpl implements DreamersService {
     	return true;
 	}
 	
+	
+	@Override
+	public synchronized boolean createDreamersbookmark(Dreamersbookmark Dreamersbookmark){
+		DreamersDAO.createDreamersbookmark(Dreamersbookmark);
+    	return true;
+	}
+
+	@Override
+	public List<Dreamersbookmark> getDreamersbookmarkById(int id, int paging) {
+		return DreamersDAO.getDreamersbookmarkById(id, paging);
+	}
+	
+
+	@Override
+	public boolean checkDreamersbookmark(Dreamersbookmark dreamersbookmark) {
+		return DreamersDAO.checkDreamersbookmark(dreamersbookmark);
+	}
+	
+	@Override
+	public synchronized boolean deleteDreamersbookmark(Dreamersbookmark Dreamersbookmark){
+		DreamersDAO.deleteDreamersbookmark(Dreamersbookmark);
+    	return true;
+	}
+	
+	@Override
+	public synchronized boolean increaseDreamersbookmarkcnt(Dreamers Dreamers){
+		DreamersDAO.increaseDreamersbookmarkcnt(Dreamers);
+    	return true;
+	}
+
+	@Override
+	public synchronized boolean decreaseDreamersbookmarkcnt(Dreamers Dreamers){
+		DreamersDAO.decreaseDreamersbookmarkcnt(Dreamers);
+    	return true;
+	}
 }

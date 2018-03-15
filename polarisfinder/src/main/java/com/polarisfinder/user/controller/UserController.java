@@ -38,7 +38,14 @@ public class UserController {
 		System.out.println("hi! : "+currentUser.getUsername());
 		return new ResponseEntity<CurrentUser>(currentUser, HttpStatus.OK);
 	}
-	
+	/*
+	@GetMapping("logout")
+	public ResponseEntity<Void> logout(
+	) {
+		System.out.println("log out!!!");
+		return new ResponseEntity<Void>( HttpStatus.OK);
+	}
+	*/
 	@PostMapping("Signup")
 	public ResponseEntity<Void> createUser(@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "nickname", required = false) String nickname,

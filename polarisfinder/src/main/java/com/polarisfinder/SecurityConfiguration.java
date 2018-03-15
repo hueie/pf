@@ -21,6 +21,7 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -75,7 +76,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.csrf().csrfTokenRepository(csrfTokenRepository())
 		.and()
-		   .logout();
+		    .logout()
+		    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+		    .logoutSuccessUrl("/pf-main.html");
 		   //.frameOptions().disable()
            //.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youbube.com"))));
 		   /* 

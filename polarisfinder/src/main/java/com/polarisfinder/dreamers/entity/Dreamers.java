@@ -29,6 +29,9 @@ public class Dreamers implements Serializable {
 	@Column(name="content")
     private String content;
 	
+	@Column(name="bookmark_cnt")
+    private int bookmark_cnt;  
+	
 	@Column(name="like_cnt")
     private int like_cnt;  
 	
@@ -50,6 +53,8 @@ public class Dreamers implements Serializable {
 	
 	@Transient
 	private int like_checked;
+	@Transient
+	private int bookmark_checked;
 	
 	public int getId() {
 		return id;
@@ -118,6 +123,26 @@ public class Dreamers implements Serializable {
 
 	public final void setLike_checked(int like_checked) {
 		this.like_checked = like_checked;
+	}
+
+
+	public final int getBookmark_checked() {
+		return bookmark_checked;
+	}
+
+
+	public final void setBookmark_checked(int bookmark_checked) {
+		this.bookmark_checked = bookmark_checked;
+	}
+
+
+	public final int getBookmark_cnt() {
+		return bookmark_cnt;
+	}
+
+
+	public final void setBookmark_cnt(int bookmark_cnt) {
+		this.bookmark_cnt = bookmark_cnt;
 	}
 
 
