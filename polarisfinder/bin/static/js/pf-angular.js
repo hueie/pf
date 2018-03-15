@@ -680,6 +680,7 @@
 			      }
 			      callback && callback();
 			    }, function() {
+			    	alert("계정을 확인해주세요");
 			    	$rootScope.authenticated = false;
 			    	callback && callback();
 			    });
