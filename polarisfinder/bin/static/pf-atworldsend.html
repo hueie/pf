@@ -12,12 +12,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">PREPARING</h2>
-                    <!-- 
-                    <hr class="primary">
-                    <p >Hueie has everything you need to get your health up and running in no time! All of the softwares and applications on Hueie are up to date, free to download, and easy to use. No strings attached!</p>
-                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
-                	 -->
+                <input id="sessionuserid" type="hidden" value="">
+                    <div>
+					    <input id="wsText" type="text" >
+					    <input id="connect" type="button" value="connect" onclick="connector()">
+					    <input id="send" type="button" value="send" onclick="sendText()" style="display:none;">
+					</div>
+					<div id="chatdata"></div>
+					<br><br>
+					
+
                 </div>
             </div>
         </div>
