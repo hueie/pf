@@ -19,6 +19,7 @@ public interface DreamersDAO {
 	void deleteDreamerscomment(Dreamerscomment Dreamerscomment);
 	void createDreamerslike(Dreamerslike Dreamerslike);
 	List<Dreamerslike> getDreamerslikeById(int id, int paging);
+	boolean checkDreamerslike(Dreamerslike dreamerslike);
 	void deleteDreamerslike(Dreamerslike Dreamerslike);
 	
 }

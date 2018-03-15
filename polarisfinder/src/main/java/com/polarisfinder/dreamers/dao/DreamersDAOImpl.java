@@ -52,6 +52,17 @@ public class DreamersDAOImpl  implements DreamersDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked") //Ignore Warnings
+	@Override
+	public boolean checkDreamerslike(Dreamerslike dreamerslike) {
+		String hql = "FROM Dreamerslike WHERE dreamers_id = :dreamers_id AND user_id = :user_id ";
+		Query q = entityManager.createQuery(hql);
+		q.setParameter("dreamers_id", dreamerslike.getDreamers_id());
+		q.setParameter("user_id", dreamerslike.getUser_id());
+		List<Dreamerslike> dr =  q.getResultList();
+		return !dr.isEmpty();
+	}
+
 	@Override
 	public void deleteDreamers(Dreamers Dreamers) {
 		if(Dreamers.getId() != 0){
@@ -159,8 +170,8 @@ public class DreamersDAOImpl  implements DreamersDAO {
 	@Override
 	public void deleteDreamerslike(Dreamerslike Dreamerslike) {
 		if(Dreamerslike.getDreamers_id() != 0){
-			String hql = "delete Dreamerslike where dreamers_id = :dreamers_id";
-		    Query q = entityManager.createQuery(hql).setParameter("dreamers_id", Dreamerslike.getDreamers_id());
+			String hql = "delete Dreamerslike where dreamers_id = :dreamers_id AND user_id = :user_id";
+		    Query q = entityManager.createQuery(hql).setParameter("dreamers_id", Dreamerslike.getDreamers_id()).setParameter("user_id", Dreamerslike.getUser_id());
 		    q.executeUpdate();
 		}
 	}

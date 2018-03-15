@@ -18,6 +18,8 @@ public interface DreamersService {
 	boolean deleteDreamerscomment(Dreamerscomment Dreamerscomment);
 	boolean createDreamerslike(Dreamerslike Dreamerslike);
 	List<Dreamerslike> getDreamerslikeById(int id, int paging);
+	boolean checkDreamerslike(Dreamerslike dreamerslike);
 	boolean deleteDreamerslike(Dreamerslike Dreamerslike);
+	
 	
 }

@@ -95,6 +95,11 @@
 				    params: { dreamers_id: dreamers_id }
 				});
 			}
+			this.dreamersdislike = function(dreamers_id){
+				return $http.get('/dreamers/Dreamersdislike', {
+				    params: { dreamers_id: dreamers_id }
+				});
+			}
 			this.addDreamersComment = function(dreamers_id, dreamers_comment){
 				var data = $.param({
 					dreamers_id: dreamers_id,
@@ -168,12 +173,12 @@
 		                html += "<div class='well'>";
 		                html += "<div style='background-color:white;'>" + substr + "</div>";
 		                html += "<div>";
-		                html += "<div id='like_"+obj[idx].id+"' ng-click='dreamerslike("+obj[idx].id+")' ";
-		                //if($rootScope.currentuser.user_id == obj[idx].user_id){
-		                	html += "class='like_red_32'";
-		                //} else{
-		                //	html += "class='like_black_32'";
-		                //}
+		                html += "<div id='like_"+obj[idx].id+"'";
+		                if(obj[idx].like_checked == 1){
+		                	html += "ng-click='dreamerslike("+obj[idx].id+")' class='like_red_32'";
+		                } else{
+		                	html += "ng-click='dreamerslike("+obj[idx].id+")' class='like_black_32'";
+		                }
 		                html += " style='margin:5px;cursor: pointer;'></div>";
 		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
 		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
@@ -216,16 +221,28 @@
 			
 			$scope.dreamerslike = function(dreamers_id){
 				if($rootScope.authenticated){
-					console.log(dreamers_id);
-					dreamersService.dreamerslike(dreamers_id)
-					.then(function (response) {
-						$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
-			        	var cnt = $("#like_text_"+dreamers_id).text();
-			        	cnt = parseInt(cnt) +1;
-			        	$("#like_text_"+dreamers_id).text(cnt);
-					},function (error){
-						alert('something went wrong!!!');
-					});
+					var className = $("#like_"+dreamers_id).attr('class');
+					if(className == "like_black_32"){
+						dreamersService.dreamerslike(dreamers_id)
+						.then(function (response) {
+							$("#like_"+dreamers_id).removeClass( "like_black_32" ).addClass( "like_red_32" );
+				        	var cnt = $("#like_text_"+dreamers_id).text();
+				        	cnt = parseInt(cnt) +1;
+				        	$("#like_text_"+dreamers_id).text(cnt);
+						},function (error){
+							alert('something went wrong!!!');
+						});
+					}else{
+						dreamersService.dreamersdislike(dreamers_id)
+						.then(function (response) {
+							$("#like_"+dreamers_id).removeClass( "like_red_32" ).addClass( "like_black_32" );
+				        	var cnt = $("#like_text_"+dreamers_id).text();
+				        	cnt = parseInt(cnt) -1;
+				        	$("#like_text_"+dreamers_id).text(cnt);
+						},function (error){
+							alert('something went wrong!!!');
+						});
+					}
 				} else{
 					alert("로그인을 해주세요.");
 				}

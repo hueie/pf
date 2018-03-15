@@ -48,6 +48,9 @@ public class Dreamers implements Serializable {
 	@Transient
     private List dreamerscomment_list;
 	
+	@Transient
+	private int like_checked;
+	
 	public int getId() {
 		return id;
 	}
@@ -105,6 +108,16 @@ public class Dreamers implements Serializable {
 
 	public final void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
+	}
+
+
+	public final int getLike_checked() {
+		return like_checked;
+	}
+
+
+	public final void setLike_checked(int like_checked) {
+		this.like_checked = like_checked;
 	}
 
 

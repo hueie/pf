@@ -196,11 +196,29 @@ public class DreamersController {
 			@RequestParam(value="id", required = false)int id,
 			@RequestParam(value="paging", required = false)int paging
 			) {
+		CurrentUser currentUser = null;
+		try{
+			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		} catch(Exception e){
+			currentUser = null;
+		}
+		
+		//System.out.println("DreamersList : "+currentUser.getUsername());
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
 		for(int idx=0; idx < list.size(); idx++){
 			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
 			list.get(idx).setDreamerscomment_list(dr);
+			if(currentUser != null){
+				Dreamerslike dreamerslike = new Dreamerslike();
+				dreamerslike.setDreamers_id(list.get(idx).getId());
+				dreamerslike.setUser_id(currentUser.getUser_id());
+				if(dreamersService.checkDreamerslike(dreamerslike)){
+					list.get(idx).setLike_checked(1);
+				}else{
+					list.get(idx).setLike_checked(0);
+				}
+			}
 		}
 		
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
@@ -237,6 +255,31 @@ public class DreamersController {
 		boolean flag = dreamersService.createDreamerslike(dreamerslike);
 		if(flag) {
 			flag = dreamersService.increaseDreamerslikecnt(dreamers);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+        } else{
+        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+	}
+	
+	@GetMapping("Dreamersdislike")
+	public ResponseEntity<Void> Dreamersdislike(
+			//Principal pr,
+			@RequestParam(value="dreamers_id", required = false)int dreamers_id
+			) throws Exception {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("Dreamerslike !!!");
+		 
+		Dreamerslike dreamerslike = new Dreamerslike();
+		dreamerslike.setDreamers_id(dreamers_id); 
+		dreamerslike.setUser_id(currentUser.getUser_id());
+		dreamerslike.setReg_dt(new Date());
+		
+		Dreamers dreamers = new Dreamers();
+		dreamers.setId(dreamers_id);
+		
+		boolean flag = dreamersService.deleteDreamerslike(dreamerslike);
+		if(flag) {
+			flag = dreamersService.decreaseDreamerslikecnt(dreamers);
 			return new ResponseEntity<Void>(HttpStatus.OK);
         } else{
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);

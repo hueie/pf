@@ -74,6 +74,11 @@ public class DreamersServiceImpl implements DreamersService {
 	
 
 	@Override
+	public boolean checkDreamerslike(Dreamerslike dreamerslike) {
+		return DreamersDAO.checkDreamerslike(dreamerslike);
+	}
+	
+	@Override
 	public synchronized boolean deleteDreamerslike(Dreamerslike Dreamerslike){
 		DreamersDAO.deleteDreamerslike(Dreamerslike);
     	return true;
