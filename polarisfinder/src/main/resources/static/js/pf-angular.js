@@ -1,3 +1,6 @@
+var global_url = "localhost:8888";
+//var global_url = "polarisfinder.com";
+							
 		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
 		app.config(function($routeProvider, $httpProvider) {
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -655,11 +658,9 @@
 				}
 			}
 			$scope.connector = function(){
-				var url = "ws://localhost:8888/chatroom";
-				//var url = "ws://polarisfinder.com/chatroom";
-				//alert(url);
-				ws = new WebSocket(url);
-				
+				var tmpurl = "ws://"+global_url+"/chatroom";
+				//alert(tmpurl);
+				ws = new WebSocket(tmpurl);
 				ws.onopen = function() {
 					//alert("Connection Open");
 					$("#chatdata").append("열결됨");
