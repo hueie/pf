@@ -8,20 +8,22 @@
         </div>
     </header>
 
-    <section id="about">
+    <section id="atworldsendController" ng-controller="atworldsendController" data-ng-init="init()">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                <input id="sessionuserid" type="hidden" value="">
-                    <div>
-					    <input id="wsText" type="text" >
-					    <input id="connect" type="button" value="connect" onclick="connector()">
-					    <input id="send" type="button" value="send" onclick="sendText()" style="display:none;">
+                    <div class="input-group">
+					    <input class="form-control" placeholder="Text Here!"  id="wsText" type="text" >
+					    <div class="input-group-btn" >
+						    <button type="button"class="btn btn-primary" id="connect" ng-click="connector()">connect</button>
+						    <button type="button" class="btn btn-primary" id="send" ng-click="sendText()" style="display:none;">send</button>
+					  	</div>
 					</div>
-					<div id="chatdata"></div>
-					<br><br>
-					
-
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+					<div id="chatdata" class="well"></div>
                 </div>
             </div>
         </div>

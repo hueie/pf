@@ -2,8 +2,8 @@
 var ws = null;
 
 function connector() {
-	var url = "ws://www.polarisfinder.com/chatroom";
-	//var url = "ws://www.polarisfinder.com/chatroom";
+	//var url = "ws://polarisfinder.com/chatroom";
+	var url = "ws://localhost:8888/chatroom";
 	//alert(url);
 	ws = new WebSocket(url);
 	
