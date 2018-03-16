@@ -8,29 +8,18 @@
     <section id="about" ng-controller="userController">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-	                <div ng-show="authenticated">
-						<p>LOGIN SUCCESS</p>
-					</div>
-					<div  ng-show="!authenticated">
-						<p>Login to see your greeting</p>
-					</div>
-					<form id="signinform" class="login-form" role="form" ng-submit="login()" >
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <label for="username">Email:</label>
-					      <input id="username" type="email" name="username" ng-model="credentials.username" class="validate"/>
-					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <label for="password">Password:</label>
-					      <input id="password" type="password" name="password" ng-model="credentials.password" class="validate"/>
-					    </div>
-					  </div>
-					  <input class="login-btn waves-effect waves-light btn" type="submit" value="로그인"/>
+                <div class="col-lg-4 col-lg-offset-4 text-center">
+                	<form id="signinform" class="login-form" role="form" ng-submit="login()" >
+					    <div class="input-group">
+					    	<span class="input-group-addon" >Email</span>
+					     	<input id="username" class="form-control" type="email" name="username" ng-model="credentials.username"/>
+						</div>
+						<div class="input-group">
+					    	<span class="input-group-addon" >Password</span>
+					    	<input id="password" class="form-control" type="password" name="password" ng-model="credentials.password"/>
+					  	</div>
+					  	<input class="btn btn-primary btn-block" type="submit" value="로그인"/>
 					</form>
-
                 </div>
             </div>
         </div>

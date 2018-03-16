@@ -1,5 +1,5 @@
-var global_url = "localhost:8888";
-//var global_url = "polarisfinder.com";
+//var global_url = "localhost:8888";
+var global_url = "polarisfinder.com";
 							
 		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
 		app.config(function($routeProvider, $httpProvider) {

@@ -10,31 +10,22 @@
     <section id="about" ng-controller="userController">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-
+                <div class="col-lg-4 col-lg-offset-4 text-center">
 					<form id="signupform" class="signup-form" action="/user/Signup" method="POST">
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <label for=""username"">Email:</label>
-					      <input id="username" name="username" type="email" ng-model="credentials.username" class="validate"/>
+						<div class="input-group">
+					    	<span class="input-group-addon" >Email</span>
+					        <input class="form-control" id="username" name="username" type="email" ng-model="credentials.username"/>
+					  	</div>
+						<div class="input-group">
+					    	<span class="input-group-addon" >Password</span>
+					        <input class="form-control" id="password" name="password" type="password" ng-model="credentials.password"/>
 					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <label for="password">Password:</label>
-					      <input id="password" name="password" type="password" ng-model="credentials.password" class="validate"/>
+					  	<div class="input-group">
+					    	<span class="input-group-addon" >Nickname</span>
+					      	<input class="form-control" id="nickname" name="nickname" type="text" style="background-color: rgb(250, 255, 189) !important;"/>
 					    </div>
-					  </div>
-					  <div class="row">
-					    <div class="input-field col s12">
-					      <label for="nickname">Nick name:</label>
-					      <input id="nickname" name="nickname" type="text" class="validate"/>
-					    </div>
-					  </div>
-					  
-					  <input class="signup-btn waves-effect waves-light btn" type="button" value="가입하기" ng-click="signup()"/>
+					  	<input class="btn btn-primary btn-block" type="button" value="가입하기" ng-click="signup()"/>
 					</form>
-
                 </div>
             </div>
         </div>
