@@ -645,8 +645,8 @@
 				ws.send($("#wsText").val());
 			}
 			$scope.connector = function(){
-				//var url = "ws://localhost:8888/chatroom";
-				var url = "ws://polarisfinder.com/chatroom";
+				var url = "ws://localhost:8888/chatroom";
+				//var url = "ws://polarisfinder.com/chatroom";
 				//alert(url);
 				ws = new WebSocket(url);
 				
