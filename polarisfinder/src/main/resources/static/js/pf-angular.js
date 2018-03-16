@@ -1,5 +1,5 @@
-//var global_url = "localhost:8888";
-var global_url = "polarisfinder.com";
+var global_url = "localhost:8888";
+//var global_url = "polarisfinder.com";
 							
 		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
 		app.config(function($routeProvider, $httpProvider) {
@@ -511,12 +511,11 @@ var global_url = "polarisfinder.com";
 
 				// Create the search box and link it to the UI element.
 				
-				var searchedmapplace = document.getElementById('searchedmapplace');
 				var input = document.getElementById('pac-input');
 				var searchBox = new google.maps.places.SearchBox(input);
 				
 				
-				map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+				//map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 				// Bias the SearchBox results towards current map's viewport.
 				map.addListener('bounds_changed', function() {
@@ -564,7 +563,6 @@ var global_url = "polarisfinder.com";
 						$scope.placelatitude = latitude;
 						$scope.placelongitude = longitude;
 						$scope.placename = input.value;
-						searchedmapplace.innerHTML  = input.value;
 						
 						if (place.geometry.viewport) {
 							// Only geocodes have viewport.
@@ -651,10 +649,11 @@ var global_url = "polarisfinder.com";
 			}
 			$scope.sendText = function(){
 				ws.send($("#wsText").val());
+				$("#wsText").val("");
 			}
 			$scope.myEnterPress = function(keyEvent) {
 				if (keyEvent.which === 13){
-					ws.send($("#wsText").val());
+					this.sendText();
 				}
 			}
 			$scope.connector = function(){
