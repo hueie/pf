@@ -1,5 +1,6 @@
 package com.polarisfinder.dreamers.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,14 +47,12 @@ public class DreamersController {
 	@Value("${polarisfinder.file.upload.dir}")
 	private String polarisfinder_FILE_UPLOAD_DIR;
 	
-    private final Logger logger = LoggerFactory.getLogger(DreamersController.class);
-
     
 	@PostMapping("DreamersUpload")
 	public ResponseEntity<JSONObject> DreamersUpload(
 			@RequestParam("files[]") List<MultipartFile> uploadfiles
 	    ) throws Exception {
-        logger.debug("Multiple file upload!");
+		System.out.println("Multiple file upload!");
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
         // Get file name
@@ -99,8 +98,12 @@ public class DreamersController {
                 continue; //next pls
             }
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(polarisfinder_FILE_UPLOAD_DIR +uploadpath+ file.getOriginalFilename());
+            String strpath = polarisfinder_FILE_UPLOAD_DIR +uploadpath+ file.getOriginalFilename();
+            Path path = Paths.get(strpath);
             abspath = uploadpath+ file.getOriginalFilename();
+            System.out.println("Upload Path : "+abspath);
+            File folder = new File(strpath);
+            folder.getParentFile().mkdirs();
             Files.write(path, bytes);
         }
         return abspath;

@@ -60,13 +60,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.httpBasic()
-//		.headers()
-		//.contentTypeOptions().disable()
-		//.xssProtection().disable()
-		//.cacheControl().disable()
-		//.frameOptions().disable()
-		//.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
+		http
+		.httpBasic()
+		/* 
+		.headers()
+		.contentTypeOptions().disable()
+		.xssProtection().disable()
+		.cacheControl().disable()
+		.frameOptions().disable()
+		.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("localhost:8888","www.youtube.com", "www.google.com"))))
+		*/
 		.and()
 		.authorizeRequests()
 			.antMatchers("/").permitAll()
@@ -74,11 +77,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.anyRequest().authenticated()
 		.and()
 			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-			.csrf().csrfTokenRepository(csrfTokenRepository())
+			.csrf()
+			.disable();
+			/* csrf 토큰을 사용하면 에디터에서 이미지 업로드가 안됨
+			.csrfTokenRepository(csrfTokenRepository())
 		.and()
 		    .logout()
 		    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 		    .logoutSuccessUrl("/pf-main.html");
+			*/
 		   //.frameOptions().disable()
            //.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youbube.com"))));
 		   /* 

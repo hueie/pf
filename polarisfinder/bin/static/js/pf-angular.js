@@ -1,6 +1,5 @@
-var global_url = "localhost:8888";
-//var global_url = "polarisfinder.com";
-							
+var global_url = location.host;
+
 		var app = angular.module("myApp", [ "ngRoute", "ngSanitize"]);
 		app.config(function($routeProvider, $httpProvider) {
 			$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -332,19 +331,15 @@ var global_url = "localhost:8888";
 		}]);
 		app.controller('dreamerseditController', [ '$rootScope','$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
 			function($rootScope, $location, $scope, $route, $routeParams, dreamerseditService) {
-			
+			var editor = null;
 			$scope.init = function(){
 				$scope.id = $routeParams.id;
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
 					
-				var editor = new MediumEditor('.editable');
-			    $('.editable').mediumInsert({
+				editor = new MediumEditor('#content');
+			    $('#content').mediumInsert({
 			        editor: editor,
-			        placeholder: {
-			            text: 'Type your text',
-			            hideOnClick: true
-			        },
 			        addons: {
 	                    	images: {
 		                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
