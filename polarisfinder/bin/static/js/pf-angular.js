@@ -630,19 +630,29 @@
 			function($rootScope, $scope) {
 			
 		}]);
-		app.controller('portroyalController', [ '$rootScope', '$scope',
-			function($rootScope, $scope) {
+		app.controller('portroyalController', [ '$rootScope', '$scope', '$location',
+			function($rootScope, $scope, $location) {
 			
 		}]);
-		app.controller('atworldsendController', [ '$rootScope', '$scope',
-			function($rootScope, $scope) {
+		app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
+			function($rootScope, $scope, $location) {
 			var ws = null;
 			
 			$scope.init = function(){
-				this.connector();
+				if ($rootScope.authenticated) {
+					this.connector();
+		        } else {
+					alert("로그인을 해주세요.");
+		        	$location.path("/signin");
+		        }
 			}
 			$scope.sendText = function(){
 				ws.send($("#wsText").val());
+			}
+			$scope.myEnterPress = function(keyEvent) {
+				if (keyEvent.which === 13){
+					ws.send($("#wsText").val());
+				}
 			}
 			$scope.connector = function(){
 				var url = "ws://localhost:8888/chatroom";
