@@ -24,7 +24,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	    //registry.addResourceHandler("/static/**").addResourceLocations("/resources/static");
 	    //registry.addResourceHandler("/js/**").addResourceLocations("/resources/static/js");
 	    //registry.addResourceHandler("/images/**").addResourceLocations("/resources/static/images");
-	    registry.addResourceHandler("/files/**").addResourceLocations("file:///"+polarisfinder_FILE_UPLOAD_DIR + "/").setCachePeriod(0);
+	    registry.addResourceHandler("/files/**").addResourceLocations("file:///"+polarisfinder_FILE_UPLOAD_DIR + "/files/").setCachePeriod(0);
 	    //registry.addResourceHandler("/other-files/**").addResourceLocations("/resources/static/other-files");
 	    
 	    
