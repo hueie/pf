@@ -581,7 +581,15 @@ var global_url = location.host;
 				this.getChitChatpubList();
 				console.log('Loading chitchatpub');
 			}
-			$scope.getChitChatpubList = function(){
+			$scope.getChitChatpubList = function(pPaging){
+				if(pPaging == 0){
+					$scope.paging = pPaging;
+				}
+				console.log($scope.paging);
+				if($("#pac-input").val() == ''){
+					$scope.placelatitude=0;
+					$scope.placelongitude=0;
+				}
 				chitchatpubService.getChitChatpubList($scope.placelatitude, $scope.placelongitude, $scope.paging)
 				.then(function (response) {
 					$scope.paging = $scope.paging + 1;
@@ -611,15 +619,19 @@ var global_url = location.host;
 			
 			$scope.addComment = function(){
 				var placecomment = $("#placecomment").val();
-				chitchatpubService.addComment($scope.placename, $scope.placelatitude, $scope.placelongitude, placecomment)
-				.then(function (response) {
-					alert("Chit! - Chat!");
-					$scope.paging = 0;
-					$scope.getChitChatpubList();
-				},function (error){
-					alert('something went wrong!!!');
-				});
-				this.getChitChatpubList();
+				if($scope.placename !='' && $scope.placelatitude != '' && $scope.placelongitude !='' && placecomment != ''){
+					chitchatpubService.addComment($scope.placename, $scope.placelatitude, $scope.placelongitude, placecomment)
+					.then(function (response) {
+						alert("Chit! - Chat!");
+						$scope.getChitChatpubList(0);
+					},function (error){
+						alert('something went wrong!!!');
+					});
+					this.getChitChatpubList();
+				}else{
+					alert("장소를 검색하고 내용을 입력햊주세요.");
+				}
+				
 			}
 		}]);
 		app.controller('tortugaislandController', [ '$rootScope', '$scope',
