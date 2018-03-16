@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 
 @Transactional
@@ -246,6 +247,51 @@ public class DreamersDAOImpl  implements DreamersDAO {
 		if(Dreamers.getId() != 0){
 			String hql = "UPDATE Dreamers t set t.bookmark_cnt = t.bookmark_cnt - 1 WHERE t.id = :id";
 		    Query q = entityManager.createQuery(hql).setParameter("id", Dreamers.getId());
+		    q.executeUpdate();
+		}
+	}
+	
+	
+	
+	@Override
+	public void createDreamersfile(Dreamersfile Dreamersfile) {
+		if(Dreamersfile.getDreamersfile_id() == 0){
+			entityManager.persist(Dreamersfile);
+		} else{
+			entityManager.merge(Dreamersfile);
+		}
+	}
+	
+	@SuppressWarnings("unchecked") //Ignore Warnings
+	@Override
+	public List<Dreamersfile> getDreamersfileById(int id, int paging) {
+		String hql;
+		if(id == 0 ) {
+			System.out.println("paging : " + paging);
+			hql = "FROM Dreamersfile ORDER BY dreamersfile_id DESC ";
+			Query q = entityManager.createQuery(hql);
+			q.setFirstResult(paging*5);
+			q.setMaxResults(5);
+			
+			return (List<Dreamersfile>) q.getResultList();
+		} else {
+			System.out.println("paging : " + paging);
+			hql = "FROM Dreamersfile  WHERE dreamersfile_id = :dreamersfile_id ";
+			Query q = entityManager.createQuery(hql);
+			q.setFirstResult(paging*5);
+			q.setMaxResults(5);		
+			q.setParameter("id", id);
+			
+			return (List<Dreamersfile>) q.getResultList();
+		}
+	}
+	
+
+	@Override
+	public void deleteDreamersfile(Dreamersfile Dreamersfile) {
+		if(Dreamersfile.getDreamersfile_id() != 0){
+			String hql = "delete Dreamersfile where dreamersfile_id = :dreamersfile_id";
+		    Query q = entityManager.createQuery(hql).setParameter("dreamersfile_id", Dreamersfile.getDreamersfile_id());
 		    q.executeUpdate();
 		}
 	}

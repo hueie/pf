@@ -9,6 +9,7 @@ import com.polarisfinder.dreamers.dao.DreamersDAO;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 @Service
 public class DreamersServiceImpl implements DreamersService {
@@ -118,6 +119,23 @@ public class DreamersServiceImpl implements DreamersService {
 	@Override
 	public synchronized boolean decreaseDreamersbookmarkcnt(Dreamers Dreamers){
 		DreamersDAO.decreaseDreamersbookmarkcnt(Dreamers);
+    	return true;
+	}
+	
+	@Override
+	public synchronized boolean createDreamersfile(Dreamersfile Dreamersfile){
+		DreamersDAO.createDreamersfile(Dreamersfile);
+    	return true;
+	}
+
+	@Override
+	public List<Dreamersfile> getDreamersfileById(int id, int paging) {
+		return DreamersDAO.getDreamersfileById(id, paging);
+	}
+	
+	@Override
+	public synchronized boolean deleteDreamersfile(Dreamersfile Dreamersfile){
+		DreamersDAO.deleteDreamersfile(Dreamersfile);
     	return true;
 	}
 }

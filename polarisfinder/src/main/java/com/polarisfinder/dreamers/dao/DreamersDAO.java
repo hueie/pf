@@ -5,6 +5,7 @@ import java.util.List;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 
 public interface DreamersDAO {
@@ -31,5 +32,10 @@ public interface DreamersDAO {
 	void deleteDreamersbookmark(Dreamersbookmark Dreamersbookmark);
 	void increaseDreamersbookmarkcnt(Dreamers Dreamers);
 	void decreaseDreamersbookmarkcnt(Dreamers Dreamers);
+
+    void createDreamersfile(Dreamersfile Dreamersfile);
+	List<Dreamersfile> getDreamersfileById(int id, int paging);
+	void deleteDreamersfile(Dreamersfile Dreamersfile);
+	
 	
 }
