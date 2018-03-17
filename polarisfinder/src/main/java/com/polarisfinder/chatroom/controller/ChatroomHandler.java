@@ -24,7 +24,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 	@Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String sessionName = session.getPrincipal().getName();
-		System.out.println("Session Name : "+sessionName);
+		//System.out.println("Session Name : "+sessionName);
 		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
 		//CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		for(WebSocketSession sess : sessionList){
@@ -36,7 +36,13 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		String sessionName = session.getPrincipal().getName();
 		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
+		for(int i=0; i<sessionList.size(); i++) {
+			session.sendMessage(new TextMessage("add"+"|"+sessionList.get(i).getPrincipal().getName()));
+		}
 		sessionList.add(session);
+		for(WebSocketSession sess : sessionList){
+			sess.sendMessage(new TextMessage("add"+"|"+sessionName));
+		}
 		System.out.println("채팅방 입장자: "+sessionName);
 	}
 	
@@ -51,6 +57,10 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 		String sessionName = session.getPrincipal().getName();
 		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
 		sessionList.remove(session);
+		for(WebSocketSession sess : sessionList){
+			
+			sess.sendMessage(new TextMessage("del"+"|"+sessionName));
+		}
 		System.out.println("채팅방 퇴장자: "+sessionName);
 	}
 }

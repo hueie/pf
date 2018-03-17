@@ -690,17 +690,29 @@ var global_url = location.host;
 					message=strArray[1];
 					
 					var printHTML="";
-					if(sessionusername == $rootScope.username){
+					if(sessionusername == 'add'){
+						var tmpmsg = message.replace("@", "_");
+						tmpmsg = tmpmsg.replace(".", "_");
+						printHTML += "<div id='"+tmpmsg+"'>";
+						printHTML += message
+						printHTML += "</div>"
+						$("#chatmembers").append(printHTML);
+					} else if(sessionusername == 'del'){
+						var tmpmsg = message.replace("@", "_");
+						tmpmsg = tmpmsg.replace(".", "_");
+						$("#"+tmpmsg).remove();
+					} else if(sessionusername == $rootScope.username){
 						printHTML += "<div style='text-align: right;'>";
 						//printHTML += "<strong style='background-color:yellow;'>["+sessionusername+"] -> "+message+"</strong>";
 						printHTML += "<strong style='border-radius:25px;padding:5px;background:#f5f5dc;'>"+message+"</strong>";
 						printHTML += "</div>";
+						$("#chatdata").append(printHTML);
 					}else{
 						printHTML += "<div style='text-align: left;'>";
 						printHTML += "<strong style='border-radius:25px;padding:5px;background:white;'>["+sessionusername+"] -> "+message+"</strong>";
 						printHTML += "</div>";
+						$("#chatdata").append(printHTML);
 					}
-					$("#chatdata").append(printHTML);
 					//console.log('chatting data: ' + data);
 				};
 				ws.onclose = function() {
