@@ -1,0 +1,94 @@
+server:
+  port: 8888
+server:
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/polarisfinder?useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: 1234
+    tomcat:
+      max-wait: 20000
+      max: active=50
+      max-idle: 20
+      min-idle: 15
+    sqlScriptEncoding: UTF-8
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        id:
+          new_generator_mappings:  false
+        format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE 
+
+
+polarisfinder:
+  file:
+    upload:
+      dir: C:/upload
+  libs:
+    dir:
+      C:/Program Files/Java/jdk1.8.0_131/jnilib
+
+polarisfinder:
+  video:
+    server:
+      ip: localhost
+      port: 6789
+
+# ==============================================================
+
+# = Spring Security / Queries for AuthenticationManagerBuilder  
+
+# ==============================================================
+#For jdbc Auth
+#spring.queries.users-query=select username, password, active from user where username=?
+#spring.queries.roles-query=select u.username, r.role from user u inner join user_role ur on(u.user_id=ur.user_id) inner join role r on(ur.role_id=r.role_id) where u.username=?
+
+
+facebook:
+  client:
+    clientId: 233668646673605
+    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+    accessTokenUri: https://graph.facebook.com/oauth/access_token
+    userAuthorizationUri: https://www.facebook.com/dialog/oauth
+    tokenName: oauth_token
+    authenticationScheme: query
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://graph.facebook.com/me
+
+
+github:
+  client:
+    clientId: bd1c0a783ccdd1c9b9e4
+    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user
+
+
+
+
+

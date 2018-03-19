@@ -78,6 +78,23 @@ var global_url = location.host;
 		app.controller('mainController', [ '$rootScope', '$scope', 
 			function($rootScope, $scope) {
 			
+			$scope.init2 = function(){
+				$.ajaxSetup({
+					beforeSend : function(xhr, settings) {
+					  if (settings.type == 'POST' || settings.type == 'PUT'
+					      || settings.type == 'DELETE') {
+					    if (!(/^http:.*/.test(settings.url) || /^https:.*/
+					        .test(settings.url))) {
+					      // Only send the token to relative URLs i.e. locally.
+					      xhr.setRequestHeader("X-XSRF-TOKEN",
+					          Cookies.get('XSRF-TOKEN'));
+					    }
+					  }
+					}
+				});
+			}
+			
+			
 		}]);
 		app.service('dreamersService', ['$http', function($http){
 			this.init = function(){
@@ -750,7 +767,37 @@ var global_url = location.host;
 		app.controller('userController', [ '$rootScope', '$scope', '$http', '$location', 'userService',
 			function($rootScope, $scope, $http, $location, userService) {
 			$scope.init = function(){
+				/*
+				  window.fbAsyncInit = function() {
+				    FB.init({
+				      appId      : '2062485104030852',
+				      cookie     : true,
+				      xfbml      : true,
+				      version    : '{latest-api-version}'
+				    });
+				      
+				    FB.AppEvents.logPageView();   
+				      
+				  };
 
+				  (function(d, s, id){
+				     var js, fjs = d.getElementsByTagName(s)[0];
+				     if (d.getElementById(id)) {return;}
+				     js = d.createElement(s); js.id = id;
+				     js.src = "https://connect.facebook.net/en_US/sdk.js";
+				     fjs.parentNode.insertBefore(js, fjs);
+				   }(document, 'script', 'facebook-jssdk'));
+				  FB.getLoginStatus(function(response) {
+					    statusChangeCallback(response);
+				  });
+				  
+				  function checkLoginState() {
+					  FB.getLoginStatus(function(response) {
+						  alert(response.status);
+						  //statusChangeCallback(response);
+					  });
+				  }
+				  */
 			}
 			var authenticate = function(credentials, callback) {
 

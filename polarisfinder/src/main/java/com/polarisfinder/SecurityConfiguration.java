@@ -1,11 +1,18 @@
 package com.polarisfinder;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,15 +22,23 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CompositeFilter;
 
 @Configuration
+@EnableOAuth2Client
+//@EnableAuthorizationServer
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Autowired
@@ -31,6 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private UserDetailsService userDetailsService;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	OAuth2ClientContext oauth2ClientContext;
 	@Autowired
 	private DataSource dataSource;
 	//jdbc Auth
@@ -76,7 +94,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated()
 		.and()
-			.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
+			//.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.csrf()
 			.disable();
 			/* csrf 토큰을 사용하면 에디터에서 이미지 업로드가 안됨
@@ -131,7 +150,81 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		  HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
 		  repository.setHeaderName("X-XSRF-TOKEN");
 		  return repository;
+	}
+	/* Example
+	private OAuth2ClientAuthenticationProcessingFilter filter() {
+		// Creating the filter for "/facebook/login" url
+		OAuth2ClientAuthenticationProcessingFilter oAuth2Filter = new OAuth2ClientAuthenticationProcessingFilter(
+				"/facebook/login");
+
+		// Creating the rest template for getting connected with OAuth service.
+		// The configuration parameters will inject while creating the bean.
+		OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(authorizationCodeResourceDetails,
+				oauth2ClientContext);
+		oAuth2Filter.setRestTemplate(oAuth2RestTemplate);
+
+		// setting the token service. It will help for getting the token and
+		// user details from the OAuth Service
+		oAuth2Filter.setTokenServices(new UserInfoTokenServices(resourceServerProperties.getUserInfoUri(),
+				resourceServerProperties.getClientId()));
+
+		return oAuth2Filter;
+	}
+	*/
+	private Filter ssoFilter() {
+		  CompositeFilter filter = new CompositeFilter();
+		  List<Filter> filters = new ArrayList<>();
+		  filters.add(ssoFilter(facebook(), "/login/facebook"));
+		  filters.add(ssoFilter(github(), "/login/github"));
+		  filter.setFilters(filters);
+		  return filter;
+	}
+	
+	private Filter ssoFilter(ClientResources client, String path) {
+		  OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+		  OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
+		  filter.setRestTemplate(template);
+		  UserInfoTokenServices tokenServices = new UserInfoTokenServices(
+		      client.getResource().getUserInfoUri(), client.getClient().getClientId());
+		  //System.out.println("SSO Client ID : "+client.getClient().getClientId());
+		  tokenServices.setRestTemplate(template);
+		  filter.setTokenServices(tokenServices);
+		  return filter;
+	}
+
+	class ClientResources {
+		@NestedConfigurationProperty
+		private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
+		@NestedConfigurationProperty
+		private ResourceServerProperties resource = new ResourceServerProperties();
+		public AuthorizationCodeResourceDetails getClient() {
+		    return client;
 		}
+		public ResourceServerProperties getResource() {
+		    return resource;
+		}
+	}
 	
 	
+	@Bean
+	public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+	    FilterRegistrationBean registration = new FilterRegistrationBean();
+	    registration.setFilter(filter);
+	    registration.setOrder(-100);
+	    return registration;
+	}
+	
+	@Bean
+	@ConfigurationProperties("github")
+	public ClientResources github() {
+		//System.out.println("github client resource");
+		return new ClientResources();
+	}
+
+	@Bean
+	@ConfigurationProperties("facebook")
+	public ClientResources facebook() {
+		//System.out.println("facebook client resource");
+		return new ClientResources();
+	}
 }
