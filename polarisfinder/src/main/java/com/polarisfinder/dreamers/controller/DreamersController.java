@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.service.DreamersService;
 import com.polarisfinder.user.entity.CurrentUser;
@@ -64,7 +65,6 @@ public class DreamersController {
         if (StringUtils.isEmpty(uploadedFileName)) {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
-        
         
         String abspath = "";
         String uploadpath = "/files/" + currentUser.getUser_id() + "/";

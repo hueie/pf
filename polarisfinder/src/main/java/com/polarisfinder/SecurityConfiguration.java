@@ -27,11 +27,9 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.CompositeFilter;
@@ -174,14 +172,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private Filter ssoFilter() {
 		  CompositeFilter filter = new CompositeFilter();
 		  List<Filter> filters = new ArrayList<>();
-		  filters.add(ssoFilter(facebook(), "/login/facebook"));
-		  filters.add(ssoFilter(github(), "/login/github"));
+		  filters.add(ssoFilter(facebook(), "facebook"));
+		  filters.add(ssoFilter(github(), "github"));
 		  filter.setFilters(filters);
 		  return filter;
 	}
 	
-	private Filter ssoFilter(ClientResources client, String path) {
-		  OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+	private Filter ssoFilter(ClientResources client, String name) {
+		  OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter("/login/"+name);
 		  OAuth2RestTemplate template = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
 		  filter.setRestTemplate(template);
 		  UserInfoTokenServices tokenServices = new UserInfoTokenServices(
@@ -189,6 +187,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		  //System.out.println("SSO Client ID : "+client.getClient().getClientId());
 		  tokenServices.setRestTemplate(template);
 		  filter.setTokenServices(tokenServices);
+		  //filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(name));
 		  return filter;
 	}
 
