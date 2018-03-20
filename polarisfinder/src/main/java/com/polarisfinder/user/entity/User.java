@@ -60,6 +60,10 @@ public class User {
 	@NotEmpty(message = "*Please provide your nickname")
 	private String nickname;
 	
+	@Column(name="type")
+	@NotEmpty(message = "*Please provide your type")
+	private String type;
+
 	@Column(name="active")
 	private int active;
 	
@@ -120,6 +124,12 @@ public class User {
 	}
 	public final String getUsername() {
 		return username;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

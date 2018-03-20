@@ -35,7 +35,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler
 		// 연결되어 있는 계정이 있는지 확인합니다.
 		// 이전 강의 AccountService.getAccountByOAuthId 참고!!
 		User account = userService.findByUserName(auth.getName());
-		
+		System.out.println(type + " login : "+auth.getName());
 		// 연결되어 있는 계정이 있는경우.
 		if (account != null)
 		{

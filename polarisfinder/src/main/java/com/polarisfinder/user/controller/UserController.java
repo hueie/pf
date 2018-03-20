@@ -61,7 +61,7 @@ public class UserController {
 
 		Role userRole = roleService.findByRole("ADMIN");
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
+		user.setType("pf");
 		boolean flag = userService.createUser(user);
 		if (flag) {
 			System.out.println("sign up true");
