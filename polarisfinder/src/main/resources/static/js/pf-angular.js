@@ -77,7 +77,11 @@ var global_url = location.host;
 		}]);
 		app.controller('mainController', [ '$rootScope', '$scope', 
 			function($rootScope, $scope) {
-			
+			$scope.init = function(){
+				if (window.location.hash && window.location.hash == '#_=_') {
+			        window.location.hash = '';
+			    }
+			}
 			$scope.init2 = function(){
 				$.ajaxSetup({
 					beforeSend : function(xhr, settings) {
@@ -681,7 +685,7 @@ var global_url = location.host;
 				}
 			}
 			$scope.connector = function(){
-				var tmpurl = "ws://"+global_url+"/chatroom";
+				var tmpurl = "wss://"+global_url+"/chatroom";
 				//alert(tmpurl);
 				ws = new WebSocket(tmpurl);
 				ws.onopen = function() {
