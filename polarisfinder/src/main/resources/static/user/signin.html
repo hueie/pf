@@ -5,18 +5,16 @@
             </div>
         </div>
     </header>
-    <section id="about" ng-controller="userController">
+    <section id="about" ng-controller="userController" data-ng-init="init()">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-4 text-center">
                 <div>
-					<!-- 
-					<fb:login-button 
-					  scope="public_profile,email"
-					  onlogin="checkLoginState();">
-					</fb:login-button>
-					 -->
-					With Facebook: <a href="/login/facebook">click here</a>
+                	<a href="/login/facebook">
+					<div id="spinner" style="background: #4267b2;border-radius: 5px;color: white;height: 40px;text-align: center;width: 250px; cursor:pointer;" >
+					continue_with
+					</div>
+					</a>
 				</div>
 	
                 	<form id="signinform" class="login-form" role="form" ng-submit="login()" >

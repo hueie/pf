@@ -75,12 +75,36 @@ var global_url = location.host;
 				  });
 			}
 		}]);
-		app.controller('mainController', [ '$rootScope', '$scope', 
-			function($rootScope, $scope) {
+		app.service('mainService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.user = function(){
+				return $http.get('/user/user');
+			}
+		}])
+		app.controller('mainController', [ '$rootScope', '$scope', 'mainService',
+			function($rootScope, $scope, mainService) {
+			$scope.user = function(){
+				mainService.user()
+				.then(function(response) {
+			    	  $rootScope.currentuser = response.data;
+			      if ($rootScope.currentuser.username) {
+			    	  $rootScope.username = $rootScope.currentuser.username;
+			    	  $rootScope.authenticated = true;
+			      } else {
+			    	  $rootScope.authenticated = false;
+			      }
+			    }, function() {
+			    	//alert("계정을 확인해주세요");
+			    	$rootScope.authenticated = false;
+			    });
+			}
 			$scope.init = function(){
 				if (window.location.hash && window.location.hash == '#_=_') {
 			        window.location.hash = '';
 			    }
+				$scope.user();
 			}
 			$scope.init2 = function(){
 				$.ajaxSetup({
@@ -766,42 +790,14 @@ var global_url = location.host;
 	            }
 				return $http.post('/user/Signup', data, config);
 			}
+			this.loginfacebook = function(){
+				return $http.get('/login/facebook');
+			}
 			
 		}]);
 		app.controller('userController', [ '$rootScope', '$scope', '$http', '$location', 'userService',
 			function($rootScope, $scope, $http, $location, userService) {
 			$scope.init = function(){
-				/*
-				  window.fbAsyncInit = function() {
-				    FB.init({
-				      appId      : '2062485104030852',
-				      cookie     : true,
-				      xfbml      : true,
-				      version    : '{latest-api-version}'
-				    });
-				      
-				    FB.AppEvents.logPageView();   
-				      
-				  };
-
-				  (function(d, s, id){
-				     var js, fjs = d.getElementsByTagName(s)[0];
-				     if (d.getElementById(id)) {return;}
-				     js = d.createElement(s); js.id = id;
-				     js.src = "https://connect.facebook.net/en_US/sdk.js";
-				     fjs.parentNode.insertBefore(js, fjs);
-				   }(document, 'script', 'facebook-jssdk'));
-				  FB.getLoginStatus(function(response) {
-					    statusChangeCallback(response);
-				  });
-				  
-				  function checkLoginState() {
-					  FB.getLoginStatus(function(response) {
-						  alert(response.status);
-						  //statusChangeCallback(response);
-					  });
-				  }
-				  */
 			}
 			var authenticate = function(credentials, callback) {
 
@@ -838,6 +834,15 @@ var global_url = location.host;
 			        	$scope.error = true;
 			        }
 			    });
+			};
+			$scope.loginfacebook = function() {
+				userService.loginfacebook()
+				.then(function (response) {
+					//$scope.login();
+					alert('success');
+				},function (error){
+					alert('something went wrong!!!');
+				});
 			};
 			$scope.signup = function(){
 				var username = $("#username").val();

@@ -5,15 +5,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.facebook.api.Facebook;
@@ -28,13 +29,15 @@ import com.polarisfinder.user.service.UserService;
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 	final String type;
 
+	private UserDetailsService userDetailsService;
 	private UserService userService;
 	private RoleService roleService;
 
-	public OAuth2SuccessHandler(String type, UserService userService, RoleService roleService) {
+	public OAuth2SuccessHandler(String type, UserService userService, RoleService roleService, UserDetailsService userDetailsService) {
 		this.type = type;
 		this.userService = userService;
 		this.roleService = roleService;
+		this.userDetailsService = userDetailsService;
 	}
 
 	@Override
@@ -59,7 +62,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 			}
 		}
 		
-		User account = account = userService.findByOauthid(type, auth.getName());
+		User account = userService.findByOauthid(type, auth.getName());
 		// 연결되어 있는 계정이 있는경우.
 		if (account != null) {
 			// 기존 인증을 바꿉니다.
@@ -70,8 +73,14 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 			for (Role role : account.getRoles()) {
 				authorities.add(new SimpleGrantedAuthority(role.getRole()));
 			}
-			SecurityContextHolder.getContext()
-					.setAuthentication(new UsernamePasswordAuthenticationToken(emailaddress, null, authorities));
+			CurrentUser curuser = (CurrentUser) userDetailsService.loadUserByUsername(emailaddress);
+			Authentication authentication = new UsernamePasswordAuthenticationToken(curuser, emailaddress, authorities);
+		    SecurityContext securityContext = SecurityContextHolder.getContext();
+		    securityContext.setAuthentication(authentication);
+		    HttpSession session = req.getSession(true);
+		    session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+		    
+			
 			try {
 				res.sendRedirect("/");
 			} catch (IOException e) {
@@ -90,8 +99,19 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 			Role userRole = roleService.findByRole("ADMIN");
 			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			userService.createUser(user);
-			// 회원가입 페이지로 보냅니다.
-			// ROLE 은 OAUTH 상태입니다.
+			
+			Collection<SimpleGrantedAuthority> authorities = new HashSet<SimpleGrantedAuthority>(user.getRoles().size());
+			for (Role role : user.getRoles()) {
+				authorities.add(new SimpleGrantedAuthority(role.getRole()));
+			}
+			
+			CurrentUser curuser = (CurrentUser) userDetailsService.loadUserByUsername(emailaddress);
+			Authentication authentication = new UsernamePasswordAuthenticationToken(curuser, emailaddress, authorities);
+		    SecurityContext securityContext = SecurityContextHolder.getContext();
+		    securityContext.setAuthentication(authentication);
+		    HttpSession session = req.getSession(true);
+		    session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+		    
 			try {
 				res.sendRedirect("/");
 			} catch (IOException e) {
@@ -99,8 +119,6 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 				e.printStackTrace();
 			}
 
-			// 특별히 추가정보를 받아서 가입해야할 일이없다면,
-			// 즉석으로 계정을 생성한 후 성공처리 해준다면 사용자 입장에서 좋을 것 같습니다.
 		}
 	}
 }

@@ -46,7 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private UserService userService;
 	@Autowired
 	private RoleService roleService;
-	
 	@Autowired
 	@Qualifier("userDetailsService")
 	private UserDetailsService userDetailsService;
@@ -195,7 +194,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		  //System.out.println("SSO Client ID : "+client.getClient().getClientId());
 		  tokenServices.setRestTemplate(template);
 		  filter.setTokenServices(tokenServices);
-		  filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(name,userService,roleService));
+		  filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(name,userService,roleService,userDetailsService));
 		  return filter;
 	}
 

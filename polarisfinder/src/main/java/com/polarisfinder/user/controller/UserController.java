@@ -32,6 +32,13 @@ public class UserController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	@GetMapping("user")
+	public ResponseEntity<CurrentUser>user() {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("hi! : "+currentUser.getUsername());
+		return new ResponseEntity<CurrentUser>(currentUser, HttpStatus.OK);
+	}
+	
 	@GetMapping("login")
 	public ResponseEntity<CurrentUser> login() {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
