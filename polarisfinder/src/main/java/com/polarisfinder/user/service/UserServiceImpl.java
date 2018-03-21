@@ -20,6 +20,10 @@ public class UserServiceImpl implements UserService {
 	public User findByUserName(String username) {
 		return userDAO.findByUserName(username);
 	}
+	@Override
+    public User findByOauthid(String type, String oauthid){
+		return userDAO.findByOauthid(type, oauthid);
+    }
 	/*
 	public void saveUser(User user){
 	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

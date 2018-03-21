@@ -51,4 +51,24 @@ public class UserDAOImpl  implements UserDAO {
 		return user;  
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public User findByOauthid(String type, String oauthid) {
+		//Hibernate Inner Join 
+		String hql = "From User u join u.roles r where u.type = :type AND u.oauthid = :oauthid";
+		Query q = entityManager.createQuery(hql);
+		q.setParameter("type", type);
+		q.setParameter("oauthid", oauthid);
+		
+		User user = null;
+		List<Object[]> lst = (List<Object[]>) q.getResultList();
+		for (Object[] result : lst) {
+			user = (User) result[0];
+		    Role userRole = (Role) result[1];
+			System.out.println("User : "+user.getUsername() + " Role : "+userRole.getRole());
+			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		}
+		
+		return user;  
+	}
 }

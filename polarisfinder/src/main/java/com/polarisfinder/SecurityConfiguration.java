@@ -34,11 +34,19 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.CompositeFilter;
 
+import com.polarisfinder.user.service.RoleService;
+import com.polarisfinder.user.service.UserService;
+
 @Configuration
 @EnableOAuth2Client
 //@EnableAuthorizationServer
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private RoleService roleService;
+	
 	@Autowired
 	@Qualifier("userDetailsService")
 	private UserDetailsService userDetailsService;
@@ -187,7 +195,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		  //System.out.println("SSO Client ID : "+client.getClient().getClientId());
 		  tokenServices.setRestTemplate(template);
 		  filter.setTokenServices(tokenServices);
-		  //filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(name));
+		  filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(name,userService,roleService));
 		  return filter;
 	}
 

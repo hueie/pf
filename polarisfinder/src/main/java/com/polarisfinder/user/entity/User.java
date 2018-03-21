@@ -61,13 +61,15 @@ public class User {
 	private String nickname;
 	
 	@Column(name="type")
-	@NotEmpty(message = "*Please provide your type")
 	private String type;
 
+	@Column(name="oauthid")
+	private String oauthid;
+	
 	@Column(name="active")
 	private int active;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)//.ALL
 	@JoinTable(name = "user_role", 
 		joinColumns = {@JoinColumn(name = "user_id")},
 		inverseJoinColumns = {@JoinColumn(name = "role_id")}
@@ -130,6 +132,12 @@ public class User {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public final String getOauthid() {
+		return oauthid;
+	}
+	public final void setOauthid(String oauthid) {
+		this.oauthid = oauthid;
 	}
 	
 	

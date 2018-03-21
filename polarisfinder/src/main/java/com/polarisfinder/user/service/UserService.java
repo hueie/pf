@@ -6,4 +6,7 @@ public interface UserService {
 
     boolean createUser(User user);
     User findByUserName(String username);
+    User findByOauthid(String type, String oauthid);
+    
+    
 }
