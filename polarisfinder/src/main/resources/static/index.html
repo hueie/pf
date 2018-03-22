@@ -25,7 +25,7 @@
 	<!-- AIzaSyDD8VYV12Ujz_-Z_WNqAhMRouzkUewoO60 AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g&libraries=places"></script>
 
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -105,16 +105,23 @@
                     <li ng-show="authenticated">
                         <a class="page-scroll" href="#!atworldsend">At World's End</a>
                     </li>
+                    <!-- 
                     <li ng-show="!authenticated">
-                        <a href="#!signin" id="signin">Sign In</a>
+                        <a href="#!signin" id="signin">Sign in</a>
                     </li>
-                    <li ng-show="!authenticated">
-                        <a href="#!signup" id="signup">Sign Up</a>
+                     -->
+                    <li ng-show="!authenticated"  >
+                        <a href="#!signin" id="signin" style="border: 1px solid white; -webkit-border-radius: 4px; border-radius: 4px;">Get Started</a>
                     </li>
+                    <!-- 
+                    <li ng-show="!authenticated"  >
+                        <a href="#!signup" id="signup" style="border: 1px solid white; -webkit-border-radius: 4px; border-radius: 4px;">Get Started</a>
+                    </li>
+                     -->
                     <li ng-show="authenticated">
                    		<a href="">{{username}}</a>
                     </li>
-                    <li ng-show="authenticated"><a href="" ng-click="logout()">logout</a></li>
+                    <li ng-show="authenticated"><a href="" ng-click="logout()">Sign out</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

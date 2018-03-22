@@ -798,6 +798,9 @@ var global_url = location.host;
 		app.controller('userController', [ '$rootScope', '$scope', '$http', '$location', 'userService',
 			function($rootScope, $scope, $http, $location, userService) {
 			$scope.init = function(){
+				var height = $("body").prop("clientHeight");
+				$('.signin').css('min-height', height+'px');
+
 			}
 			var authenticate = function(credentials, callback) {
 

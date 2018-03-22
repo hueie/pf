@@ -1,35 +1,44 @@
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading">Sign In</h1>
-            </div>
-        </div>
-    </header>
-    <section id="about" ng-controller="userController" data-ng-init="init()">
+    <section id="signin" class="signin" ng-controller="userController" data-ng-init="init()" style="background-color: #E8F3EC;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-lg-offset-4 text-center">
-                <div>
-                	<a href="/login/facebook">
-					<div id="spinner" style="background: #4267b2;border-radius: 5px;color: white;height: 40px;text-align: center;width: 250px; cursor:pointer;" >
-					continue_with
-					</div>
-					</a>
-				</div>
-	
-                	<form id="signinform" class="login-form" role="form" ng-submit="login()" >
-					    <div class="input-group">
-					    	<span class="input-group-addon" >Email</span>
-					     	<input id="username" class="form-control" type="email" name="username" ng-model="credentials.username"/>
+            	<div class="col-lg-4 col-lg-offset-4" >
+            		<div class="text-center">
+	            		<h3>Join Polaris Finder</h3>
+	            		<span>Create an account to use Special Menu With Other Dreamers,</span>
+	            		<span>Share your Dreams and Stories about Adventures Abroad.</span>
+            		</div>
+            		<div style="margin-top:40px;">
+	                	<div style="margin:10px;">
+	                	<a href="/login/google" style="padding:5px; height: 32px;color:black; font-size:16px;">
+						<div class='google_icon_16'></div>
+						<span style="margin-left:5px;"> Sign in with Google</span>
+						</a>
 						</div>
-						<div class="input-group">
-					    	<span class="input-group-addon" >Password</span>
-					    	<input id="password" class="form-control" type="password" name="password" ng-model="credentials.password"/>
-					  	</div>
-					  	<input class="btn btn-primary btn-block" type="submit" value="로그인"/>
-					</form>
+						<div style="margin:10px;">
+						<a href="/login/facebook" style="padding:5px; height: 32px;color:black; font-size:16px;">
+						<div class='facebook_icon_16'></div>
+						<span style="margin-left:5px;"> Sign in with Facebook</span>
+						</a>
+						</div>
+					<!-- 
+	                	<form id="signinform" class="login-form" role="form" ng-submit="login()" >
+						    <div class="input-group">
+						    	<span class="input-group-addon" >Email</span>
+						     	<input id="username" class="form-control" type="email" name="username" ng-model="credentials.username"/>
+							</div>
+							<div class="input-group">
+						    	<span class="input-group-addon" >Password</span>
+						    	<input id="password" class="form-control" type="password" name="password" ng-model="credentials.password"/>
+						  	</div>
+						  	<input class="btn btn-primary btn-block" type="submit" value="로그인"/>
+						</form>
+					 -->	
+	                </div>
+	                <div class="text-center" style="margin-top:60px;">
+	                	<div style="text-decoration: underline!important">Terms of Service</div>
+	                	<div style="text-decoration: underline!important">Privacy Policy</div>
+	                </div>
                 </div>
             </div>
         </div>
     </section>
-
