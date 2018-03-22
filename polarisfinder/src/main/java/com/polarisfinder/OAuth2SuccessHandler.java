@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,10 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
 
 import com.polarisfinder.user.entity.CurrentUser;
 import com.polarisfinder.user.entity.Role;
@@ -50,15 +55,23 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 		System.out.println("token : " + token);
 		String emailaddress = "";
 		if (type.equals("facebook")) {
-			Facebook facebook = new FacebookTemplate(token);
-			if (facebook.isAuthorized()) {
+			Facebook social = new FacebookTemplate(token);
+			if (social.isAuthorized()) {
 				String[] fields = { "id", "email", "first_name", "last_name", "cover" };
 				//String[] fields = { "email" };
-				org.springframework.social.facebook.api.User userProfile = facebook.fetchObject("me", org.springframework.social.facebook.api.User.class, fields);
-				System.out.println("email : "+userProfile.getEmail());
+				org.springframework.social.facebook.api.User userProfile = social.fetchObject("me", org.springframework.social.facebook.api.User.class, fields);
 				emailaddress = userProfile.getEmail();
-				byte[] userProfileImage = facebook.userOperations().getUserProfileImage();
+				System.out.println("facebook email : "+emailaddress);
+				//byte[] userProfileImage = social.userOperations().getUserProfileImage();
 				// rest of stuff
+			}
+		} else if (type.equals("google")) {
+			Google social = new GoogleTemplate(token);
+			if (social.isAuthorized()) {
+				PlusOperations plusOperations = social.plusOperations(); 
+				Person person = plusOperations.getGoogleProfile();
+				emailaddress = person.getEmailAddresses().iterator().next();
+				System.out.println("google email : "+emailaddress);
 			}
 		}
 		

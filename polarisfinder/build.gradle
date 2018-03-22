@@ -55,7 +55,7 @@ dependencies {
 	//compile('org.springframework.social:spring-social-github')
 	//compile('org.springframework.social:spring-social-twitter')
 	//compile('org.springframework.social:spring-social-linkedin')
-	//compile('org.springframework.social:spring-social-google')
+	compile('org.springframework.social:spring-social-google:1.0.0.RELEASE')
 	
 	
     //compile("org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE")

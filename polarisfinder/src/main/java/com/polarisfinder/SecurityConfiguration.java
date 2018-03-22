@@ -180,6 +180,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		  CompositeFilter filter = new CompositeFilter();
 		  List<Filter> filters = new ArrayList<>();
 		  filters.add(ssoFilter(facebook(), "facebook"));
+		  filters.add(ssoFilter(google(), "google"));
 		  filters.add(ssoFilter(github(), "github"));
 		  filter.setFilters(filters);
 		  return filter;
@@ -230,6 +231,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Bean
 	@ConfigurationProperties("facebook")
 	public ClientResources facebook() {
+		//System.out.println("facebook client resource");
+		return new ClientResources();
+	}
+	
+	@Bean
+	@ConfigurationProperties("google")
+	public ClientResources google() {
 		//System.out.println("facebook client resource");
 		return new ClientResources();
 	}
