@@ -65,3 +65,50 @@ html, body {
 	background-size: cover;
 	background-attachment: fixed;
 }
+
+
+
+.star_black_16 {
+	height:16px;
+	width:16px;
+	display:inline-block;
+    background-image: url('/img/icon/star_black_16.png');
+}
+
+.star_black_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/star_black_32.png');
+}
+
+.star_black_64 {
+	height:64px;
+	width:64px;
+	display:inline-block;
+    background-image: url('/img/icon/star_black_64.png');
+}
+
+
+
+.star_yellow_16 {
+	height:16px;
+	width:16px;
+	display:inline-block;
+    background-image: url('/img/icon/star_yellow_16.png');
+}
+
+.star_yellow_32 {
+	height:32px;
+	width:32px;
+	display:inline-block;
+    background-image: url('/img/icon/star_yellow_32.png');
+}
+
+.star_yellow_64 {
+	height:64px;
+	width:64px;
+	display:inline-block;
+    background-image: url('/img/icon/star_yellow_64.png');
+}
+

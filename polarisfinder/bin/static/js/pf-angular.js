@@ -643,8 +643,19 @@ var global_url = location.host;
 		        	var html = "";
 		        	for(var idx in obj){
 		        		html += "<div class='well'>";
-		        		html += "<p>"+obj[idx].placename + "</p>"; 
+		        		html += "<div><span style='float:left'>a@a.com</span> <span style='float:right;'>follow</span></div>";
+		        		html += "<p style='font-size:10px;'>"+obj[idx].placename + "</p>"; 
 		        		html += "<p>"+obj[idx].placecomment + "</p>";
+		        		
+		        		obj[idx].star_cnt = 3;
+		        		for(var sidx = 0; sidx < 5 ; sidx++){
+		        			if(sidx < obj[idx].star_cnt){
+		        				html += "<div id='star_"+obj[idx].id+"_"+sidx+"' ng-click='chitchatpubstar("+obj[idx].id+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
+		        			}else{
+		        				html += "<div id='star_"+obj[idx].id+"_"+sidx+"' ng-click='chitchatpubstar("+obj[idx].id+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
+		        			}
+		        		}
+		                
 		        		html += "</div>"; 
 		        	}
 		        	if(obj.length < 5){
