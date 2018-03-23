@@ -73,5 +73,12 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 	public void createChitchatpubstar(Chitchatpubstar chitchatpubstar) {
 		entityManager.persist(chitchatpubstar);
 	}
+
+	@Override
+	public void increaseChitchatpubstarcnt(Chitchatpub chitchatpub) {
+		String hql = "UPDATE Chitchatpub t set t.star_cnt = t.star_cnt "+chitchatpub.getStar_cnt()+" WHERE t.id = :id";
+		Query q = entityManager.createQuery(hql).setParameter("id", chitchatpub.getId());
+		q.executeUpdate();
+	}
 	
 }

@@ -11,5 +11,5 @@ public interface ChitchatpubService {
 	Chitchatpub getChitchatpubById(int chitchatpub_id); 
 	Chitchatpubstar getChitchatpubstar(Chitchatpubstar chitchatpubstar); 
 	boolean createChitchatpubstar(Chitchatpubstar chitchatpubstar);
-	
+	void increaseChitchatpubstarcnt(Chitchatpub chitchatpub);
 }

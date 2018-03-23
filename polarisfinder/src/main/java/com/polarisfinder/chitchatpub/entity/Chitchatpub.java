@@ -26,11 +26,12 @@ public class Chitchatpub implements Serializable {
 	@Column	(name="placelongitude")
 	private Float placelongitude;
 	
-	
-
 	@Column(name="placecomment")
 	private String placecomment;
 	
+	
+	@Column(name="star_cnt")
+    private int star_cnt;  
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -85,6 +86,16 @@ public class Chitchatpub implements Serializable {
 
 	public final void setPlacelongitude(Float placelongitude) {
 		this.placelongitude = placelongitude;
+	}
+
+
+	public final int getStar_cnt() {
+		return star_cnt;
+	}
+
+
+	public final void setStar_cnt(int star_cnt) {
+		this.star_cnt = star_cnt;
 	}
 
 

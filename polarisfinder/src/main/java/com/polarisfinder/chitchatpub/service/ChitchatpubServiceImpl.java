@@ -40,4 +40,9 @@ public class ChitchatpubServiceImpl implements ChitchatpubService {
 	public Chitchatpub getChitchatpubById(int chitchatpub_id) {
 		return chitchatpubDAO.getChitchatpubById(chitchatpub_id);
 	}
+
+	@Override
+	public void increaseChitchatpubstarcnt(Chitchatpub chitchatpub) {
+		return chitchatpubDAO.increaseChitchatpubstarcnt(chitchatpub);
+	}
 }

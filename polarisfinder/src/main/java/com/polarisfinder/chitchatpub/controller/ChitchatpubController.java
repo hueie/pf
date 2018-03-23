@@ -76,18 +76,20 @@ public class ChitchatpubController {
 		chitchatpubstar.setUser_id(currentUser.getUser_id());
 		chitchatpubstar.setReg_dt(new Date());
 		
-		Chitchatpub chitchatpub = chitchatpubService.getChitchatpubById(chitchatpub_id);
-		if(chitchatpub == null){
-			
-		} else {
-			
-		}
+		Chitchatpubstar chitchatpubstar2 = chitchatpubService.getChitchatpubstar(chitchatpubstar);
 		boolean flag = chitchatpubService.createChitchatpubstar(chitchatpubstar);
-		if(flag) {
-			return new ResponseEntity<Void>(HttpStatus.OK);
-        } else{
-        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+		int preStar_cnt = 0;
+		if(chitchatpubstar2 != null){
+			preStar_cnt = chitchatpubstar2.getStar_cnt();
+		}
+		int plusstar = star_cnt - preStar_cnt;
+		
+		Chitchatpub chitchatpub = new Chitchatpub();
+		chitchatpub.setId(chitchatpub_id);
+		chitchatpub.setStar_cnt(plusstar);
+		chitchatpubService.increaseChitchatpubstarcnt(chitchatpub);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 		
 	}
 	
