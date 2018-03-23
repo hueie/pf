@@ -115,6 +115,7 @@ public class ChitchatpubController {
 		}
 		System.out.println("cur :" + star_cnt);
 		int plusstar = star_cnt - preStar_cnt;
+		System.out.println("plusstar :" + plusstar);
 		
 		Chitchatpub chitchatpub = new Chitchatpub();
 		chitchatpub.setId(chitchatpub_id);

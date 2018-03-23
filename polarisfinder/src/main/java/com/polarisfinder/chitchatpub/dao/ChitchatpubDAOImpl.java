@@ -94,7 +94,7 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 	@Override
 	public void increaseChitchatpubstartotcnt(Chitchatpub chitchatpub) {
 		NumberFormat plusMinusNF = new DecimalFormat("+#;-#");
-		String hql = "UPDATE Chitchatpub t set t.star_tot_cnt = t.star_tot_cnt "+plusMinusNF.format(chitchatpub.getStar_cnt())+" WHERE t.id = :id";
+		String hql = "UPDATE Chitchatpub t set t.star_tot_cnt = t.star_tot_cnt "+plusMinusNF.format(chitchatpub.getStar_tot_cnt())+" WHERE t.id = :id";
 		Query q = entityManager.createQuery(hql).setParameter("id", chitchatpub.getId());
 		q.executeUpdate();
 	}
