@@ -520,6 +520,12 @@ var global_url = location.host;
 			this.init = function(){
 				
 			}
+			this.chitchatpubstar = function(id, starcnt){
+				return $http.get('/chitchatpub/Chitchatpubstar', {
+				    params: { id, id, starcnt: starcnt }
+				});
+			}
+			
 			this.getChitChatpubList = function(placelatitude, placelongitude, paging){
 				return $http.get('/chitchatpub/ChitchatpubList', {
 				    params: { placelatitude, placelongitude, paging: paging }
@@ -537,8 +543,8 @@ var global_url = location.host;
 				return $http.post('/chitchatpub/ChitchatpubAddComment', data, config);
 			}
 		}]);
-		app.controller('chitchatpubController', [ '$rootScope', '$scope', 'chitchatpubService',
-			function($rootScope, $scope, chitchatpubService) {
+		app.controller('chitchatpubController', [ '$rootScope', '$scope', '$compile', 'chitchatpubService',
+			function($rootScope, $scope, $compile, chitchatpubService) {
 			$scope.mapinit = function(){
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center : {
@@ -626,6 +632,24 @@ var global_url = location.host;
 				this.getChitChatpubList();
 				console.log('Loading chitchatpub');
 			}
+			$scope.setStarOnOff = function(id, starcnt){
+				for(var tmpidx = 1; tmpidx <= 5 ; tmpidx++){
+        			if(tmpidx <= starcnt){
+        				$("#star_"+id+"_"+tmpidx).removeClass( "star_black_16" ).addClass( "star_yellow_16" );
+        			}else{
+        				$("#star_"+id+"_"+tmpidx).removeClass( "star_yellow_16" ).addClass( "star_black_16" );
+        			}
+        		}
+			}
+			$scope.chitchatpubstar = function(id, starcnt){
+				chitchatpubService.chitchatpubstar(id, starcnt)
+				.then(function (response) {
+					//$scope.topiclist = response.data;
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
 			$scope.getChitChatpubList = function(pPaging){
 				if(pPaging == 0){
 					$scope.paging = pPaging;
@@ -638,9 +662,13 @@ var global_url = location.host;
 				chitchatpubService.getChitChatpubList($scope.placelatitude, $scope.placelongitude, $scope.paging)
 				.then(function (response) {
 					$scope.paging = $scope.paging + 1;
-
+		        	if($scope.paging == 1){
+		            	$("#list").html("");
+		        	} 
 		        	var obj = response.data;// objs.data;
 		        	var html = "";
+		        	var el = document.getElementById('list');
+					
 		        	for(var idx in obj){
 		        		html += "<div class='well'>";
 		        		html += "<div><span style='float:left'>a@a.com</span> <span style='float:right;'>follow</span></div>";
@@ -648,11 +676,11 @@ var global_url = location.host;
 		        		html += "<p>"+obj[idx].placecomment + "</p>";
 		        		
 		        		obj[idx].star_cnt = 3;
-		        		for(var sidx = 0; sidx < 5 ; sidx++){
-		        			if(sidx < obj[idx].star_cnt){
-		        				html += "<div id='star_"+obj[idx].id+"_"+sidx+"' ng-click='chitchatpubstar("+obj[idx].id+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
+		        		for(var starcnt = 1; starcnt <= 5 ; starcnt++){
+		        			if(starcnt <= obj[idx].star_cnt){
+		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+",0)' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
 		        			}else{
-		        				html += "<div id='star_"+obj[idx].id+"_"+sidx+"' ng-click='chitchatpubstar("+obj[idx].id+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
+		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+",0)' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
 		        			}
 		        		}
 		                
@@ -663,11 +691,8 @@ var global_url = location.host;
 		        	} else{
 		            	$("#morebtn").css("display", "block");
 		        	}
-		        	if($scope.paging == 1){
-		            	$("#list").html(html);
-		        	} else {
-		            	$("#list").append(html);
-		        	}
+		        	angular.element(el).append( $compile(html)($scope) );
+		        	
 				},function (error){
 					alert('something went wrong!!!');
 				});

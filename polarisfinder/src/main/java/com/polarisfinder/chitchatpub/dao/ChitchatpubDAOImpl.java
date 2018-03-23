@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.polarisfinder.chitchatpub.entity.Chitchatpub;
+import com.polarisfinder.chitchatpub.entity.Chitchatpubstar;
 
 @Transactional
 @Repository
@@ -20,6 +21,27 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 	@Override
 	public void createChitchatpub(Chitchatpub chitchatpub) {
 		entityManager.persist(chitchatpub);
+	}
+	
+	@SuppressWarnings("unchecked") //Ignore Warnings
+	@Override
+	public Chitchatpub getChitchatpubById(int chitchatpub_id){
+		String hql;
+		hql = "FROM Chitchatpub WHERE id = :chitchatpub_id ";
+		Query q = entityManager.createQuery(hql);
+		q.setParameter("chitchatpub_id", chitchatpub_id);
+		
+		return (Chitchatpub) q.getSingleResult();
+	}
+	
+	public Chitchatpubstar getChitchatpubstar(Chitchatpubstar chitchatpubstar){
+		String hql;
+		hql = "FROM Chitchatpubstar WHERE chitchatpub_id = :chitchatpub_id AND user_id = :user_id ";
+		Query q = entityManager.createQuery(hql);
+		q.setParameter("chitchatpub_id", chitchatpubstar.getChitchatpub_id());
+		q.setParameter("user_id", chitchatpubstar.getUser_id());
+		
+		return (Chitchatpubstar) q.getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings
@@ -45,6 +67,11 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 			
 			return (List<Chitchatpub>) q.getResultList();
 		}
+	}
+
+	@Override
+	public void createChitchatpubstar(Chitchatpubstar chitchatpubstar) {
+		entityManager.persist(chitchatpubstar);
 	}
 	
 }

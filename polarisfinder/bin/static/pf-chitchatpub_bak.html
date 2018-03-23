@@ -1,0 +1,62 @@
+	<!-- 
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">CHiT! - CHaT! Pub</h1>
+                <p>Talk about the place where you've got your job, house, and tips</p>
+            </div>
+        </div>
+    </header>
+ 	-->
+    <section class="old_pub" ng-controller="chitchatpubController"  data-ng-init="init()">
+        <div class="container">
+            <div class="row">
+            	<div class="col-lg-8 col-lg-offset-2 ">
+            		<div class="input-group">
+            			<input class="form-control" id="pac-input" type="text" placeholder="Search location..." style="min-height:64px;width:100%;font-size: 32px;margin:25px 0 25px 0;font-family: 'Times New Roman';">
+	   					<span class="input-group-btn">
+		   					<button ng-click="getChitChatpubList(0)" type="button" class="btn btn-default" aria-label="Right Align" style="padding:14px;">
+		   						<span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:32px;color:#ccc"></span>
+		   					</button>
+	   					</span>
+	   				</div>
+            		<!-- 
+            		<div style="font-size: 64px;font-family: 'Times New Roman';color:white;">CHiT!-CHaT Pub
+					</div>
+					 -->
+				</div>
+			</div>
+			<div class="row">
+            	<!-- <div class="col-lg-7 col-lg-offset-1 text-center"> -->
+	            <div class="col-lg-9 text-center">
+	            	<!-- 
+	            	<input id="pac-input" class="controls" type="text" placeholder="Search A Place">
+	   				 -->
+	   				<div id="map"></div>
+	                <!-- <input type="text" class="form-control">  -->
+	                
+	                
+                </div>  
+            	<div class="col-lg-3 text-center">
+            		<div style="margin-bottom: 10px;">
+		                <textarea id="placecomment" name="placecomment"  rows="5" cols="" class="form-control"  placeholder="Chit! Chat! about this place!"></textarea>
+		                <button class="btn btn-primary btn-block" type="button" ng-click="addComment()">CHiT! CHaT!</button>
+                	</div>
+                	
+            		<div id="list">
+	                </div>
+	                <button id="morebtn" class="btn btn-primary btn-block" type="button" ng-click="getChitChatpubList()">More</button>
+            	</div>
+            	<!-- 
+            	<div class="col-lg-2 text-center">
+            		<div class="well" style="width:100%;">
+	            		<p>Star Ranking</p>
+	            		<div>Ryan</div>
+	            		<div>George</div>
+            		</div>
+            	</div>  
+            	 -->
+            </div>
+        </div>
+    </section>
+
