@@ -42,7 +42,7 @@ public class ChitchatpubServiceImpl implements ChitchatpubService {
 	}
 
 	@Override
-	public void increaseChitchatpubstarcnt(Chitchatpub chitchatpub) {
-		return chitchatpubDAO.increaseChitchatpubstarcnt(chitchatpub);
+	public void increaseChitchatpubstartotcnt(Chitchatpub chitchatpub) {
+		chitchatpubDAO.increaseChitchatpubstartotcnt(chitchatpub);
 	}
 }

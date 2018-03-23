@@ -17,6 +17,8 @@ import com.polarisfinder.chitchatpub.entity.Chitchatpub;
 import com.polarisfinder.chitchatpub.entity.Chitchatpubstar;
 import com.polarisfinder.chitchatpub.service.ChitchatpubService;
 import com.polarisfinder.dreamers.entity.Dreamers;
+import com.polarisfinder.dreamers.entity.Dreamersbookmark;
+import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.user.entity.CurrentUser;
 
@@ -55,12 +57,36 @@ public class ChitchatpubController {
 			@RequestParam(value="placelongitude", required = false)String placelongitude, 
 			@RequestParam(value="paging", required = false)int paging
 			) {
-		System.out.println("Paging : " + paging);
-		System.out.println("placelatitude : "+placelatitude + " placelongitude : "+placelongitude);
+		CurrentUser currentUser = null;
+		try{
+			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			System.out.println("DreamersList : "+currentUser.getUsername());
+		} catch(Exception e){
+			currentUser = null;
+			System.out.println("null");
+		}
+		
 		Chitchatpub chitchatpub = new Chitchatpub();
 		chitchatpub.setPlacelatitude( Float.valueOf(placelatitude));
 		chitchatpub.setPlacelongitude( Float.valueOf(placelongitude));
 		List<Chitchatpub> list = chitchatpubService.getChitchatpubByPlacelocation(chitchatpub, paging);
+		
+		for(int idx=0; idx < list.size(); idx++){
+			if(currentUser != null){
+				Chitchatpubstar chitchatpubstar = new Chitchatpubstar();
+				chitchatpubstar.setChitchatpub_id(list.get(idx).getId());
+				chitchatpubstar.setUser_id(currentUser.getUser_id());
+				chitchatpubstar = chitchatpubService.getChitchatpubstar(chitchatpubstar);
+				if(chitchatpubstar == null){
+					list.get(idx).setStar_cnt(0);
+				}else{
+					list.get(idx).setStar_cnt(chitchatpubstar.getStar_cnt());
+				}
+			}
+		}
+		
+		
+		
 		return new ResponseEntity<List<Chitchatpub>>(list, HttpStatus.OK);
 	}
 	@GetMapping("Chitchatpubstar")
@@ -77,17 +103,23 @@ public class ChitchatpubController {
 		chitchatpubstar.setReg_dt(new Date());
 		
 		Chitchatpubstar chitchatpubstar2 = chitchatpubService.getChitchatpubstar(chitchatpubstar);
-		boolean flag = chitchatpubService.createChitchatpubstar(chitchatpubstar);
 		int preStar_cnt = 0;
 		if(chitchatpubstar2 != null){
 			preStar_cnt = chitchatpubstar2.getStar_cnt();
+			System.out.println("pre " + preStar_cnt);
+			chitchatpubstar.setId(chitchatpubstar2.getId());
+			boolean flag = chitchatpubService.createChitchatpubstar(chitchatpubstar);
+		} else{
+			chitchatpubstar.setId(0);
+			boolean flag = chitchatpubService.createChitchatpubstar(chitchatpubstar);
 		}
+		System.out.println("cur :" + star_cnt);
 		int plusstar = star_cnt - preStar_cnt;
 		
 		Chitchatpub chitchatpub = new Chitchatpub();
 		chitchatpub.setId(chitchatpub_id);
-		chitchatpub.setStar_cnt(plusstar);
-		chitchatpubService.increaseChitchatpubstarcnt(chitchatpub);
+		chitchatpub.setStar_tot_cnt(plusstar);
+		chitchatpubService.increaseChitchatpubstartotcnt(chitchatpub);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		

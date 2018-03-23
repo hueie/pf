@@ -641,10 +641,20 @@ var global_url = location.host;
         			}
         		}
 			}
-			$scope.chitchatpubstar = function(id, starcnt){
-				chitchatpubService.chitchatpubstar(id, starcnt)
+			$scope.chitchatpubstar = function(id, star_cnt){
+				chitchatpubService.chitchatpubstar(id, star_cnt)
 				.then(function (response) {
-					//$scope.topiclist = response.data;
+					var el = document.getElementById("star_"+id);
+					var html = "";
+	        		for(var starcnt = 1; starcnt <= 5 ; starcnt++){
+	        			if(starcnt <= star_cnt){
+	        				html += "<div id='star_"+id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+id+","+starcnt+")' ng-mouseleave='setStarOnOff("+id+","+star_cnt+")' ng-click='chitchatpubstar("+id+","+starcnt+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
+	        			}else{
+	        				html += "<div id='star_"+id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+id+","+starcnt+")' ng-mouseleave='setStarOnOff("+id+","+star_cnt+")' ng-click='chitchatpubstar("+id+","+starcnt+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
+	        			}
+	        		}
+	        		angular.element(el).empty();
+	        		angular.element(el).append( $compile(html)($scope) );
 				},function (error){
 					alert('something went wrong!!!');
 				});
@@ -674,16 +684,15 @@ var global_url = location.host;
 		        		html += "<div><span style='float:left'>a@a.com</span> <span style='float:right;'>follow</span></div>";
 		        		html += "<p style='font-size:10px;'>"+obj[idx].placename + "</p>"; 
 		        		html += "<p>"+obj[idx].placecomment + "</p>";
-		        		
-		        		obj[idx].star_cnt = 3;
+		        		html += "<div id='star_"+obj[idx].id+"'>";
 		        		for(var starcnt = 1; starcnt <= 5 ; starcnt++){
 		        			if(starcnt <= obj[idx].star_cnt){
-		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+",0)' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
+		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+","+obj[idx].star_cnt+")' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_yellow_16' style='margin:5px;cursor: pointer;'></div>";
 		        			}else{
-		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+",0)' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
+		        				html += "<div id='star_"+obj[idx].id+"_"+starcnt+"' ng-mouseover='setStarOnOff("+obj[idx].id+","+starcnt+")' ng-mouseleave='setStarOnOff("+obj[idx].id+","+obj[idx].star_cnt+")' ng-click='chitchatpubstar("+obj[idx].id+","+starcnt+")' class='star_black_16' style='margin:5px;cursor: pointer;'></div>";
 		        			}
 		        		}
-		                
+		        		html += "</div>"; 
 		        		html += "</div>"; 
 		        	}
 		        	if(obj.length < 5){

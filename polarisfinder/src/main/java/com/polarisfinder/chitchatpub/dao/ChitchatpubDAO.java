@@ -12,5 +12,5 @@ public interface ChitchatpubDAO {
     void createChitchatpubstar(Chitchatpubstar chitchatpubstar);
     Chitchatpubstar getChitchatpubstar(Chitchatpubstar chitchatpubstar);
     Chitchatpub getChitchatpubById(int chitchatpub_id);
-    void increaseChitchatpubstarcnt(Chitchatpub chitchatpub);
+    void increaseChitchatpubstartotcnt(Chitchatpub chitchatpub);
 }

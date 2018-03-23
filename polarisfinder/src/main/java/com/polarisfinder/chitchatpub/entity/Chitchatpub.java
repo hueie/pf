@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="chitchatpub")
@@ -30,8 +31,11 @@ public class Chitchatpub implements Serializable {
 	private String placecomment;
 	
 	
-	@Column(name="star_cnt")
-    private int star_cnt;  
+	@Column(name="star_tot_cnt")
+    private int star_tot_cnt;  
+
+	@Transient
+	private int star_cnt;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -86,6 +90,16 @@ public class Chitchatpub implements Serializable {
 
 	public final void setPlacelongitude(Float placelongitude) {
 		this.placelongitude = placelongitude;
+	}
+
+
+	public final int getStar_tot_cnt() {
+		return star_tot_cnt;
+	}
+
+
+	public final void setStar_tot_cnt(int star_tot_cnt) {
+		this.star_tot_cnt = star_tot_cnt;
 	}
 
 

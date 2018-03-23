@@ -1,8 +1,11 @@
 package com.polarisfinder.chitchatpub.dao;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -31,7 +34,11 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 		Query q = entityManager.createQuery(hql);
 		q.setParameter("chitchatpub_id", chitchatpub_id);
 		
-		return (Chitchatpub) q.getSingleResult();
+		try{
+			return (Chitchatpub) q.getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
 	}
 	
 	public Chitchatpubstar getChitchatpubstar(Chitchatpubstar chitchatpubstar){
@@ -41,7 +48,12 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 		q.setParameter("chitchatpub_id", chitchatpubstar.getChitchatpub_id());
 		q.setParameter("user_id", chitchatpubstar.getUser_id());
 		
-		return (Chitchatpubstar) q.getSingleResult();
+		List results = q.getResultList();
+		if (!results.isEmpty()){
+		   return (Chitchatpubstar) results.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings
@@ -71,12 +83,18 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 
 	@Override
 	public void createChitchatpubstar(Chitchatpubstar chitchatpubstar) {
-		entityManager.persist(chitchatpubstar);
+		if(chitchatpubstar.getId() == 0){
+			entityManager.persist(chitchatpubstar);
+		} else{
+			entityManager.merge(chitchatpubstar);
+		}
+		
 	}
 
 	@Override
-	public void increaseChitchatpubstarcnt(Chitchatpub chitchatpub) {
-		String hql = "UPDATE Chitchatpub t set t.star_cnt = t.star_cnt "+chitchatpub.getStar_cnt()+" WHERE t.id = :id";
+	public void increaseChitchatpubstartotcnt(Chitchatpub chitchatpub) {
+		NumberFormat plusMinusNF = new DecimalFormat("+#;-#");
+		String hql = "UPDATE Chitchatpub t set t.star_tot_cnt = t.star_tot_cnt "+plusMinusNF.format(chitchatpub.getStar_cnt())+" WHERE t.id = :id";
 		Query q = entityManager.createQuery(hql).setParameter("id", chitchatpub.getId());
 		q.executeUpdate();
 	}
