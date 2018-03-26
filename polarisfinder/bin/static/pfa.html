@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="/">Polaris Finder</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -255,6 +255,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                    	<!-- 
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
@@ -264,83 +265,53 @@
                                 </button>
                             </span>
                             </div>
-                            <!-- /input-group -->
+                        </li>
+                         -->
+                         
+                        <li>
+                            <a href="/pfa.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <a href="#" onclick="if($('#path').css('display') === 'none'){$('#path').css('display','block');}else{$('#path').css('display','none');}"><i class="fa fa-sitemap fa-fw"></i> 프로듀스 101<span class="fa arrow"></span></a>
+                            <ul id='path' class="nav nav-second-level" style="display:none;">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
+                                    <a href="#" onclick="if($('#path_1').css('display') === 'none'){$('#path_1').css('display','block');}else{$('#path_1').css('display','none');}">캐나다<span class="fa arrow"></span></a>
+                                    <ul id='path_1' class="nav nav-third-level" style="display:none;">
                                         <li>
-                                            <a href="#">Third Level Item</a>
+                                            <a href="#">워킹홀리데이</a>
                                         </li>
                                         <li>
-                                            <a href="#">Third Level Item</a>
+                                            <a href="#">조기유학</a>
                                         </li>
                                         <li>
-                                            <a href="#">Third Level Item</a>
+                                            <a href="#">대학교</a>
                                         </li>
                                         <li>
-                                            <a href="#">Third Level Item</a>
+                                            <a href="#">대학원</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
+                                </li>
+                                <li>
+                                    <a href="#" onclick="if($('#path_2').css('display') === 'none'){$('#path_2').css('display','block');}else{$('#path_2').css('display','none');}">호주<span class="fa arrow"></span></a>
+                                    <ul id='path_2' class="nav nav-third-level" style="display:none;">
+                                        <li>
+                                            <a href="#">워킹홀리데이</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">조기유학</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">대학교</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">대학원</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
+                            
                         </li>
+                        <!-- 
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -351,8 +322,8 @@
                                     <a href="login.html">Login Page</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
+                         -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -362,7 +333,7 @@
 
         
 	
-	<div ng-view></div>
+		<div ng-view></div>
 	
 	
 </body>
