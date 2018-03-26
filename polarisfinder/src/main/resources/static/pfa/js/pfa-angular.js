@@ -5,8 +5,36 @@ app.config(function($routeProvider, $httpProvider) {
 	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 		$routeProvider.when("/", {
 			controller : 'mainController',
-			templateUrl : "pfa-main.html",
+			templateUrl : "pfa-dashboard.html",
 			resolve : { }
+			}).when("/pfa-charts", {
+				controller : 'mainController',
+				templateUrl : "pfa-charts.html",
+				resolve : { }
+			}).when("/pfa-tables", {
+				controller : 'mainController',
+				templateUrl : "pfa-tables.html",
+				resolve : { }
+			}).when("/pfa-navbar", {
+				controller : 'mainController',
+				templateUrl : "pfa-navbar.html",
+				resolve : { }
+			}).when("/pfa-cards", {
+				controller : 'mainController',
+				templateUrl : "pfa-cards.html",
+				resolve : { }
+			}).when("/pfa-login", {
+				controller : 'mainController',
+				templateUrl : "pfa-login.html",
+				resolve : { }
+			}).when("/pfa-forgot-password", {
+				controller : 'mainController',
+				templateUrl : "pfa-forgot-password.html",
+				resolve : { }
+			}).when("/pfa-charts", {
+				controller : 'mainController',
+				templateUrl : "pfa-charts.html",
+				resolve : { }
 			});
 		});
 		
