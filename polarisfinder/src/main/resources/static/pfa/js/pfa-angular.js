@@ -39,6 +39,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'cawhController',
 				templateUrl : "pfa-ca-wh.html",
 				resolve : { }
+			}).when("/pfa-message", {
+				controller : 'messageController',
+				templateUrl : "pfa-message.html",
+				resolve : { }
 			});
 		});
 		
@@ -107,11 +111,14 @@ app.config(function($routeProvider, $httpProvider) {
 			
 		}]);
 		
-		
+
 		app.controller('cawhController', [ '$rootScope', '$scope',
 			function($rootScope, $scope) {
 			
 		}]);
-		
+		app.controller('messageController', [ '$rootScope', '$scope',
+			function($rootScope, $scope) {
+			
+		}]);
 		
 		
