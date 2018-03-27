@@ -38,16 +38,18 @@ app.config(function($routeProvider, $httpProvider) {
 			});
 		});
 		
-		app.controller('navigation', [ '$rootScope', '$scope', '$location','$http',
-			function($rootScope, $scope, $location, $http) {
+		app.controller('navigationController', [ '$rootScope', '$scope', '$location','$window','$http',
+			function($rootScope, $scope, $location,$window, $http) {
 			$scope.logout = function() {
 				  $http.get('/user/logout', {})
 				  .then(function() {
-				    $rootScope.authenticated = false;
-				    $location.path("/");
+					  var landingUrl = "http://" + $window.location.host + "";
+					  $window.location.href = landingUrl;
+				    //$rootScope.authenticated = false;
+				    //$location.path("/");
 				  },function(data) {
-					$location.path("/");
-				    $rootScope.authenticated = false;
+					//$rootScope.authenticated = false;
+					//$location.path("/");
 				  });
 			}
 		}]);

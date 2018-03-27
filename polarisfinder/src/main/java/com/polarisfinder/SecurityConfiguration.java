@@ -32,6 +32,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.CompositeFilter;
 
 import com.polarisfinder.user.service.RoleService;
@@ -102,14 +103,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
 			//.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 			.csrf()
-			.disable();
+			.disable()
 			/* csrf 토큰을 사용하면 에디터에서 이미지 업로드가 안됨
-			.csrfTokenRepository(csrfTokenRepository())
-		.and()
+			.csrfTokenRepository(csrfTokenRepository()) */
+		//.and()
 		    .logout()
 		    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-		    .logoutSuccessUrl("/pf-main.html");
-			*/
+		    .logoutSuccessUrl("/");
 		   //.frameOptions().disable()
            //.addHeaderWriter(new XFrameOptionsHeaderWriter(new WhiteListedAllowFromStrategy(Arrays.asList("www.youbube.com"))));
 		   /* 
