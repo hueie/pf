@@ -35,6 +35,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'mainController',
 				templateUrl : "pfa-charts.html",
 				resolve : { }
+			}).when("/pfa-ca-wh", {
+				controller : 'cawhController',
+				templateUrl : "pfa-ca-wh.html",
+				resolve : { }
 			});
 		});
 		
@@ -104,12 +108,8 @@ app.config(function($routeProvider, $httpProvider) {
 		}]);
 		
 		
-		app.controller('tortugaislandController', [ '$rootScope', '$scope',
+		app.controller('cawhController', [ '$rootScope', '$scope',
 			function($rootScope, $scope) {
-			
-		}]);
-		app.controller('portroyalController', [ '$rootScope', '$scope', '$location',
-			function($rootScope, $scope, $location) {
 			
 		}]);
 		
