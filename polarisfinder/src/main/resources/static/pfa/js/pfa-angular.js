@@ -43,6 +43,14 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'messageController',
 				templateUrl : "pfa-message.html",
 				resolve : { }
+			}).when("/pfa-message-sent", {
+				controller : 'messageController',
+				templateUrl : "pfa-message-sent.html",
+				resolve : { }
+			}).when("/pfa-message-starred", {
+				controller : 'messageController',
+				templateUrl : "pfa-message-starred.html",
+				resolve : { }
 			});
 		});
 		
