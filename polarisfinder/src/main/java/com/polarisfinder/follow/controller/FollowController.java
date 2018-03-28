@@ -30,28 +30,17 @@ public class FollowController {
 	
 	@PostMapping("add")
 	public ResponseEntity<Void> add(
-			@RequestParam("tolist") String tolist,
-			@RequestParam("subject") String subject,
-			@RequestParam("content") String content
+			@RequestParam("following_user_id") String following_user_id
 			){
 		
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Follow Follow = new Follow();
-		String[] lst = tolist.split(" ");
-
-		Follow.setSend_user_id(currentUser.getUser_id());
-		Follow.setSubject(subject);
-		Follow.setContent(content);
+		User user = userService.findByUserName(following_user_id);
+		Follow.setFollowing_user_id(user.getUser_id());
+		Follow.setUser_id(currentUser.getUser_id());
 		Follow.setReg_dt(new Date());
-		for(String to_user_id : lst){
-			User user = userService.findByUserName(to_user_id);
-			Follow.setTo_user_id(user.getUser_id());
-			FollowService.createFollow(Follow);
-		}
+		FollowService.createFollow(Follow);
 		
-		System.out.println("tolist : "+ tolist);
-		System.out.println("subject : "+ subject);
-		System.out.println("content : "+ content);
         return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -65,23 +54,23 @@ public class FollowController {
 		return new ResponseEntity<List<Follow>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("getFollowSent")
+	@GetMapping("getFollowing")
 	public ResponseEntity<List<Follow>> getFollowSent(
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
-		List<Follow> list = FollowService.getFollowSent(currentUser.getUser_id(), paging);
+		List<Follow> list = FollowService.getFollowing(currentUser.getUser_id(), paging);
 		return new ResponseEntity<List<Follow>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("getFollowStarred")
+	@GetMapping("getFollower")
 	public ResponseEntity<List<Follow>> getFollowStarred(
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
-		List<Follow> list = FollowService.getFollowStarred(currentUser.getUser_id(), paging);
+		List<Follow> list = FollowService.getFollower(currentUser.getUser_id(), paging);
 		return new ResponseEntity<List<Follow>>(list, HttpStatus.OK);
 	}
 	

@@ -11,7 +11,7 @@ public interface FollowService {
 	
 
 	List<Follow> getFollow(int id, int paging);
-	List<Follow> getFollowSent(int id, int paging);
-	List<Follow> getFollowStarred(int id, int paging);
+	List<Follow> getFollowing(int id, int paging);
+	List<Follow> getFollower(int id, int paging);
 	
 }

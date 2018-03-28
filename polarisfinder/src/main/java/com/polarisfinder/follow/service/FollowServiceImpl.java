@@ -35,11 +35,11 @@ public class FollowServiceImpl implements FollowService {
 		return FollowDAO.getFollow(id, paging);
 	}
 	@Override
-	public List<Follow> getFollowSent(int id, int paging) {
-		return FollowDAO.getFollowSent(id, paging);
+	public List<Follow> getFollowing(int id, int paging) {
+		return FollowDAO.getFollowing(id, paging);
 	}
 	@Override
-	public List<Follow> getFollowStarred(int id, int paging) {
-		return FollowDAO.getFollowStarred(id, paging);
+	public List<Follow> getFollower(int id, int paging) {
+		return FollowDAO.getFollower(id, paging);
 	}
 }

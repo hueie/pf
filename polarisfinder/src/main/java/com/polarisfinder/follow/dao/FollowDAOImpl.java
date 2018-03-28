@@ -75,10 +75,10 @@ public class FollowDAOImpl implements FollowDAO {
 
 	@SuppressWarnings("unchecked") // Ignore Warnings
 	@Override
-	public List<Follow> getFollowSent(int id, int paging) {
+	public List<Follow> getFollowing(int id, int paging) {
 		String hql;
 		System.out.println("paging : " + paging);
-		hql = "FROM Follow  WHERE send_user_id = :id ";
+		hql = "FROM Follow  WHERE user_id = :id ";
 		Query q = entityManager.createQuery(hql);
 		q.setFirstResult(paging * 5);
 		q.setMaxResults(5);
@@ -89,10 +89,10 @@ public class FollowDAOImpl implements FollowDAO {
 
 	@SuppressWarnings("unchecked") // Ignore Warnings
 	@Override
-	public List<Follow> getFollowStarred(int id, int paging) {
+	public List<Follow> getFollower(int id, int paging) {
 		String hql;
 		System.out.println("paging : " + paging);
-		hql = "FROM Follow  WHERE to_user_id = :id and star = 1 ";
+		hql = "FROM Follow  WHERE following_user_id = :id and star = 1 ";
 		Query q = entityManager.createQuery(hql);
 		q.setFirstResult(paging * 5);
 		q.setMaxResults(5);

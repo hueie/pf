@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="Follow")
+@Table(name="follow")
 public class Follow implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -26,24 +26,11 @@ public class Follow implements Serializable {
 	@Column(name="id")
     private int id;  
 
-	@Column(name="to_user_id")
-	private int to_user_id;
+	@Column(name="user_id")
+	private int user_id;
 	
-	@Column(name="send_user_id")
-	private int send_user_id;
-
-	@Column(name="subject")
-    private String subject;
-	
-	@Column(name="content")
-    private String content;
-
-	@Column(name="star")
-	private int star;
-
-	@Column(name="status")
-	private int status;
-	
+	@Column(name="following_user_id")
+	private int following_user_id;
 	
 	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -61,36 +48,20 @@ public class Follow implements Serializable {
 		this.id = id;
 	}
 
-	public final int getTo_user_id() {
-		return to_user_id;
+	public final int getUser_id() {
+		return user_id;
 	}
 
-	public final void setTo_user_id(int to_user_id) {
-		this.to_user_id = to_user_id;
+	public final void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
-	public final int getSend_user_id() {
-		return send_user_id;
+	public final int getFollowing_user_id() {
+		return following_user_id;
 	}
 
-	public final void setSend_user_id(int send_user_id) {
-		this.send_user_id = send_user_id;
-	}
-
-	public final String getSubject() {
-		return subject;
-	}
-
-	public final void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public final String getContent() {
-		return content;
-	}
-
-	public final void setContent(String content) {
-		this.content = content;
+	public final void setFollowing_user_id(int following_user_id) {
+		this.following_user_id = following_user_id;
 	}
 
 	public final Date getReg_dt() {
@@ -101,21 +72,6 @@ public class Follow implements Serializable {
 		this.reg_dt = reg_dt;
 	}
 
-	public final int getStar() {
-		return star;
-	}
-
-	public final void setStar(int star) {
-		this.star = star;
-	}
-
-	public final int getStatus() {
-		return status;
-	}
-
-	public final void setStatus(int status) {
-		this.status = status;
-	}
 
 
 
