@@ -57,13 +57,35 @@ public class MessageController {
         return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("list")
-	public ResponseEntity<List<Message>> list(
+	@GetMapping("getMessage")
+	public ResponseEntity<List<Message>> getMessage(
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
-		List<Message> list = messageService.getMessageById(currentUser.getUser_id(), paging);
+		List<Message> list = messageService.getMessage(currentUser.getUser_id(), paging);
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("getMessageSent")
+	public ResponseEntity<List<Message>> getMessageSent(
+			@RequestParam(value="paging", required = false)int paging
+			) {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("Paging : " + paging);
+		List<Message> list = messageService.getMessageSent(currentUser.getUser_id(), paging);
+		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("getMessageStarred")
+	public ResponseEntity<List<Message>> getMessageStarred(
+			@RequestParam(value="paging", required = false)int paging
+			) {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("Paging : " + paging);
+		List<Message> list = messageService.getMessageStarred(currentUser.getUser_id(), paging);
+		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
+	}
+	
+	
 }

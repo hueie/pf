@@ -146,7 +146,17 @@ app.config(function($routeProvider, $httpProvider) {
 				return $http.post('/message/add', data, config);
 			}
 			this.getMessage = function(paging){
-				return $http.get('/message/list', {
+				return $http.get('/message/getMessage', {
+				    params: { paging: paging }
+				});
+			}
+			this.getMessageSent = function(paging){
+				return $http.get('/message/getMessageSent', {
+				    params: { paging: paging }
+				});
+			}
+			this.getMessageStarred = function(paging){
+				return $http.get('/message/getMessageStarred', {
 				    params: { paging: paging }
 				});
 			}
@@ -159,6 +169,20 @@ app.config(function($routeProvider, $httpProvider) {
 			    $scope.totalCnt = 1;
 			    $scope.data = [];
 			    this.getData();
+			}
+			$scope.init_sent = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    this.getDataSent();
+			}
+			$scope.init_starred = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    this.getDataStarred();
 			}
 			$scope.toCheckBox = function(id, name){
 				var curlist = $("#to").val().split(" ");
@@ -213,7 +237,28 @@ app.config(function($routeProvider, $httpProvider) {
 				},function(data) {
 					alert("쪽지 보내기에 실패하였습니다.");
 				});
-		    	
+			}
+		    
+		    $scope.getDataSent = function () {
+		    	messageService.getMessageSent($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
+			}
+		    
+		    $scope.getDataStarred = function () {
+		    	messageService.getMessageStarred($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
 			}
 		    $scope.numberOfPages=function(){
 		        return Math.ceil($scope.totalCnt/$scope.pageSize);                

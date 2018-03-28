@@ -9,4 +9,9 @@ public interface MessageService {
 	List<Message> getMessageById(int id, int paging);
 	boolean deleteMessage(Message Message);
 	
+
+	List<Message> getMessage(int id, int paging);
+	List<Message> getMessageSent(int id, int paging);
+	List<Message> getMessageStarred(int id, int paging);
+	
 }

@@ -30,4 +30,16 @@ public class MessageServiceImpl implements MessageService {
     	return true;
 	}
 
+	@Override
+	public List<Message> getMessage(int id, int paging) {
+		return MessageDAO.getMessage(id, paging);
+	}
+	@Override
+	public List<Message> getMessageSent(int id, int paging) {
+		return MessageDAO.getMessageSent(id, paging);
+	}
+	@Override
+	public List<Message> getMessageStarred(int id, int paging) {
+		return MessageDAO.getMessageStarred(id, paging);
+	}
 }
