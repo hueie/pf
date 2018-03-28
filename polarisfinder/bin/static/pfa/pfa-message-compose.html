@@ -1,0 +1,85 @@
+
+  <div class="content-wrapper" ng-controller="messageController">
+    <div class="container-fluid">
+      <div class="card mb-3">
+        <div class="card-header">
+        	<span style="margin:10px;color:black;font-weight: bold;"> 쪽지 보내기</span>
+        	<a href="#!pfa-message" style="margin:10px;color:gray;"><i class="fas fa-inbox"></i> 받은 쪽지함</a>
+          	<a href="#!pfa-message-sent" style="margin:10px;color:gray;"><i class="far fa-envelope"></i> 보낸 쪽지함</a>
+          	<a href="#!pfa-message-starred" style="margin:10px;color:gray;"><i class="far fa-star"></i> 중요 쪽지함</a>
+        </div>
+        
+        <div class="row">
+        	<div class="col-lg-3 well"> 
+        		<div class="custom-scrollbar" style="white-space: nowrap;max-height:250px;height:100%;width:100%;overflow: scroll;"> 
+	        		<div>
+	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'a@a.a')">
+	        			<span>a@a.a</span>
+	        		</div>
+	        		<div>
+	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'b@a.a')">
+	        			<span>b@a.a</span>
+	        		</div>
+	        		<div>
+	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'c@a.a')">
+	        			<span>c@a.a</span>
+	        		</div>
+	        		<div>
+	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'd@a.a')">
+	        			<span>d@a.a</span>
+	        		</div>
+        		</div>
+        	</div>
+        	<div class="col-lg-9 well">
+	        	<div>New Message</div>
+	        	<form id="sendform"  role="form" ng-submit="send()" >
+				    <div class="input-group">
+				     	<input id="to" class="form-control" type="text" name="to" placeholder="To..."/>
+				    </div>	
+				    <div class="input-group">
+				     	<input id="subject" class="form-control" type="text" name="subject" placeholder="Subject... "/>
+					</div>	
+				    <div class="input-group">
+				        <textarea id="content" name="content" class="form-control" rows="3" style="resize:none" placeholder="Content... "></textarea>     
+					</div>	
+				    <div class="input-group">
+				      	<input class="btn btn-primary" type="submit" value="Send"/>
+				  	</div>
+				</form>
+        	</div>
+        </div>  
+        
+        
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Your Website 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>

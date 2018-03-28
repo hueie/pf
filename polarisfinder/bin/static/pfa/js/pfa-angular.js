@@ -51,6 +51,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'messageController',
 				templateUrl : "pfa-message-starred.html",
 				resolve : { }
+			}).when("/pfa-message-compose", {
+				controller : 'messageController',
+				templateUrl : "pfa-message-compose.html",
+				resolve : { }
 			});
 		});
 		
@@ -76,7 +80,7 @@ app.config(function($routeProvider, $httpProvider) {
 			this.user = function(){
 				return $http.get('/user/user');
 			}
-		}])
+		}]);
 		app.controller('mainController', [ '$rootScope', '$scope', 'mainService',
 			function($rootScope, $scope, mainService) {
 			$scope.user = function(){
@@ -124,8 +128,97 @@ app.config(function($routeProvider, $httpProvider) {
 			function($rootScope, $scope) {
 			
 		}]);
-		app.controller('messageController', [ '$rootScope', '$scope',
-			function($rootScope, $scope) {
+		
+		
+		app.service('messageService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.send = function(tolist, subject, content){
+				var data = $.param({
+					tolist: tolist, subject, subject, content: content
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/message/add', data, config);
+			}
+			this.getMessage = function(paging){
+				return $http.get('/message/list', {
+				    params: { paging: paging }
+				});
+			}
+		}]);
+		app.controller('messageController', [ '$rootScope', '$scope', '$location', 'messageService',
+			function($rootScope, $scope, $location, messageService) {
+			$scope.init = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    this.getData();
+			}
+			$scope.toCheckBox = function(id, name){
+				var curlist = $("#to").val().split(" ");
+				var newlist = "";
+				var flag = true;
+				for(var idx in curlist){
+					if(curlist[idx] === name){
+						flag = false;
+					} else {
+						if(curlist[idx].trim() !== ""){
+							newlist += curlist[idx].trim() +" ";
+						}
+					}
+				}
+				if(flag){
+					newlist += name +" ";
+				}
+				
+				$("#to").val(newlist);
+			}
+			$scope.send = function(){
+				var tolist = $("#to").val();
+				var subject = $("#subject").val();
+				var content = $("#content").val();
+				
+				if(tolist.trim() === ''){
+					alert("보낼 사람을 추가해주세요.")
+				} else if(subject.trim() === ''){
+					alert("제목을 추가해주세요.")
+				} else if(content.trim() === ''){
+					alert("내용을 추가해주세요.")
+				} else {
+					messageService.send(tolist, subject, content)
+					.then(function() {
+						alert("쪽지 보내기에 성공하였습니다.");
+				    	$location.path("/pfa-message-sent");
+					},function(data) {
+						alert("쪽지 보내기에 실패하였습니다.");
+					});
+					console.log("tolist : " + tolist);
+					console.log("subject : " + subject);
+					console.log("content : " + content);
+				}
+			}
+		    
+		    $scope.getData = function () {
+		    	messageService.getMessage($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
+		    	
+			}
+		    $scope.numberOfPages=function(){
+		        return Math.ceil($scope.totalCnt/$scope.pageSize);                
+		    }
+		    
 			
 		}]);
 		
