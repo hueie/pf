@@ -20,7 +20,7 @@ import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
 @Controller
-@RequestMapping("Follow")
+@RequestMapping("follow")
 public class FollowController {
 	@Autowired
 	private FollowService FollowService;
@@ -55,17 +55,21 @@ public class FollowController {
 	}
 	
 	@GetMapping("getFollowing")
-	public ResponseEntity<List<Follow>> getFollowSent(
+	public ResponseEntity<List<Follow>> getFollowing(
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
 		List<Follow> list = FollowService.getFollowing(currentUser.getUser_id(), paging);
+		for(int idx = 0; idx < list.size(); idx++){
+			User user = userService.findById( ((Follow)list.get(idx)).getFollowing_user_id());
+			list.get(idx).setUser(user);
+		}
 		return new ResponseEntity<List<Follow>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("getFollower")
-	public ResponseEntity<List<Follow>> getFollowStarred(
+	public ResponseEntity<List<Follow>> getFollower(
 			@RequestParam(value="paging", required = false)int paging
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

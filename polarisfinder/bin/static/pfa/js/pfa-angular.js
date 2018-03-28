@@ -145,6 +145,13 @@ app.config(function($routeProvider, $httpProvider) {
 	            }
 				return $http.post('/message/add', data, config);
 			}
+			
+			
+			this.getFollowing = function(paging){
+				return $http.get('/follow/getFollowing', {
+				    params: { paging: paging }
+				});
+			}
 			this.getMessage = function(paging){
 				return $http.get('/message/getMessage', {
 				    params: { paging: paging }
@@ -169,6 +176,13 @@ app.config(function($routeProvider, $httpProvider) {
 			    $scope.totalCnt = 1;
 			    $scope.data = [];
 			    this.getData();
+			}
+			$scope.init_compose = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    this.getFollowing();
 			}
 			$scope.init_sent = function(){
 				$scope.currentPage = 0;
@@ -228,6 +242,18 @@ app.config(function($routeProvider, $httpProvider) {
 				}
 			}
 		    
+			$scope.getFollowing = function () {
+		    	messageService.getFollowing($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
+			}
+		    
+			
 		    $scope.getData = function () {
 		    	messageService.getMessage($scope.currentPage)
 				.then(function(response) {

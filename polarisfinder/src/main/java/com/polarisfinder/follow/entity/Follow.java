@@ -2,19 +2,17 @@ package com.polarisfinder.follow.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+
+import com.polarisfinder.user.entity.User;
 
 @Entity
 @Table(name="follow")
@@ -35,6 +33,9 @@ public class Follow implements Serializable {
 	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date reg_dt;
+	
+	@Transient
+    private User user;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -70,6 +71,14 @@ public class Follow implements Serializable {
 
 	public final void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
+	}
+
+	public final User getUser() {
+		return user;
+	}
+
+	public final void setUser(User user) {
+		this.user = user;
 	}
 
 

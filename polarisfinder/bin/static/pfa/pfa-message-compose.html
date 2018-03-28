@@ -1,5 +1,5 @@
 
-  <div class="content-wrapper" ng-controller="messageController">
+  <div class="content-wrapper" ng-controller="messageController" data-ng-init="init_compose()">
     <div class="container-fluid">
       <div class="card mb-3">
         <div class="card-header">
@@ -12,21 +12,9 @@
         <div class="row">
         	<div class="col-lg-3 well"> 
         		<div class="custom-scrollbar" style="white-space: nowrap;max-height:250px;height:100%;width:100%;overflow: scroll;"> 
-	        		<div>
-	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'a@a.a')">
-	        			<span>a@a.a</span>
-	        		</div>
-	        		<div>
-	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'b@a.a')">
-	        			<span>b@a.a</span>
-	        		</div>
-	        		<div>
-	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'c@a.a')">
-	        			<span>c@a.a</span>
-	        		</div>
-	        		<div>
-	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(1, 'd@a.a')">
-	        			<span>d@a.a</span>
+	        		<div ng-repeat="item in data">
+	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(item.following_user_id, item.user.username)">
+	        			<span>{{item.user.username}}</span>
 	        		</div>
         		</div>
         	</div>
