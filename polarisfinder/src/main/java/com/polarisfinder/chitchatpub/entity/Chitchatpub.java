@@ -1,6 +1,7 @@
 package com.polarisfinder.chitchatpub.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -30,10 +33,16 @@ public class Chitchatpub implements Serializable {
 	@Column(name="placecomment")
 	private String placecomment;
 	
-	
 	@Column(name="star_tot_cnt")
     private int star_tot_cnt;  
 
+	@Column(name="user_id")
+	private int user_id;
+	
+	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date reg_dt;
+	
 	@Transient
 	private int star_cnt;
 	
@@ -110,6 +119,26 @@ public class Chitchatpub implements Serializable {
 
 	public final void setStar_cnt(int star_cnt) {
 		this.star_cnt = star_cnt;
+	}
+
+
+	public final int getUser_id() {
+		return user_id;
+	}
+
+
+	public final void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+
+	public final Date getReg_dt() {
+		return reg_dt;
+	}
+
+
+	public final void setReg_dt(Date reg_dt) {
+		this.reg_dt = reg_dt;
 	}
 
 

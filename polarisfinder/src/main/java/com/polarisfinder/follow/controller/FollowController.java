@@ -32,10 +32,23 @@ public class FollowController {
 	public ResponseEntity<Void> add(
 			@RequestParam("following_user_id") String following_user_id
 			){
-		
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Follow Follow = new Follow();
 		User user = userService.findByUserName(following_user_id);
+		Follow.setFollowing_user_id(user.getUser_id());
+		Follow.setUser_id(currentUser.getUser_id());
+		Follow.setReg_dt(new Date());
+		FollowService.createFollow(Follow);
+		
+        return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	@GetMapping("setFollowing")
+	public ResponseEntity<Void> setFollowing(
+			@RequestParam("following_user_id") int following_user_id
+			){
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Follow Follow = new Follow();
+		User user = userService.findById(following_user_id);
 		Follow.setFollowing_user_id(user.getUser_id());
 		Follow.setUser_id(currentUser.getUser_id());
 		Follow.setReg_dt(new Date());

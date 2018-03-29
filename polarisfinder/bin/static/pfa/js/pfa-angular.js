@@ -133,6 +133,24 @@ app.config(function($routeProvider, $httpProvider) {
 			
 		}]);
 		
+		app.service('followService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.getFollowing = function(paging){
+				return $http.get('/follow/getFollowing', {
+				    params: { paging: paging }
+				});
+			}
+			this.setFollowing = function(id){
+				return $http.get('/follow/setFollowing', {
+				    params: { following_user_id: id }
+				});
+			}
+		}]);
+
+		
+		
 		
 		app.service('messageService', ['$http', function($http){
 			this.init = function(){
@@ -151,11 +169,7 @@ app.config(function($routeProvider, $httpProvider) {
 			}
 			
 			
-			this.getFollowing = function(paging){
-				return $http.get('/follow/getFollowing', {
-				    params: { paging: paging }
-				});
-			}
+			
 			this.getMessage = function(paging){
 				return $http.get('/message/getMessage', {
 				    params: { paging: paging }
@@ -182,8 +196,8 @@ app.config(function($routeProvider, $httpProvider) {
 				});
 			}
 		}]);
-		app.controller('messageController', [ '$rootScope', '$scope', '$location', 'messageService',
-			function($rootScope, $scope, $location, messageService) {
+		app.controller('messageController', [ '$rootScope', '$scope', '$location', 'messageService', 'followService',
+			function($rootScope, $scope, $location, messageService, followService) {
 			$scope.init = function(){
 				$scope.currentPage = 0;
 			    $scope.pageSize = 10;
@@ -259,7 +273,7 @@ app.config(function($routeProvider, $httpProvider) {
 			}
 		    
 			$scope.getFollowing = function () {
-		    	messageService.getFollowing($scope.currentPage)
+				followService.getFollowing($scope.currentPage)
 				.then(function(response) {
 					var obj = response.data;
 					$scope.data = obj;

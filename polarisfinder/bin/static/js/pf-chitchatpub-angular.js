@@ -1,3 +1,18 @@
+		app.service('followService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.getFollowing = function(paging){
+				return $http.get('/follow/getFollowing', {
+				    params: { paging: paging }
+				});
+			}
+			this.setFollowing = function(id){
+				return $http.get('/follow/setFollowing', {
+				    params: { following_user_id: id }
+				});
+			}
+		}]);
 
 		
 		app.service('chitchatpubService', ['$http', function($http){
@@ -27,8 +42,17 @@
 				return $http.post('/chitchatpub/ChitchatpubAddComment', data, config);
 			}
 		}]);
-		app.controller('chitchatpubController', [ '$rootScope', '$scope', '$compile', 'chitchatpubService',
-			function($rootScope, $scope, $compile, chitchatpubService) {
+		app.controller('chitchatpubController', [ '$rootScope', '$scope', '$compile', 'chitchatpubService', 'followService',
+			function($rootScope, $scope, $compile, chitchatpubService, followService) {
+			$scope.setFollowing = function(id){
+				followService.setFollowing(id)
+				.then(function (response) {
+					alert("팔로우 성공!");
+				},function (error){
+					alert('something went wrong!!!');
+				});
+			}
+			
 			$scope.mapinit = function(){
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center : {
@@ -278,9 +302,12 @@
 					
 		        	for(var idx in obj){
 		        		html += "<div class='well'>";
-		        		html += "<div><span style='float:left'>a@a.com</span> <span style='float:right;'>follow</span></div>";
-		        		html += "<p style='font-size:10px;'>"+obj[idx].placename + "</p>"; 
-		        		html += "<p>"+obj[idx].placecomment + "</p>";
+		        		html += "<div style='margin-bottom:10px;'>&nbsp;";
+		        		html += "<span style='float:left;'>a@a.com</span>";
+		        		html += "<span ng-click='setFollowing("+obj[idx].user_id+")' style='float:right;cursor:pointer;border: 1px solid black; -webkit-border-radius: 4px; border-radius: 4px; padding:2px;'>follow</span>";
+		        		html += "</div>";
+		        		html += "<div style='font-size:10px;'>"+obj[idx].placename + "</div>"; 
+		        		html += "<div>"+obj[idx].placecomment + "</div>";
 		        		html += "<div id='star_"+obj[idx].id+"'>";
 		        		for(var starcnt = 1; starcnt <= 5 ; starcnt++){
 		        			if(starcnt <= obj[idx].star_cnt){
@@ -297,7 +324,9 @@
 		        	} else{
 		            	$("#morebtn").css("display", "block");
 		        	}
-		        	angular.element(el).append( $compile(html)($scope) );
+		        	if(html !== ''){
+		        		angular.element(el).append( $compile(html)($scope) );
+		        	}
 		        	
 				},function (error){
 					alert('something went wrong!!!');

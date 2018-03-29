@@ -36,6 +36,7 @@ public class ChitchatpubController {
 			@RequestParam(value="placecomment", required = false)String placecomment
 			) throws Exception {
 		
+		CurrentUser	currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("ChitchatpubAddComment");
 		
 		Chitchatpub chitchatpub = new Chitchatpub();
@@ -43,6 +44,8 @@ public class ChitchatpubController {
 		chitchatpub.setPlacelatitude(Float.valueOf(placelatitude));
 		chitchatpub.setPlacelongitude(Float.valueOf(placelongitude));
 		chitchatpub.setPlacename(placename);
+		chitchatpub.setUser_id(currentUser.getUser_id());
+		chitchatpub.setReg_dt(new Date());
 		
 		boolean flag = chitchatpubService.createChitchatpub(chitchatpub);
         if (flag == false) {
