@@ -10,15 +10,18 @@
         </div>
           
         <div class="card-body">
-            <div>보낸 사람 : {{viewobj.send_user.username}}</div>
-        	<hr>
-	        <div>받는 사람 : {{viewobj.to_user.username}}</div>
-        	<hr>
-	        <div>날짜 : {{viewobj.reg_dt | date : "fullDate" }}</div>
+        	<div>
+        		<div style="display:inline-block">
+		            <div>보낸 사람 : {{viewobj.send_user.username}}</div>
+			        <div>받는 사람 : {{viewobj.to_user.username}}</div>
+		        </div>
+		        <span style="float:right;">{{viewobj.reg_dt | date : "yyyy-MM-dd HH:mm:ss" }}</span>
+        	</div>
+	        
 	        <hr>
-	        <div>제목 : {{viewobj.subject}}</div>
+	        <h5>{{viewobj.subject}}</h5>
 	        <hr>
-	        <div>내용 : {{viewobj.content}}</div>
+	        <div>{{viewobj.content}}</div>
         </div>
       </div>
     </div>

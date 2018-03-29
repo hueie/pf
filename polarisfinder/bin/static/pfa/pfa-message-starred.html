@@ -29,7 +29,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <tbody>
                 <tr ng-repeat="item in data">
-                  <td>
+                  <td width="10%">
 	                  <input type="checkbox">
 	                  <a href="" ng-click="item.star = ! item.star; updateStarred(item.id, item.star);">
 	                  	<span ng-hide="item.star">
@@ -40,14 +40,14 @@
 	                  	</span>
 	                  </a>
                   </td>
-                  <td>{{item.send_user.username}}</td>
-                  <td>
+                  <td width="15%">{{item.send_user.username}}</td>
+                  <td width="50%">
 	                  <a href="" ng-click="viewMessage(item.id);" >
 	                  	{{item.subject}}
 	                  </a>
                   </td>
-                  <td>{{item.reg_dt | date : "fullDate" }}</td>
-                  <td>{{item.status}}</td>
+                  <td width="20%">{{item.reg_dt | date : "yyyy-MM-dd HH:mm:ss" }}</td>
+                  <td width="5%">{{item.status}}</td>
                 </tr>
               </tbody>
             </table>
