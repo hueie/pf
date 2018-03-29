@@ -55,6 +55,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'messageController',
 				templateUrl : "pfa-message-compose.html",
 				resolve : { }
+			}).when("/pfa-message-view", {
+				controller : 'messageController',
+				templateUrl : "pfa-message-view.html",
+				resolve : { }
 			});
 		});
 		
@@ -165,6 +169,16 @@ app.config(function($routeProvider, $httpProvider) {
 			this.getMessageStarred = function(paging){
 				return $http.get('/message/getMessageStarred', {
 				    params: { paging: paging }
+				});
+			}
+			this.updateStarred = function(id,star){
+				return $http.get('/message/updateStarred', {
+				    params: { id: id, star: star }
+				});
+			}
+			this.viewMessage = function(id){
+				return $http.get('/message/viewMessage', {
+				    params: { id: id }
 				});
 			}
 		}]);
@@ -292,10 +306,29 @@ app.config(function($routeProvider, $httpProvider) {
 		        return Math.ceil($scope.totalCnt/$scope.pageSize);                
 		    }
 		    
-		    $scope.ShowHide = function(){
-		    	console.log("hi!" + $scope.showme);
-		    	$scope.showme = ! $scope.showme;
+		    $scope.updateStarred = function(id, star){
+		    	messageService.updateStarred(id, star)
+				.then(function(response) {
+					//var obj = response.data;
+					//$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					//alert("쪽지 보내기에 실패하였습니다.");
+				});
 		    }
+		    
+		    $scope.viewMessage = function(id){
+		    	messageService.viewMessage(id)
+				.then(function(response) {
+					var obj = response.data;
+					$rootScope.viewobj = obj;
+			    	$location.path("/pfa-message-view");
+				},function(data) {
+					//alert("쪽지 보내기에 실패하였습니다.");
+				});
+		    }
+		    
+		    
 			
 		}]);
 		

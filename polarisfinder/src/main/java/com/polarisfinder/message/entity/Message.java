@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
@@ -47,11 +48,14 @@ public class Message implements Serializable {
 	
 	
 	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP)
     private Date reg_dt;
-	
+
 	@Transient
-    private User user;
+    private User to_user;
+
+	@Transient
+    private User send_user;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -121,13 +125,22 @@ public class Message implements Serializable {
 		this.status = status;
 	}
 
-	public final User getUser() {
-		return user;
+	public final User getTo_user() {
+		return to_user;
 	}
 
-	public final void setUser(User user) {
-		this.user = user;
+	public final void setTo_user(User to_user) {
+		this.to_user = to_user;
 	}
+
+	public final User getSend_user() {
+		return send_user;
+	}
+
+	public final void setSend_user(User send_user) {
+		this.send_user = send_user;
+	}
+
 
 
 

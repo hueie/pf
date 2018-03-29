@@ -57,6 +57,7 @@ public class MessageController {
         return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("getMessage")
 	public ResponseEntity<List<Message>> getMessage(
 			@RequestParam(value="paging", required = false)int paging
@@ -69,7 +70,7 @@ public class MessageController {
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
 			tmpuser.setUser_id(user.getUser_id());
-			list.get(idx).setUser(tmpuser);
+			list.get(idx).setSend_user(tmpuser);
 		}
 		
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
@@ -87,7 +88,7 @@ public class MessageController {
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
 			tmpuser.setUser_id(user.getUser_id());
-			list.get(idx).setUser(tmpuser);
+			list.get(idx).setTo_user(tmpuser);
 		}
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
@@ -104,10 +105,53 @@ public class MessageController {
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
 			tmpuser.setUser_id(user.getUser_id());
-			list.get(idx).setUser(tmpuser);
+			list.get(idx).setSend_user(tmpuser);
 		}
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
+	@GetMapping("updateStarred")
+	public ResponseEntity<Void> updateStarred(
+			@RequestParam(value="id", required = false)int id,
+			@RequestParam(value="star", required = false)boolean star
+			) {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(" star " + star);
+		messageService.updateStarred(id, star);
+		return new ResponseEntity<Void>( HttpStatus.OK);
+	}
 	
-	
+
+	@GetMapping("viewMessage")
+	public ResponseEntity<Message> viewMessage(
+			@RequestParam(value="id", required = false)int id
+			) {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Message list = messageService.viewMessage(id);
+		
+		User touser = new User();
+		User senduser = new User();
+		if(currentUser.getUser_id() == list.getSend_user_id()){
+			User user = userService.findById( list.getTo_user_id());
+			touser.setUsername(user.getUsername());
+			touser.setUser_id(user.getUser_id());
+			list.setTo_user(touser);
+			
+			senduser.setUsername(currentUser.getUsername());
+			senduser.setUser_id(currentUser.getUser_id());
+			list.setSend_user(senduser);
+			
+		} else{
+			User user = userService.findById( list.getSend_user_id());
+			senduser.setUsername(user.getUsername());
+			senduser.setUser_id(user.getUser_id());
+			list.setSend_user(senduser);
+			
+			touser.setUsername(currentUser.getUsername());
+			touser.setUser_id(currentUser.getUser_id());
+			list.setTo_user(touser);
+		}
+		
+		System.out.println(" Reg_DT : " + list.getReg_dt());
+		return new ResponseEntity<Message>(list, HttpStatus.OK);
+	}
 }

@@ -1,5 +1,5 @@
 
-  <div class="content-wrapper">
+  <div class="content-wrapper" ng-controller="messageController" data-ng-init="init_starred()">
     <div class="container-fluid">
       <div class="card mb-3">
         <div class="card-header">
@@ -27,32 +27,26 @@
 		     -->
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <!-- 
-              <thead>
-                <tr>
-                  <th>중요도</th>
-                  <th>이름</th>
-                  <th>제목</th>
-                  <th>날짜</th>
-                  <th>상태</th>
-                </tr>
-              </thead>
-               -->
               <tbody>
                 <tr ng-repeat="item in data">
                   <td>
-                  <a href="" ng-click="item.star = ! item.star" >
-                  	<div ng-hide="item.star">
-                  		<i class="far fa-star" style="color:Tomato;"></i>
-                  	</div>
-                  	<div ng-show="item.star">
-                  		<i class="fas fa-star" style="color:#FFCC00;"></i>
-                  	</div>
-                  </a>
+	                  <input type="checkbox">
+	                  <a href="" ng-click="item.star = ! item.star; updateStarred(item.id, item.star);">
+	                  	<span ng-hide="item.star">
+	                  		<i class="far fa-star" style="color:Tomato;"></i>
+	                  	</span>
+	                  	<span ng-show="item.star">
+	                  		<i class="fas fa-star" style="color:#FFCC00;"></i>
+	                  	</span>
+	                  </a>
                   </td>
-                  <td>{{item.user.username}}</td>
-                  <td>{{item.subject}}</td>
-                  <td>{{item.reg_dt}}</td>
+                  <td>{{item.send_user.username}}</td>
+                  <td>
+	                  <a href="" ng-click="viewMessage(item.id);" >
+	                  	{{item.subject}}
+	                  </a>
+                  </td>
+                  <td>{{item.reg_dt | date : "fullDate" }}</td>
                   <td>{{item.status}}</td>
                 </tr>
               </tbody>

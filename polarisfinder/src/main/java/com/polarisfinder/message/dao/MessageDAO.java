@@ -14,6 +14,6 @@ public interface MessageDAO {
 	List<Message> getMessage(int id, int paging);
 	List<Message> getMessageSent(int id, int paging);
 	List<Message> getMessageStarred(int id, int paging);
-	
-	
+	void updateStarred(int id, boolean star);
+	Message viewMessage(int id);
 }

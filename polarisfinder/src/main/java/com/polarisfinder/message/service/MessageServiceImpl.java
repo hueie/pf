@@ -42,4 +42,14 @@ public class MessageServiceImpl implements MessageService {
 	public List<Message> getMessageStarred(int id, int paging) {
 		return MessageDAO.getMessageStarred(id, paging);
 	}
+	@Override
+	public void updateStarred(int id, boolean star) {
+		MessageDAO.updateStarred(id, star);
+	}
+	@Override
+	public Message viewMessage(int id) {
+		return MessageDAO.viewMessage(id);
+	}
+	
+	
 }

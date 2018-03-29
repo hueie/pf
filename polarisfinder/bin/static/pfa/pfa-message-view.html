@@ -1,51 +1,25 @@
 
-  <div class="content-wrapper" ng-controller="messageController" data-ng-init="init_sent()">
+  <div class="content-wrapper" ng-controller="messageController" data-ng-init="init-view()">
     <div class="container-fluid">
       <div class="card mb-3">
         <div class="card-header">
         	<a href="#!pfa-message-compose" style="margin:10px;color:gray;"><i class="far fa-share-square"></i> 쪽지 보내기</a>
         	<a href="#!pfa-message" style="margin:10px;color:gray;"><i class="fas fa-inbox"></i> 받은 쪽지함</a>
-          	<span style="margin:10px;color:black;font-weight: bold;"><i class="far fa-envelope"></i> 보낸 쪽지함</span>
+          	<a href="#!pfa-message-sent" style="margin:10px;color:gray;"><i class="far fa-envelope"></i> 보낸 쪽지함</a>
           	<a href="#!pfa-message-starred" style="margin:10px;color:gray;"><i class="far fa-star"></i> 중요 쪽지함</a>
         </div>
           
         <div class="card-body">
-        	<select ng-model="pageSize" id="pageSize" class="form-control">
-		        <option value="5">5</option>
-		        <option value="10">10</option>
-		        <option value="15">15</option>
-		        <option value="20">20</option>
-		     </select>
-		    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-		        Previous
-		    </button>
-		    {{currentPage+1}}/{{numberOfPages()}}
-		    <!-- 
-		    <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
-		        Next
-		    </button>
-		     -->
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <tbody>
-                <tr ng-repeat="item in data">
-                  <td>
-                  	<input type="checkbox" style="inline-block">
-                  </td>
-                  <td>{{item.to_user.username}}</td>
-                  <td>
-	                  <a href="" ng-click="viewMessage(item.id);" >
-	                  	{{item.subject}}
-	                  </a>
-                  </td>
-                  <td>{{item.reg_dt | date : "fullDate" }}</td>
-                  <td>{{item.status}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+            <div>보낸 사람 : {{viewobj.send_user.username}}</div>
+        	<hr>
+	        <div>받는 사람 : {{viewobj.to_user.username}}</div>
+        	<hr>
+	        <div>날짜 : {{viewobj.reg_dt | date : "fullDate" }}</div>
+	        <hr>
+	        <div>제목 : {{viewobj.subject}}</div>
+	        <hr>
+	        <div>내용 : {{viewobj.content}}</div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
     </div>
     <!-- /.container-fluid-->
