@@ -11,7 +11,7 @@
         
         <div class="row">
         	<div class="col-lg-3 well"> 
-        		<div class="custom-scrollbar" style="white-space: nowrap;max-height:250px;height:100%;width:100%;overflow: scroll;"> 
+        		<div class="custom-scrollbar" style="white-space: nowrap;max-height:250px;height:100%;width:100%;overflow: scroll; padding:10px;"> 
 	        		<div ng-repeat="item in data">
 	        			<input type="checkbox" name="tocheckbox" ng-click="toCheckBox(item.following_user_id, item.user.username)">
 	        			<span>{{item.user.username}}</span>

@@ -10,6 +10,7 @@
         </div>
           
         <div class="card-body">
+        <!-- 
         	<select ng-model="pageSize" id="pageSize" class="form-control">
 		        <option value="5">5</option>
 		        <option value="10">10</option>
@@ -20,26 +21,25 @@
 		        Previous
 		    </button>
 		    {{currentPage+1}}/{{numberOfPages()}}
-		    <!-- 
 		    <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
 		        Next
 		    </button>
 		     -->
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="padding: 5px;">
               <tbody>
                 <tr ng-repeat="item in data">
-                  <td width="10%">
+                  <td align="center" width="10%" style="padding: 5px;">
                   	<input type="checkbox" style="inline-block">
                   </td>
-                  <td width="15%">{{item.to_user.username}}</td>
-                  <td width="50%">
+                  <td width="15%" style="padding: 5px;">{{item.to_user.username}}</td>
+                  <td width="50%" style="padding: 5px;">
 	                  <a href="" ng-click="viewMessage(item.id);" >
 	                  	{{item.subject}}
 	                  </a>
                   </td>
-                  <td width="20%">{{item.reg_dt | date : "yyyy-MM-dd HH:mm:ss" }}</td>
-                  <td width="5%">{{item.status}}</td>
+                  <td align="center" width="20%" style="padding: 5px;">{{item.reg_dt | date : "yyyy-MM-dd HH:mm:ss" }}</td>
+                  <td align="center" width="5%" style="padding: 5px;">{{item.status}}</td>
                 </tr>
               </tbody>
             </table>
