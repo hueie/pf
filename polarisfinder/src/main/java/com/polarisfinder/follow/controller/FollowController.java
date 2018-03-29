@@ -62,8 +62,11 @@ public class FollowController {
 		System.out.println("Paging : " + paging);
 		List<Follow> list = FollowService.getFollowing(currentUser.getUser_id(), paging);
 		for(int idx = 0; idx < list.size(); idx++){
-			User user = userService.findById( ((Follow)list.get(idx)).getFollowing_user_id());
-			list.get(idx).setUser(user);
+			User user = userService.findById( list.get(idx).getFollowing_user_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
 		}
 		return new ResponseEntity<List<Follow>>(list, HttpStatus.OK);
 	}

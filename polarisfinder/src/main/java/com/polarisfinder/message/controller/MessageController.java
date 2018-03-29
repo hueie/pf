@@ -64,6 +64,14 @@ public class MessageController {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
 		List<Message> list = messageService.getMessage(currentUser.getUser_id(), paging);
+		for(int idx = 0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getSend_user_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+		}
+		
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
 	
@@ -74,6 +82,13 @@ public class MessageController {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
 		List<Message> list = messageService.getMessageSent(currentUser.getUser_id(), paging);
+		for(int idx = 0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getTo_user_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+		}
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
 	
@@ -84,6 +99,13 @@ public class MessageController {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("Paging : " + paging);
 		List<Message> list = messageService.getMessageStarred(currentUser.getUser_id(), paging);
+		for(int idx = 0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getSend_user_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+		}
 		return new ResponseEntity<List<Message>>(list, HttpStatus.OK);
 	}
 	

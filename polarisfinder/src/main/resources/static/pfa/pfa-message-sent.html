@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="card mb-3">
         <div class="card-header">
-        	<a href="#!pfa-message-compose" style="margin:10px;color:gray;"> 쪽지 보내기</a>
+        	<a href="#!pfa-message-compose" style="margin:10px;color:gray;"><i class="far fa-share-square"></i> 쪽지 보내기</a>
         	<a href="#!pfa-message" style="margin:10px;color:gray;"><i class="fas fa-inbox"></i> 받은 쪽지함</a>
           	<span style="margin:10px;color:black;font-weight: bold;"><i class="far fa-envelope"></i> 보낸 쪽지함</span>
           	<a href="#!pfa-message-starred" style="margin:10px;color:gray;"><i class="far fa-star"></i> 중요 쪽지함</a>
@@ -27,23 +27,32 @@
 		     -->
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <!-- 
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Salary</th>
+                  <th>중요도</th>
+                  <th>이름</th>
+                  <th>제목</th>
+                  <th>날짜</th>
+                  <th>상태</th>
                 </tr>
               </thead>
+               -->
               <tbody>
                 <tr ng-repeat="item in data">
-                  <td>{{item.id}}</td>
-                  <td>{{item.to_user_id}}</td>
-                  <td>{{item.to_user_id}}</td>
+                  <td>
+                  <a href="" ng-click="item.star = ! item.star" >
+                  	<div ng-hide="item.star">
+                  		<i class="far fa-star" style="color:Tomato;"></i>
+                  	</div>
+                  	<div ng-show="item.star">
+                  		<i class="fas fa-star" style="color:#FFCC00;"></i>
+                  	</div>
+                  </a>
+                  </td>
+                  <td>{{item.user.username}}</td>
                   <td>{{item.subject}}</td>
-                  <td>{{item.star}}</td>
+                  <td>{{item.reg_dt}}</td>
                   <td>{{item.status}}</td>
                 </tr>
               </tbody>

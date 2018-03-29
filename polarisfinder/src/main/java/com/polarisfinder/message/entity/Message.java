@@ -2,19 +2,19 @@ package com.polarisfinder.message.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+
+import com.polarisfinder.user.entity.User;
 
 @Entity
 @Table(name="message")
@@ -38,8 +38,9 @@ public class Message implements Serializable {
 	@Column(name="content")
     private String content;
 
+	@Type(type= "org.hibernate.type.NumericBooleanType")
 	@Column(name="star")
-	private int star;
+	private boolean star;
 
 	@Column(name="status")
 	private int status;
@@ -48,6 +49,9 @@ public class Message implements Serializable {
 	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date reg_dt;
+	
+	@Transient
+    private User user;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -101,11 +105,11 @@ public class Message implements Serializable {
 		this.reg_dt = reg_dt;
 	}
 
-	public final int getStar() {
+	public final boolean  getStar() {
 		return star;
 	}
 
-	public final void setStar(int star) {
+	public final void setStar(boolean  star) {
 		this.star = star;
 	}
 
@@ -115,6 +119,14 @@ public class Message implements Serializable {
 
 	public final void setStatus(int status) {
 		this.status = status;
+	}
+
+	public final User getUser() {
+		return user;
+	}
+
+	public final void setUser(User user) {
+		this.user = user;
 	}
 
 

@@ -175,6 +175,8 @@ app.config(function($routeProvider, $httpProvider) {
 			    $scope.pageSize = 10;
 			    $scope.totalCnt = 1;
 			    $scope.data = [];
+			    $scope.showme = true;
+			    
 			    this.getData();
 			}
 			$scope.init_compose = function(){
@@ -290,6 +292,10 @@ app.config(function($routeProvider, $httpProvider) {
 		        return Math.ceil($scope.totalCnt/$scope.pageSize);                
 		    }
 		    
+		    $scope.ShowHide = function(){
+		    	console.log("hi!" + $scope.showme);
+		    	$scope.showme = ! $scope.showme;
+		    }
 			
 		}]);
 		
