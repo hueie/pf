@@ -59,6 +59,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'messageController',
 				templateUrl : "pfa-message-view.html",
 				resolve : { }
+			}).when("/pfa-calendar", {
+				controller : 'calanderController',
+				templateUrl : "pfa-calendar.html",
+				resolve : { }
 			});
 		});
 		
@@ -346,4 +350,131 @@ app.config(function($routeProvider, $httpProvider) {
 			
 		}]);
 		
+		
+		
+		
+		app.service('calendarService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.getCalendar = function(id){
+				return $http.get('/calendar/getCalendar', {
+				    params: {  }
+				});
+			}
+		}]);
+		app.controller('calanderController', [ '$rootScope', '$scope', 'calendarService',
+			function($rootScope, $scope, calendarService) {
+			
+			$scope.init = function(){
+				console.log("hi!Calendaer");
+				this.makeCalendar();
+			}
+			
+			$scope.makeCalendar = function() {
+				 var calendar;
+				 var today = new Date();//pdd
+				 var yy = today.getFullYear();
+				 var mm = today.getMonth() + 1;
+				 var dd = today.getDate();
+				 var day = today.getDay();
+
+				 var minusWeekNum = parseInt(((dd - day) / 7) + 1);
+				 var strtdd = (dd - day - minusWeekNum * 7);
+				 if(strtdd > 23){
+					 mm=mm-1;
+				 }
+				 var firstDay = new Date();
+				 firstDay.setFullYear(yy, mm - 1, strtdd);
+				 //last Day must be reset;
+				 var lastDay = new Date();
+				 lastDay.setFullYear(yy, mm - 1, strtdd);
+				 lastDay.setDate(firstDay.getDate() + 41);
+				 
+				 var sendStartDate =  firstDay.getFullYear() + "" + ( (firstDay.getMonth()+1)<10 ? "0"+(firstDay.getMonth()+1):(firstDay.getMonth()+1) ) +
+				  "" + ( (firstDay.getDate())<10 ? "0"+(firstDay.getDate()):(firstDay.getDate()) );
+				 var sendEndDate =  lastDay.getFullYear() + "" + ( (lastDay.getMonth()+1)<10 ? "0"+(lastDay.getMonth()+1):(lastDay.getMonth()+1) ) +
+				  "" + ( (lastDay.getDate())<10 ? "0"+(lastDay.getDate()):(lastDay.getDate()) );
+				 //alert(sendStartDate +" "+sendEndDate);
+				 
+				 var sendData="sendStartDate="+sendStartDate+"&sendEndDate="+sendEndDate;
+				 
+				 
+				 calendarService.getCalendar(/*sendData*/)
+					.then(function(response) {
+						var obj = response.data;
+						$rootScope.viewobj = obj;
+
+						var dataRow = obj;
+						 var contentDataIdx = 0;
+						 var content = "";
+						 content += "<div>";
+						 content += "<h1><i class='fas fa-caret-left'></i> "+yy+"."+mm +" <i class='fas fa-caret-right'></i></h1>";
+						 content += "</div>";
+						 var style = "";
+						 for (var i = 0; i < 6; i++) {
+							 content = content + "<tr style='padding: 0; margin: 0;'>";
+							 for (var j = 0; j < 7; j++) {
+								 var fontColor = "black";
+								 var fyy = firstDay.getFullYear();
+								 var fmm = parseInt(firstDay.getMonth()) + 1;
+								 var fdd = firstDay.getDate();
+								 var str = "" + fyy + "," + fmm + "," + fdd;
+								 var sfmm = fmm;
+								 var sfdd = fdd;
+								 if (parseInt(fmm) < 10) {
+									 sfmm = "0" + fmm;
+								 }
+								 if (parseInt(fdd) < 10) {
+									 sfdd = "0" + fdd;
+								 }
+								 var reg_dt = fyy + "" + sfmm + "" + sfdd;
+					     
+								 //alert(dataRow.length);
+								 // Calendar Contents 
+								 var contentData = "";
+								 if ( contentDataIdx < dataRow.length-1 ){
+									 var dataCol = dataRow[contentDataIdx].split("/");
+									 if(dataCol.length>1){
+										 var contentData_reg_dt = dataCol[1];
+										 if( contentData_reg_dt == reg_dt){
+											 contentData = dataCol[0];
+											 contentData = "<div id='c"+reg_dt+"'>" + contentData + "</div>"; 
+											 contentDataIdx++;
+										 }
+									 }
+								 }
+					     
+								 if (firstDay.getMonth() == today.getMonth()) {
+									 fdd = "<div style='font-size: 1.17em;'>" + fdd + "</div>";
+								 } else {
+									 fdd = "<div style='font-size: 0.9em;'>" + fdd + "</div>";
+								 }
+								 fdd = fdd + contentData;
+								 
+								 if (j == 0) {
+									 fontColor = "red";
+								 } else if (j == 6) {
+									 fontColor = "blue";
+								 }
+								 
+								 var tmpHeight = 50;//parseInt( ( (totalHeight) - (noticHeight + calMenuHeight + mainMenuHeight + dayHeight) ) / 6 );
+
+								 content = content + "<td style='min-height: " + tmpHeight + "px;' id='" + reg_dt + "' name='caldate' ><a href='#' onclick='inputDateData(" + str + ")' style='width:100%; min-height: " + tmpHeight + "px;display:inline-block;text-decoration:none;color:" + fontColor + ";vertical-align: text-top;'>" + fdd + "</a></td>";
+								 firstDay.setDate(firstDay.getDate() + 1);
+							 }
+							 content = content + "</tr>";
+						 }
+					   
+						 //return content;
+						 content = "<table width='100%' id='entryTable' style='text-align: left;'><tbody>" +
+						 	"<colgroup><col width='14%'/><col width='14%'/><col width='14%'/><col width='14%'/><col width='14%'/><col width='14%'/><col width='14%'/></colgroup>" +
+						 	content + "</tbody></table>";
+						 $('#entryTable').replaceWith(content);
+						
+					},function(data) {
+					});
+				 
+			}
+		}]);
 		

@@ -1,244 +1,234 @@
-#pointer1 {
-	display:inline-block;
+.lptr_FFCC80 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #FFCC80;
 }
-
-#pointer1:after {
+/*
+.lptr_FFCC80:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid white;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer1:before {
+*/
+.lptr_FFCC80:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFCC80;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #FFCC80;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
 
-#pointer2 {
-	display:inline-block;
+.lptr_FFB74D {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #FFB74D;
 }
-
-#pointer2:after {
+/* #FFCC80
+.lptr_FFB74D:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFCC80;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer2:before {
+*/
+.lptr_FFB74D:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFB74D;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #FFB74D;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
-#pointer3 {
-	display:inline-block;
+.lptr_FFA726 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #FFA726;
 }
-
-#pointer3:after {
+/*#FFB74D;
+.lptr_FFA726:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFB74D;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer3:before {
+*/
+.lptr_FFA726:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFA726;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #FFA726;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
-#pointer4 {
-	display:inline-block;
+.lptr_FF9800 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #FF9800;
 }
-
-#pointer4:after {
+/*#FFA726;
+.lptr_FF9800:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FFA726;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer4:before {
+*/
+.lptr_FF9800:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FF9800;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #FF9800;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
-#pointer5 {
-	display:inline-block;
+.lptr_FB8C00 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #FB8C00;
 }
-
-#pointer5:after {
+/*#FF9800;
+.lptr_FB8C00:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FF9800;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer5:before {
+*/
+.lptr_FB8C00:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FB8C00;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #FB8C00;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
-#pointer6 {
-	display:inline-block;
+.lptr_F57C00 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #F57C00;
 }
-
-#pointer6:after {
+/*#FB8C00;
+.lptr_F57C00:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #FB8C00;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer6:before {
+*/
+.lptr_F57C00:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #F57C00;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #F57C00;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
 
 
-#pointer7 {
-	display:inline-block;
+.lptr_EF6C00 {
 	white-space: nowrap;
-	
 	min-width: 80px;
-	height: 60px;
+	height: 40px;
 	position: relative;
 	background: #EF6C00;
 }
-
-#pointer7:after {
+/*#F57C00;
+.lptr_EF6C00:after {
 	content: "";
 	position: absolute;
 	left: 0;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #F57C00;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
-
-#pointer7:before {
+*/
+.lptr_EF6C00:before {
 	content: "";
 	position: absolute;
-	right: -30px;
+	right: -20px;
 	bottom: 0;
 	width: 0;
 	height: 0;
-	border-left: 30px solid #EF6C00;
-	border-top: 30px solid transparent;
-	border-bottom: 30px solid transparent;
+	border-left: 20px solid #EF6C00;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
 }
+
+
+
+
