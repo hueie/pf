@@ -63,6 +63,14 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'calanderController',
 				templateUrl : "pfa-calendar.html",
 				resolve : { }
+			}).when("/pfa-task", {
+				controller : 'taskController',
+				templateUrl : "pfa-task.html",
+				resolve : { }
+			}).when("/pfa-notice", {
+				controller : 'noticeController',
+				templateUrl : "pfa-notice.html",
+				resolve : { }
 			});
 		});
 		
@@ -478,3 +486,29 @@ app.config(function($routeProvider, $httpProvider) {
 			}
 		}]);
 		
+		
+		
+		
+		
+		app.service('taskService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+		}]);
+		app.controller('taskController', [ '$rootScope', '$scope', 'taskService',
+			function($rootScope, $scope, taskService) {
+			$scope.init = function(){
+			}
+		}]);
+		
+		
+		app.service('noticeService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+		}]);
+		app.controller('noticeController', [ '$rootScope', '$scope', 'noticeService',
+			function($rootScope, $scope, noticeService) {
+			$scope.init = function(){
+			}
+		}]);
