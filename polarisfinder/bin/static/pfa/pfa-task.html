@@ -39,10 +39,10 @@
 					                	<input type="text" name="content" style="width:100%;" value="{{item.content}}">
 					                </td>
 					                <td style="border-top: 0;">
-						                <a href="" >
+						                <a href="" ng-click="saveTask(item.id);">
 						                	<i class="far fa-save" style="font-size:24px;color:lightgreen" ></i>
 						                </a>
-						                <a href="" >
+						                <a href="" ng-click="deleteTask(item.id);">
 						                	<i class="far fa-trash-alt" style="font-size:24px;color:pink" ></i>
 						                </a>
 					                </td>
@@ -62,7 +62,7 @@
 						                </a>
 					                </td>
 					                <td width="70%" style="border-top: 0;">
-					                	<input type="text" name="subject" style="width:100%;">
+					                	<input type="text" id="subject" name="subject" style="width:100%;">
 					                </td>
 					                <td width="15%" style="border-top: 0;">
 						                <a href="" >
@@ -75,9 +75,11 @@
 				            	</tr>
 				            	<tr style="border-bottom: 1px solid #dee2e6;border-top: 0;">
 					                <td style="border-top: 0;"></td>
-					                <td style="border-top: 0;"><input type="text" name="content" style="width:100%;"></td>
 					                <td style="border-top: 0;">
-						                <a href="" >
+					                	<input type="text" id="content" name="content" style="width:100%;">
+					                </td>
+					                <td style="border-top: 0;">
+						                <a href="" ng-click="saveTask(0);">
 						                	<i class="far fa-save" style="font-size:24px;color:lightgreen" ></i>
 						                </a>
 						                <a href="" >

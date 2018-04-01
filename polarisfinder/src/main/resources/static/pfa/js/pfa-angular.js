@@ -494,10 +494,41 @@ app.config(function($routeProvider, $httpProvider) {
 			this.init = function(){
 				
 			}
+			this.saveTask = function(subject, content){
+				var data = $.param({
+					subject, subject, content: content
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/message/add', data, config);
+			}
 		}]);
 		app.controller('taskController', [ '$rootScope', '$scope', 'taskService',
 			function($rootScope, $scope, taskService) {
 			$scope.init = function(){
+			}
+			$scope.saveTask = function(){
+				var subject = $("#subject").val();
+				var content = $("#content").val();
+				
+				if(subject.trim() === ''){
+					alert("제목을 추가해주세요.")
+				} else if(content.trim() === ''){
+					alert("내용을 추가해주세요.")
+				} else {
+					taskService.saveTask(subject, content)
+					.then(function() {
+						//alert("쪽지 보내기에 성공하였습니다.");
+				    	$location.path("/pfa-task");
+					},function(data) {
+						//alert("쪽지 보내기에 실패하였습니다.");
+					});
+					console.log("subject : " + subject);
+					console.log("content : " + content);
+				}
 			}
 		}]);
 		
