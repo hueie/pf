@@ -329,10 +329,11 @@ CREATE TABLE `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `subject` varchar(200) DEFAULT NULL,
   `content` text,
+  `status` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,6 +342,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
+INSERT INTO `task` (`id`, `subject`, `content`, `status`, `user_id`, `reg_dt`) VALUES (1,'a','d',0,23,'2018-04-01 20:42:50'),(2,'ss','ddd',0,23,'2018-04-01 20:44:27'),(3,'f','d',0,23,'2018-04-01 20:45:05'),(4,'ff','dd',0,23,'2018-04-01 20:46:19');
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -409,4 +411,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-01 18:34:50
+-- Dump completed on 2018-04-01 20:48:37

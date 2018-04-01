@@ -20,7 +20,7 @@ import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
 @Controller
-@RequestMapping("Task")
+@RequestMapping("task")
 public class TaskController {
 	@Autowired
 	private TaskService TaskService;
@@ -37,6 +37,7 @@ public class TaskController {
 		Task Task = new Task();
 		Task.setSubject(subject);
 		Task.setContent(content);
+		Task.setStatus(0);
 		Task.setUser_id(currentUser.getUser_id());
 		Task.setReg_dt(new Date());
 		TaskService.createTask(Task);

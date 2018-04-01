@@ -503,13 +503,36 @@ app.config(function($routeProvider, $httpProvider) {
 	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
 	                }
 	            }
-				return $http.post('/message/add', data, config);
+				return $http.post('/task/setTask', data, config);
+			}
+			this.getTask = function(paging){
+				return $http.get('/task/getTask', {
+				    params: { paging: paging }
+				});
 			}
 		}]);
-		app.controller('taskController', [ '$rootScope', '$scope', 'taskService',
-			function($rootScope, $scope, taskService) {
+		app.controller('taskController', [ '$rootScope', '$scope', '$location', 'taskService',
+			function($rootScope, $scope, $location, taskService) {
 			$scope.init = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    $scope.showme = true;
+			    
+			    this.getData();
 			}
+			$scope.getData = function () {
+				taskService.getTask($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
+			}
+			
 			$scope.saveTask = function(){
 				var subject = $("#subject").val();
 				var content = $("#content").val();
@@ -521,10 +544,13 @@ app.config(function($routeProvider, $httpProvider) {
 				} else {
 					taskService.saveTask(subject, content)
 					.then(function() {
-						//alert("쪽지 보내기에 성공하였습니다.");
-				    	$location.path("/pfa-task");
+						$("#subject").val("");
+						$("#content").val("");
+						alert("Task 에 성공하였습니다.");
+				    	$scope.init();
+						//$location.path("/pfa-task");
 					},function(data) {
-						//alert("쪽지 보내기에 실패하였습니다.");
+						alert("Task에 실패하였습니다.");
 					});
 					console.log("subject : " + subject);
 					console.log("content : " + content);

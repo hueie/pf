@@ -40,7 +40,7 @@ public class TaskDAOImpl implements TaskDAO {
 			return (List<Task>) q.getResultList();
 		} else {
 			System.out.println("paging : " + paging);
-			hql = "FROM Task  WHERE send_user_id = :id ";
+			hql = "FROM Task  WHERE user_id = :id ";
 			Query q = entityManager.createQuery(hql);
 			q.setFirstResult(paging * 5);
 			q.setMaxResults(5);
@@ -64,7 +64,7 @@ public class TaskDAOImpl implements TaskDAO {
 	public List<Task> getTask(int id, int paging) {
 		String hql;
 		System.out.println("paging : " + paging);
-		hql = "FROM Task  WHERE to_user_id = :id ";
+		hql = "FROM Task  WHERE user_id = :id ";
 		Query q = entityManager.createQuery(hql);
 		q.setFirstResult(paging * 5);
 		q.setMaxResults(5);
