@@ -34,12 +34,4 @@ public class TaskServiceImpl implements TaskService {
 	public List<Task> getTask(int id, int paging) {
 		return TaskDAO.getTask(id, paging);
 	}
-	@Override
-	public List<Task> getTasking(int id, int paging) {
-		return TaskDAO.getTasking(id, paging);
-	}
-	@Override
-	public List<Task> getTasker(int id, int paging) {
-		return TaskDAO.getTasker(id, paging);
-	}
 }

@@ -1,4 +1,4 @@
-package com.polarisfinder.task.dao;
+package com.polarisfinder.notice.dao;
 
 import java.util.List;
 
@@ -9,68 +9,68 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.polarisfinder.task.entity.Task;
+import com.polarisfinder.notice.entity.Notice;
 
 @Transactional
 @Repository
-public class TaskDAOImpl implements TaskDAO {
+public class NoticeDAOImpl implements NoticeDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
-	public void createTask(Task Task) {
-		if (Task.getId() == 0) {
-			entityManager.persist(Task);
+	public void createNotice(Notice Notice) {
+		if (Notice.getId() == 0) {
+			entityManager.persist(Notice);
 		} else {
-			entityManager.merge(Task);
+			entityManager.merge(Notice);
 		}
 	}
 
 	@SuppressWarnings("unchecked") // Ignore Warnings
 	@Override
-	public List<Task> getTaskById(int id, int paging) {
+	public List<Notice> getNoticeById(int id, int paging) {
 		String hql;
 		if (id == 0) {
 			System.out.println("paging : " + paging);
-			hql = "FROM Task ORDER BY id DESC ";
+			hql = "FROM Notice ORDER BY id DESC ";
 			Query q = entityManager.createQuery(hql);
 			q.setFirstResult(paging * 5);
 			q.setMaxResults(5);
 
-			return (List<Task>) q.getResultList();
+			return (List<Notice>) q.getResultList();
 		} else {
 			System.out.println("paging : " + paging);
-			hql = "FROM Task  WHERE send_user_id = :id ";
+			hql = "FROM Notice  WHERE send_user_id = :id ";
 			Query q = entityManager.createQuery(hql);
 			q.setFirstResult(paging * 5);
 			q.setMaxResults(5);
 			q.setParameter("id", id);
 
-			return (List<Task>) q.getResultList();
+			return (List<Notice>) q.getResultList();
 		}
 	}
 
 	@Override
-	public void deleteTask(Task Task) {
-		if (Task.getId() != 0) {
-			String hql = "delete Task where id = :id";
-			Query q = entityManager.createQuery(hql).setParameter("id", Task.getId());
+	public void deleteNotice(Notice Notice) {
+		if (Notice.getId() != 0) {
+			String hql = "delete Notice where id = :id";
+			Query q = entityManager.createQuery(hql).setParameter("id", Notice.getId());
 			q.executeUpdate();
 		}
 	}
 
 	@SuppressWarnings("unchecked") // Ignore Warnings
 	@Override
-	public List<Task> getTask(int id, int paging) {
+	public List<Notice> getNotice(int id, int paging) {
 		String hql;
 		System.out.println("paging : " + paging);
-		hql = "FROM Task  WHERE to_user_id = :id ";
+		hql = "FROM Notice  WHERE to_user_id = :id ";
 		Query q = entityManager.createQuery(hql);
 		q.setFirstResult(paging * 5);
 		q.setMaxResults(5);
 		q.setParameter("id", id);
 
-		return (List<Task>) q.getResultList();
+		return (List<Notice>) q.getResultList();
 	}
 
 

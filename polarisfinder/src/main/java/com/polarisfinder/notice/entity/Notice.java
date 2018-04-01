@@ -1,4 +1,4 @@
-package com.polarisfinder.task.entity;
+package com.polarisfinder.notice.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,8 +15,8 @@ import javax.persistence.Transient;
 import com.polarisfinder.user.entity.User;
 
 @Entity
-@Table(name="task")
-public class Task implements Serializable {
+@Table(name="notice")
+public class Notice implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
