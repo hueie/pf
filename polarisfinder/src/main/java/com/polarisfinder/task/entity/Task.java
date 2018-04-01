@@ -29,6 +29,9 @@ public class Task implements Serializable {
 	
 	@Column(name="content")
     private String content;
+
+	@Column(name="status")
+	private int status;
 	
 	@Column(name="user_id")
 	private int user_id;
@@ -91,6 +94,14 @@ public class Task implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 
