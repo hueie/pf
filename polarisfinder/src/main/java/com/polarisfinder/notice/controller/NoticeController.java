@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.polarisfinder.notice.entity.Notice;
 import com.polarisfinder.notice.service.NoticeService;
 import com.polarisfinder.user.entity.CurrentUser;
+import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
 @Controller
-@RequestMapping("Notice")
+@RequestMapping("notice")
 public class NoticeController {
 	@Autowired
 	private NoticeService NoticeService;
@@ -51,4 +52,20 @@ public class NoticeController {
 		return new ResponseEntity<List<Notice>>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("viewNotice")
+	public ResponseEntity<Notice> viewNotice(
+			@RequestParam(value="id", required = false)int id
+			) {
+		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Notice list = NoticeService.viewNotice(id);
+		
+		User user = userService.findById( list.getUser_id());
+		User tmpuser = new User();
+		tmpuser.setUsername(user.getUsername());
+		tmpuser.setUser_id(user.getUser_id());
+		list.setUser(tmpuser);
+			
+		System.out.println(" Reg_DT : " + list.getReg_dt());
+		return new ResponseEntity<Notice>(list, HttpStatus.OK);
+	}
 }

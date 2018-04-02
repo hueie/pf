@@ -1,0 +1,30 @@
+
+  <div class="content-wrapper" ng-controller="noticeController" data-ng-init="init-view()">
+    <div class="container-fluid">
+      <div class="card mb-3">
+        <div class="card-header">
+        	<!-- 
+        	<a href="#!pfa-notice-compose" style="margin:10px;color:gray;"><i class="far fa-share-square"></i> 쪽지 보내기</a>
+        	<a href="#!pfa-notice" style="margin:10px;color:gray;"><i class="fas fa-inbox"></i> 받은 쪽지함</a>
+          	<a href="#!pfa-notice-sent" style="margin:10px;color:gray;"><i class="far fa-envelope"></i> 보낸 쪽지함</a>
+          	<a href="#!pfa-notice-starred" style="margin:10px;color:gray;"><i class="far fa-star"></i> 중요 쪽지함</a>
+        	 -->
+        </div>
+          
+        <div class="card-body">
+        	<div>
+        		<div style="display:inline-block">
+			        <div>작성자 : {{viewobj.user.username}}</div>
+		        </div>
+		        <span style="float:right;">{{viewobj.reg_dt | date : "yyyy-MM-dd HH:mm:ss" }}</span>
+        	</div>
+	        
+	        <hr>
+	        <h5>{{viewobj.subject}}</h5>
+	        <hr>
+	        <div>{{viewobj.content}}</div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->

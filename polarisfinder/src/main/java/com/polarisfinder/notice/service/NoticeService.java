@@ -9,5 +9,6 @@ public interface NoticeService {
 	List<Notice> getNoticeById(int id, int paging);
 	boolean deleteNotice(Notice Notice);
 	List<Notice> getNotice(int id, int paging);
+	Notice viewNotice(int id) ;
 	
 }

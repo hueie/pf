@@ -10,6 +10,7 @@ public interface NoticeDAO {
 	List<Notice> getNoticeById(int id, int paging);
 	void deleteNotice(Notice Notice);
 	List<Notice> getNotice(int id, int paging);
+	Notice viewNotice(int id);
 	
 	
 }

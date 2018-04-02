@@ -34,4 +34,10 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> getNotice(int id, int paging) {
 		return NoticeDAO.getNotice(id, paging);
 	}
+
+	@Override
+	public Notice viewNotice(int id) {
+		return NoticeDAO.viewNotice(id);
+	}
+	
 }

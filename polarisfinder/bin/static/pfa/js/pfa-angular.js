@@ -71,6 +71,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'noticeController',
 				templateUrl : "pfa-notice.html",
 				resolve : { }
+			}).when("/pfa-notice-view", {
+				controller : 'noticeController',
+				templateUrl : "pfa-notice-view.html",
+				resolve : { }
 			});
 		});
 		
@@ -559,13 +563,108 @@ app.config(function($routeProvider, $httpProvider) {
 		}]);
 		
 		
+		app.service('anchorService', ['$http', function($http){
+			this.init = function(){
+				
+			}
+			this.updateStarred = function(id,anchor){
+				return $http.get('/anchor/updateAnchor', {
+				    params: { id: id, anchor: anchor }
+				});
+			}
+		}]);
+		
+		
 		app.service('noticeService', ['$http', function($http){
 			this.init = function(){
 				
 			}
-		}]);
-		app.controller('noticeController', [ '$rootScope', '$scope', 'noticeService',
-			function($rootScope, $scope, noticeService) {
-			$scope.init = function(){
+			this.saveNotice = function(subject, content){
+				var data = $.param({
+					subject, subject, content: content
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/notice/setNotice', data, config);
 			}
+			this.getNotice = function(paging){
+				return $http.get('/notice/getNotice', {
+				    params: { paging: paging }
+				});
+			}
+			this.viewNotice = function(id){
+				return $http.get('/notice/viewNotice', {
+				    params: { id: id }
+				});
+			}
+		}]);
+		app.controller('noticeController', [ '$rootScope', '$scope', '$location', 'noticeService', 'anchorService',
+			function($rootScope, $scope, $location, noticeService, anchorService) {
+			
+			$scope.updateAnchor = function(id, anchor){
+				anchorService.updateAnchor(id, anchor)
+				.then(function(response) {
+					//var obj = response.data;
+					//$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					//alert("쪽지 보내기에 실패하였습니다.");
+				});
+		    }
+			
+			$scope.init = function(){
+				$scope.currentPage = 0;
+			    $scope.pageSize = 10;
+			    $scope.totalCnt = 1;
+			    $scope.data = [];
+			    $scope.showme = true;
+			    
+			    this.getData();
+			}
+			$scope.getData = function () {
+				noticeService.getNotice($scope.currentPage)
+				.then(function(response) {
+					var obj = response.data;
+					$scope.data = obj;
+					//$scope.data.push("Item "+i);
+				},function(data) {
+					alert("쪽지 보내기에 실패하였습니다.");
+				});
+			}
+			$scope.saveNotice = function(){
+				var subject = $("#subject").val();
+				var content = $("#content").val();
+				
+				if(subject.trim() === ''){
+					alert("제목을 추가해주세요.")
+				} else if(content.trim() === ''){
+					alert("내용을 추가해주세요.")
+				} else {
+					noticeService.saveNotice(subject, content)
+					.then(function() {
+						$("#subject").val("");
+						$("#content").val("");
+						alert("Task 에 성공하였습니다.");
+				    	$scope.init();
+						//$location.path("/pfa-task");
+					},function(data) {
+						alert("Task에 실패하였습니다.");
+					});
+					console.log("subject : " + subject);
+					console.log("content : " + content);
+				}
+			}
+			$scope.viewNotice = function(id){
+		    	noticeService.viewNotice(id)
+				.then(function(response) {
+					var obj = response.data;
+					$rootScope.viewobj = obj;
+			    	$location.path("/pfa-notice-view");
+				},function(data) {
+					//alert("쪽지 보내기에 실패하였습니다.");
+				});
+		    }
 		}]);

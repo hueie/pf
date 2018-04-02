@@ -40,7 +40,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 			return (List<Notice>) q.getResultList();
 		} else {
 			System.out.println("paging : " + paging);
-			hql = "FROM Notice  WHERE send_user_id = :id ";
+			hql = "FROM Notice  WHERE user_id = :id ";
 			Query q = entityManager.createQuery(hql);
 			q.setFirstResult(paging * 5);
 			q.setMaxResults(5);
@@ -64,7 +64,7 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public List<Notice> getNotice(int id, int paging) {
 		String hql;
 		System.out.println("paging : " + paging);
-		hql = "FROM Notice  WHERE to_user_id = :id ";
+		hql = "FROM Notice  WHERE user_id = :id ";
 		Query q = entityManager.createQuery(hql);
 		q.setFirstResult(paging * 5);
 		q.setMaxResults(5);
@@ -73,5 +73,13 @@ public class NoticeDAOImpl implements NoticeDAO {
 		return (List<Notice>) q.getResultList();
 	}
 
-
+	@SuppressWarnings("unchecked") // Ignore Warnings
+	@Override
+	public Notice viewNotice(int id) {
+		String hql;
+		hql = "FROM Notice WHERE id = :id ";
+		Query q = entityManager.createQuery(hql);
+		q.setParameter("id", id);
+		return (Notice)q.getSingleResult();
+	}
 }
