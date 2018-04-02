@@ -567,7 +567,7 @@ app.config(function($routeProvider, $httpProvider) {
 			this.init = function(){
 				
 			}
-			this.updateStarred = function(id,anchor){
+			this.updateAnchor = function(id,anchor){
 				return $http.get('/anchor/updateAnchor', {
 				    params: { id: id, anchor: anchor }
 				});
