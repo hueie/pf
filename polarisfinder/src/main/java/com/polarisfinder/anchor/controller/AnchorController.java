@@ -28,8 +28,8 @@ public class AnchorController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("add")
-	public ResponseEntity<Void> add(
+	@PostMapping("createAnchor")
+	public ResponseEntity<Void> createAnchor(
 			@RequestParam("subject") String subject,
 			@RequestParam("content") String content
 			){
@@ -44,14 +44,14 @@ public class AnchorController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping("updateStarred")
-	public ResponseEntity<Void> updateStarred(
+	@GetMapping("updateAnchor")
+	public ResponseEntity<Void> updateAnchor(
 			@RequestParam(value="id", required = false)int id,
-			@RequestParam(value="star", required = false)boolean star
+			@RequestParam(value="anchor", required = false)boolean anchor
 			) {
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(" star " + star);
-		AnchorService.updateStarred(id, star);
+		System.out.println(" star " + anchor);
+		AnchorService.updateAnchor(id, anchor);
 		return new ResponseEntity<Void>( HttpStatus.OK);
 	}
 	

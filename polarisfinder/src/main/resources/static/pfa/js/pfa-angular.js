@@ -35,9 +35,9 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'mainController',
 				templateUrl : "pfa-charts.html",
 				resolve : { }
-			}).when("/pfa-ca-wh", {
-				controller : 'cawhController',
-				templateUrl : "pfa-ca-wh.html",
+			}).when("/pfa-roadmap-ca-wh", {
+				controller : 'roadmapController',
+				templateUrl : "pfa-roadmap-ca-wh.html",
 				resolve : { }
 			}).when("/pfa-message", {
 				controller : 'messageController',
@@ -144,9 +144,37 @@ app.config(function($routeProvider, $httpProvider) {
 		}]);
 		
 
-		app.controller('cawhController', [ '$rootScope', '$scope',
-			function($rootScope, $scope) {
-			
+		app.controller('roadmapController', [ '$rootScope', '$scope', '$location', 'taskService',
+			function($rootScope, $scope, $location, taskService) {
+			$scope.init_ca_wh = function(){
+				console.log($rootScope.roadmap_page);
+				if (typeof $rootScope.roadmap_page == 'undefined'){
+					$rootScope.roadmap_page = 1;
+				}
+			}
+			$scope.viewRoadmap = function(roadmap_page){
+				$rootScope.roadmap_page = roadmap_page;
+				if(1 <= roadmap_page  && roadmap_page <= 9){
+					$location.path("/pfa-roadmap-ca-wh");
+				} else{
+					
+				}
+			}
+			$scope.saveTask = function(related_id, subject){
+				var type = "roadmap";
+				var content = "";
+				
+				taskService.saveTask(type, related_id, subject, content)
+				.then(function() {
+					alert("Task 에 성공하였습니다.");
+				   	//$scope.init();
+					//$location.path("/pfa-task");
+				},function(data) {
+					alert("Task에 실패하였습니다.");
+				});
+				console.log("subject : " + subject);
+				console.log("content : " + content);
+			}
 		}]);
 		
 		app.service('followService', ['$http', function($http){
@@ -498,9 +526,9 @@ app.config(function($routeProvider, $httpProvider) {
 			this.init = function(){
 				
 			}
-			this.saveTask = function(subject, content){
+			this.saveTask = function(type, related_id, subject, content){
 				var data = $.param({
-					subject, subject, content: content
+					type: type, related_id:related_id, subject: subject, content: content
 	            });
 	            var config = {
 	                headers : {
@@ -538,6 +566,8 @@ app.config(function($routeProvider, $httpProvider) {
 			}
 			
 			$scope.saveTask = function(){
+				var type = "task";
+				var related_id = "";
 				var subject = $("#subject").val();
 				var content = $("#content").val();
 				
@@ -546,7 +576,7 @@ app.config(function($routeProvider, $httpProvider) {
 				} else if(content.trim() === ''){
 					alert("내용을 추가해주세요.")
 				} else {
-					taskService.saveTask(subject, content)
+					taskService.saveTask(type, related_id, subject, content)
 					.then(function() {
 						$("#subject").val("");
 						$("#content").val("");
@@ -566,6 +596,17 @@ app.config(function($routeProvider, $httpProvider) {
 		app.service('anchorService', ['$http', function($http){
 			this.init = function(){
 				
+			}
+			this.saveAnchor = function(subject, content){
+				var data = $.param({
+					subject, subject, content: content
+	            });
+	            var config = {
+	                headers : {
+	                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+	                }
+	            }
+				return $http.post('/notice/setNotice', data, config);
 			}
 			this.updateAnchor = function(id,anchor){
 				return $http.get('/anchor/updateAnchor', {
@@ -601,19 +642,24 @@ app.config(function($routeProvider, $httpProvider) {
 				});
 			}
 		}]);
-		app.controller('noticeController', [ '$rootScope', '$scope', '$location', 'noticeService', 'anchorService',
-			function($rootScope, $scope, $location, noticeService, anchorService) {
+		app.controller('noticeController', [ '$rootScope', '$scope', '$location', 'noticeService', 'taskService',
+			function($rootScope, $scope, $location, noticeService, taskService) {
 			
-			$scope.updateAnchor = function(id, anchor){
-				anchorService.updateAnchor(id, anchor)
-				.then(function(response) {
-					//var obj = response.data;
-					//$scope.data = obj;
-					//$scope.data.push("Item "+i);
+			$scope.saveTask = function(related_id, subject){
+				var type = "notice";
+				var content = "";
+				
+				taskService.saveTask(type, related_id, subject, content)
+				.then(function() {
+					alert("Task 에 성공하였습니다.");
+				   	//$scope.init();
+					//$location.path("/pfa-task");
 				},function(data) {
-					//alert("쪽지 보내기에 실패하였습니다.");
+					alert("Task에 실패하였습니다.");
 				});
-		    }
+				console.log("subject : " + subject);
+				console.log("content : " + content);
+			}
 			
 			$scope.init = function(){
 				$scope.currentPage = 0;

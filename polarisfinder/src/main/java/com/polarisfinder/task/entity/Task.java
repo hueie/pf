@@ -24,6 +24,12 @@ public class Task implements Serializable {
 	@Column(name="id")
     private int id;  
 
+	@Column(name="type")
+    private String type;
+
+	@Column(name="related_id")
+    private String related_id;  
+	
 	@Column(name="subject")
     private String subject;
 	
@@ -102,6 +108,22 @@ public class Task implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public final String getType() {
+		return type;
+	}
+
+	public final void setType(String type) {
+		this.type = type;
+	}
+
+	public final String getRelated_id() {
+		return related_id;
+	}
+
+	public final void setRelated_id(String related_id) {
+		this.related_id = related_id;
 	}
 
 

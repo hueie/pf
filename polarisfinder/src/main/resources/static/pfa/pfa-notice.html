@@ -32,7 +32,7 @@
             	<tbody>
                 	<tr ng-repeat="item in data" >
                   		<td align="center" width="10%" style="padding: 5px;">
-	                  		<a href="" ng-click="item.anchor = ! item.anchor; updateAnchor(item.id, item.anchor);" >
+	                  		<a href="" ng-click="item.anchor = ! item.anchor; saveTask(item.id, item.subject);" >
 		                  	<span ng-hide="item.anchor" >
 		                  		<i class="fas fa-anchor" style="color:gray;"></i>
 		                  	</span>
@@ -72,5 +72,3 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 	</div>
 </div>
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->

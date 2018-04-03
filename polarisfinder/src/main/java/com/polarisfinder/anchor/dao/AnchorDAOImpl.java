@@ -88,9 +88,9 @@ public class AnchorDAOImpl implements AnchorDAO {
 	
 	@SuppressWarnings("unchecked") // Ignore Warnings
 	@Override
-	public void updateStarred(int id, boolean star) {
+	public void updateAnchor(int id, boolean anchor) {
 		String hql;
-		if(star){
+		if(anchor){
 			hql = "update Anchor set star = 1 WHERE id = :id";
 		} else {
 			hql = "update Anchor set star = 0 WHERE id = :id";

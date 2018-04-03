@@ -30,11 +30,21 @@ public class TaskController {
 	
 	@PostMapping("setTask")
 	public ResponseEntity<Void> setTask(
+			@RequestParam("type") String type,
+			@RequestParam("related_id") String related_id,
 			@RequestParam("subject") String subject,
 			@RequestParam("content") String content
 			){
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Task Task = new Task();
+		Task.setType(type);
+		
+		if(type.equals("notice")){
+			
+		} else if(type.equals("task")){
+			
+		}
+		Task.setRelated_id(related_id);
 		Task.setSubject(subject);
 		Task.setContent(content);
 		Task.setStatus(0);

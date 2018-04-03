@@ -10,6 +10,6 @@ public interface AnchorService {
 	boolean deleteAnchor(Anchor Anchor);
 	
 	List<Anchor> getAnchor(int id, int paging);
-	void updateStarred(int id, boolean star);
+	void updateAnchor(int id, boolean anchor);
 	Anchor viewAnchor(int id) ;
 }

@@ -35,8 +35,8 @@ public class AnchorServiceImpl implements AnchorService {
 		return AnchorDAO.getAnchor(id, paging);
 	}
 	@Override
-	public void updateStarred(int id, boolean star) {
-		AnchorDAO.updateStarred(id, star);
+	public void updateAnchor(int id, boolean anchor) {
+		AnchorDAO.updateAnchor(id, anchor);
 	}
 	@Override
 	public Anchor viewAnchor(int id) {

@@ -22,7 +22,9 @@
 						                </a>
 					                </td>
 					                <td width="70%" style="border-top: 0;">
-					                	<input type="text" name="subject" style="width:100%;" value="{{item.subject}}">
+					                	<div ng-if="item.type == 'roadmap'" ng-controller="roadmapController"><a href="" ng-click="viewRoadmap(item.related_id);">{{item.subject}}</a></div>
+					                	<div ng-if="item.type == 'notice'" ng-controller="noticeController"><a href="" ng-click="viewNotice(item.related_id);">{{item.subject}}</a></div>
+					                	<input ng-if="item.type == 'task'" type="text" name="subject" style="width:100%;" value="{{item.subject}}">
 					                </td>
 					                <td width="15%" style="border-top: 0;">
 						                <a href="" >
