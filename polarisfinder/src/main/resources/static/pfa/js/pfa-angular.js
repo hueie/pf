@@ -545,6 +545,23 @@ app.config(function($routeProvider, $httpProvider) {
 		}]);
 		app.controller('taskController', [ '$rootScope', '$scope', '$location', 'taskService',
 			function($rootScope, $scope, $location, taskService) {
+			/* For youtube url */
+			$scope.evaluateChange = function(obj,$event) {
+				//var el = event.target;
+			    //console.log(el.value);
+		        console.log($scope.subjectModel);//this will give you value of current element
+		        var subject = $scope.subjectModel;
+		        
+		        var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+		        var regex = new RegExp(expression);
+		        if(subject.match(regex)){
+		        	console.log("hi!");
+		        } else {
+		        	
+		        }
+		        
+			};
+			
 			$scope.init = function(){
 				$scope.currentPage = 0;
 			    $scope.pageSize = 10;
