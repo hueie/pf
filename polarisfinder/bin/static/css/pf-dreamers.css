@@ -1,3 +1,16 @@
+.blog_content{
+	margin: -20px -10px 0 -10px;
+    background-color: white;
+}
+.old_newspaper{
+	/*
+	background-image: url(/img/back/old_newspaper2.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+	*/
+}
 
 .like_black_32 {
 	height:32px;
@@ -52,13 +65,6 @@
     background-image: url('/img/icon/label_red_32.png');
 }
 
-.old_newspaper{
-	background-image: url(/img/back/old_newspaper2.jpg);
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	background-attachment: fixed;
-}
 
 
 .edit_black_32 {

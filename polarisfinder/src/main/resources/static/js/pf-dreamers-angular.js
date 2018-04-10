@@ -104,7 +104,7 @@ app.service('dreamersService', ['$http', function($http){
 		        		var myContent = obj[idx].content;
 		                var substr = myContent;
 		                html += "<div class='well'>";
-		                html += "<div style='background-color:white;'>" + substr + "</div>";
+		                html += "<div class='blog_content'>" + substr + "</div>";
 		                html += "<div>";
 		                html += "<div id='like_"+obj[idx].id+"'";
 		                if(obj[idx].like_checked == 1){

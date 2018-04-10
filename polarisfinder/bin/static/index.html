@@ -91,7 +91,7 @@
 <body ng-app="myApp">
 	
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" ng-controller="navigation">
-        <div class="container-fluid">
+        <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.3);">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
@@ -128,7 +128,7 @@
                     </li>
                      -->
                     <li ng-show="!authenticated"  >
-                        <a href="#!signin" id="signin" style="border: 1px solid white; -webkit-border-radius: 4px; border-radius: 4px;">Get Started</a>
+                        <a href="#!signin" id="signin" style="border: 1px solid black; -webkit-border-radius: 4px; border-radius: 4px;">Get Started</a>
                     </li>
                     <!-- 
                     <li ng-show="!authenticated"  >
@@ -136,7 +136,7 @@
                     </li>
                      -->
                      <li ng-show="authenticated" class="dropdown">
-					 	<a class="dropdown-toggle" style="border: 1px solid white; -webkit-border-radius: 4px; border-radius: 4px;" data-toggle="dropdown">
+					 	<a class="dropdown-toggle" style="border: 1px solid black; -webkit-border-radius: 4px; border-radius: 4px;" data-toggle="dropdown">
 					 	{{username}}
 					  	<span class="caret"></span></a>
 					  	<ul class="dropdown-menu">

@@ -1,3 +1,14 @@
+
+.old_pub{
+	/*
+	background-image: url(/img/back/old_pub_image.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+	*/
+}
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
@@ -58,13 +69,6 @@ html, body {
 }
 
 
-.old_pub{
-	background-image: url(/img/back/old_pub_image.jpg);
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
-	background-attachment: fixed;
-}
 
 
 
