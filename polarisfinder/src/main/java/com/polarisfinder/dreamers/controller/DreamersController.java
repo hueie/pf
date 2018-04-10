@@ -11,8 +11,6 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,10 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.polarisfinder.common.util.DateUtil;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
-import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.service.DreamersService;
 import com.polarisfinder.user.entity.CurrentUser;
@@ -57,18 +55,21 @@ public class DreamersController {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
         // Get file name
-        String uploadedFileName="";
-        uploadedFileName = uploadfiles.getOriginalFilename();
-        System.out.println(uploadedFileName);
+        String orgFileName="";
+        orgFileName = uploadfiles.getOriginalFilename();
+        System.out.println(orgFileName);
 
-        if (StringUtils.isEmpty(uploadedFileName)) {
+        if (StringUtils.isEmpty(orgFileName)) {
             return new ResponseEntity("please select a file!", HttpStatus.OK);
         }
         
         String abspath = "";
-        String uploadpath = "/files/" + currentUser.getUser_id() + "/";
+        String fileExt = orgFileName.substring(orgFileName.lastIndexOf(".") + 1);
+		String newFileName = DateUtil.getCurrentDateMillisecondTime() + "." + fileExt;
+		
+        String uploadpath = "/files/" + currentUser.getUser_id() + "/" + DateUtil.getCurrentDate() + "/";
         try {
-            abspath = saveUploadedFiles(uploadpath, uploadfiles);
+            abspath = saveUploadedFiles(uploadpath, uploadfiles, newFileName);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -149,12 +150,12 @@ public class DreamersController {
         return abspath;
     }
   //save file
-    private String saveUploadedFiles(String uploadpath, MultipartFile file) throws IOException {
+    private String saveUploadedFiles(String uploadpath, MultipartFile file, String newFileName) throws IOException {
     	String abspath = "";
         byte[] bytes = file.getBytes();
-        String strpath = polarisfinder_FILE_UPLOAD_DIR +uploadpath+ file.getOriginalFilename();
+        String strpath = polarisfinder_FILE_UPLOAD_DIR +uploadpath+ newFileName;//file.getOriginalFilename();
         Path path = Paths.get(strpath);
-        abspath = uploadpath+ file.getOriginalFilename();
+        abspath = uploadpath+ newFileName;//file.getOriginalFilename();
         System.out.println("Upload Path : "+abspath);
         File folder = new File(strpath);
         folder.getParentFile().mkdirs();
