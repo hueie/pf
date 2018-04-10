@@ -251,7 +251,8 @@ app.service('dreamersService', ['$http', function($http){
 		app.controller('dreamerseditController', [ '$rootScope','$location', '$scope', '$route', '$routeParams', 'dreamerseditService',
 			function($rootScope, $location, $scope, $route, $routeParams, dreamerseditService) {
 			var editor = null;
-			$scope.init = function(){
+			$scope.init2 = function(){
+				//medium
 				$scope.id = $routeParams.id;
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -261,7 +262,7 @@ app.service('dreamersService', ['$http', function($http){
 			        editor: editor,
 			        addons: {
 	                    	images: {
-		                	fileUploadOptions: { url: '/dreamers/DreamersUpload' }
+		                	fileUploadOptions: { url: '/dreamers/DreamersUploadList' }
 		            	}
 			    	}
 				});
@@ -269,10 +270,55 @@ app.service('dreamersService', ['$http', function($http){
 			    	$scope.content = editor.getContent();
 			    });
 			    
-				this.getContent();
+				this.getContent("medium");
 			}
+			$scope.init = function(){
+				//summernote
+				$scope.id = $routeParams.id;
+				var height = $("body").prop("clientHeight");
+				$('.old_newspaper').css('min-height', height+'px');
+				
+				$('#content').summernote({
+			        placeholder: 'Hello stand alone ui',
+			        tabsize: 2,
+			        height: 300,                 // set editor height
+			        minHeight: null,             // set minimum height of editor
+			        maxHeight: null,             // set maximum height of editor
+			        focus: true,                  // set focus to editable area after initializing summernote
+			        lang: 'ko-KR',
+			        callbacks: {
+			            onImageUpload: function(files, editor, welEditable) {
+			            	for(var i =0; i<files.length; i++){
+			            		var data = new FormData();
+				            	data.append("file", files[i]);
+				            	var el = this;
+				            	$.ajax({
+				                    data: data,
+				                    type: "POST",
+				                    url: '/dreamers/DreamersUpload',
+				                    cache: false,
+				                    contentType: false,
+				                    enctype: 'multipart/form-data',
+				                    processData: false,
+				                    success: function(data) {
+				                        //console.log(data.files[0].url);
+				                        $(el).summernote('editor.insertImage', data.files[0].url);
+				                    }
+				            	});
+			            	}
+			            },
+			            onChange: function(contents) {
+			            	$scope.content = contents;
+			                //console.log('onChange:', contents, $editable);
+			            }
+			        }
+			    });
+
+				this.getContent("summernote");
+			}
+			
 			$scope.publish_article = function(){
-				//alert("111 : "+$scope.content);
+				console.log("publish_article : "+$scope.content);
 				if($scope.content!=''){
 					dreamerseditService.publish_article($scope.id, $scope.content)
 					.then(function (response) {
@@ -294,15 +340,19 @@ app.service('dreamersService', ['$http', function($http){
 				});
 			}
 			
-			$scope.getContent = function(){
-				console.log('scope.id : ' + $scope.id);
+			$scope.getContent = function(editorType){
+				console.log("editorType , scope.id : "+editorType+" , "+ $scope.id);
 				if($scope.id != 0){
 					dreamerseditService.getContent($scope.id)
 					.then(function (response) {
 			            data = response.data;
-			            //console.log(data.content);
+			            console.log(data.content);
 			            $scope.content = data.content;
-			            $("#content").html($scope.content);
+			            if(editorType === "medium"){
+				            $("#content").html($scope.content);
+			            } else if(editorType === "summernote"){
+				            $("#content").summernote('code', $scope.content);
+			            }
 					},function (error){
 						alert('something went wrong!!!');
 					});

@@ -51,6 +51,46 @@ public class DreamersController {
     
 	@PostMapping("DreamersUpload")
 	public ResponseEntity<JSONObject> DreamersUpload(
+			@RequestParam("file") MultipartFile uploadfiles
+	    ) throws Exception {
+		System.out.println("Multiple file upload!");
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+        // Get file name
+        String uploadedFileName="";
+        uploadedFileName = uploadfiles.getOriginalFilename();
+        System.out.println(uploadedFileName);
+
+        if (StringUtils.isEmpty(uploadedFileName)) {
+            return new ResponseEntity("please select a file!", HttpStatus.OK);
+        }
+        
+        String abspath = "";
+        String uploadpath = "/files/" + currentUser.getUser_id() + "/";
+        try {
+            abspath = saveUploadedFiles(uploadpath, uploadfiles);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        String strjson = ""+
+        		"{ " + 
+        		"  \"files\":" + 
+        		"    [" + 
+        		"      {" + 
+        		"        \"url\": \""+abspath+"\"" + 
+        		"      }" + 
+        		"    ]" + 
+        		"}";
+        System.out.println(strjson);
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(strjson);
+        
+        return new ResponseEntity(json, HttpStatus.OK);
+	}
+	
+	@PostMapping("DreamersUploadList")
+	public ResponseEntity<JSONObject> DreamersUploadList(
 			@RequestParam("files[]") List<MultipartFile> uploadfiles
 	    ) throws Exception {
 		System.out.println("Multiple file upload!");
@@ -106,6 +146,20 @@ public class DreamersController {
             folder.getParentFile().mkdirs();
             Files.write(path, bytes);
         }
+        return abspath;
+    }
+  //save file
+    private String saveUploadedFiles(String uploadpath, MultipartFile file) throws IOException {
+    	String abspath = "";
+        byte[] bytes = file.getBytes();
+        String strpath = polarisfinder_FILE_UPLOAD_DIR +uploadpath+ file.getOriginalFilename();
+        Path path = Paths.get(strpath);
+        abspath = uploadpath+ file.getOriginalFilename();
+        System.out.println("Upload Path : "+abspath);
+        File folder = new File(strpath);
+        folder.getParentFile().mkdirs();
+        Files.write(path, bytes);
+
         return abspath;
     }
     /*
