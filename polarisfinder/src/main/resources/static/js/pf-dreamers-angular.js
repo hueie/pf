@@ -119,6 +119,7 @@ app.service('dreamersService', ['$http', function($http){
 		        		var myContent = obj[idx].content;
 		                var substr = myContent;
 		                html += "<div class='well'>";
+		                html += "<div>" + obj[idx].user.username + "<span style='float:right'>{{"+obj[idx].reg_dt+" | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>";
 		                html += "<div class='blog_content'>" + substr + "</div>";
 		                html += "<div>";
 		                html += "<div id='like_"+obj[idx].id+"'";

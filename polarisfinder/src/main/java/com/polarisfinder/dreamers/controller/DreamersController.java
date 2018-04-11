@@ -31,6 +31,7 @@ import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.service.DreamersService;
 import com.polarisfinder.user.entity.CurrentUser;
+import com.polarisfinder.user.entity.User;
 import com.polarisfinder.user.service.UserService;
 
 
@@ -257,6 +258,12 @@ public class DreamersController {
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersById(id, paging);
 		for(int idx=0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getUser_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+			
 			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
 			list.get(idx).setDreamerscomment_list(dr);
 			if(currentUser != null){
@@ -304,6 +311,12 @@ public class DreamersController {
 		System.out.println("Paging : " + paging);
 		List<Dreamers> list = dreamersService.getDreamersByObj(tmpdr, paging);
 		for(int idx=0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getUser_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+			
 			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
 			list.get(idx).setDreamerscomment_list(dr);
 			if(currentUser != null){

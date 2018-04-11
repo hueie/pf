@@ -21,12 +21,17 @@ import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.user.entity.CurrentUser;
+import com.polarisfinder.user.entity.User;
+import com.polarisfinder.user.service.UserService;
 
 @Controller
 @RequestMapping("chitchatpub")
 public class ChitchatpubController {
 	@Autowired
 	private ChitchatpubService chitchatpubService;
+
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("ChitchatpubAddComment")
 	public ResponseEntity<Void> CubemapAddStack(
@@ -75,6 +80,12 @@ public class ChitchatpubController {
 		List<Chitchatpub> list = chitchatpubService.getChitchatpubByPlacelocation(chitchatpub, paging);
 		
 		for(int idx=0; idx < list.size(); idx++){
+			User user = userService.findById( list.get(idx).getUser_id());
+			User tmpuser = new User();
+			tmpuser.setUsername(user.getUsername());
+			tmpuser.setUser_id(user.getUser_id());
+			list.get(idx).setUser(tmpuser);
+			
 			if(currentUser != null){
 				Chitchatpubstar chitchatpubstar = new Chitchatpubstar();
 				chitchatpubstar.setChitchatpub_id(list.get(idx).getId());

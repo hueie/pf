@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.polarisfinder.user.entity.User;
+
 @Entity
 @Table(name="chitchatpub")
 public class Chitchatpub implements Serializable {
@@ -45,6 +47,9 @@ public class Chitchatpub implements Serializable {
 	
 	@Transient
 	private int star_cnt;
+
+	@Transient
+    private User user;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -139,6 +144,16 @@ public class Chitchatpub implements Serializable {
 
 	public final void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
+	}
+
+
+	public final User getUser() {
+		return user;
+	}
+
+
+	public final void setUser(User user) {
+		this.user = user;
 	}
 
 

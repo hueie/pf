@@ -302,8 +302,8 @@
 					
 		        	for(var idx in obj){
 		        		html += "<div class='well'>";
-		        		html += "<div style='margin-bottom:10px;'>&nbsp;";
-		        		html += "<span style='float:left;'>a@a.com</span>";
+		        		html += "<div style='margin-bottom:10px;text-align:left;'>"+obj[idx].user.username;
+		        		//html += "<span style='float:left;'>"+obj[idx].user.username+"</span>";
 		        		html += "<span ng-click='setFollowing("+obj[idx].user_id+")' style='float:right;cursor:pointer;border: 1px solid black; -webkit-border-radius: 4px; border-radius: 4px; padding:2px;'>follow</span>";
 		        		html += "</div>";
 		        		html += "<div style='font-size:10px;'>"+obj[idx].placename + "</div>"; 

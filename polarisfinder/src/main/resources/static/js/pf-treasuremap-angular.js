@@ -40,10 +40,11 @@
 				return $http.get('/test/getok');
 			}
 		}]);
-		app.controller('treasuremapCountryController', [ '$scope', '$compile','treasuremapCountryService', 
-			function($scope, $compile, treasuremapCountryService) {
+		app.controller('treasuremapCountryController', [ '$scope', '$compile','$templateCache', 'treasuremapCountryService', 
+			function($scope, $compile, $templateCache, treasuremapCountryService) {
 			
 			$scope.init = function(countrycode){
+				$scope.roadmap_page = 0;
 				$scope.listDiv="";
 				$scope.countrycode = countrycode;
 				console.log(countrycode);
@@ -74,5 +75,6 @@
 					alert('something went wrong!!!');
 				});
 			}
+			
 			
 		}]);

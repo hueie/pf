@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
+import com.polarisfinder.user.entity.User;
+
 @Entity
 @Table(name="dreamers")
 public class Dreamers implements Serializable {
@@ -55,6 +57,10 @@ public class Dreamers implements Serializable {
 	private int like_checked;
 	@Transient
 	private int bookmark_checked;
+	
+
+	@Transient
+    private User user;
 	
 	public int getId() {
 		return id;
@@ -143,6 +149,16 @@ public class Dreamers implements Serializable {
 
 	public final void setBookmark_cnt(int bookmark_cnt) {
 		this.bookmark_cnt = bookmark_cnt;
+	}
+
+
+	public final User getUser() {
+		return user;
+	}
+
+
+	public final void setUser(User user) {
+		this.user = user;
 	}
 
 
