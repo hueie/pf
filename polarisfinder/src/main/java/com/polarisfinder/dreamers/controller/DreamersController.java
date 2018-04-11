@@ -282,6 +282,54 @@ public class DreamersController {
 		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
 	}
 	
+	
+	@GetMapping("DreamersListByObj")
+	public ResponseEntity<List<Dreamers>> DreamersListByObj(
+			@RequestParam(value="id", required = false)int id,
+			@RequestParam(value="paging", required = false)int paging
+			) {
+
+		Dreamers tmpdr = new Dreamers();
+		CurrentUser currentUser = null;
+		tmpdr.setId(id);
+		try{
+			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			tmpdr.setUser_id(currentUser.getUser_id());
+			System.out.println("DreamersList : "+currentUser.getUsername());
+		} catch(Exception e){
+			currentUser = null;
+			//tmpdr.setUser_id(0);
+		}
+		//System.out.println("DreamersList : "+currentUser.getUsername());
+		System.out.println("Paging : " + paging);
+		List<Dreamers> list = dreamersService.getDreamersByObj(tmpdr, paging);
+		for(int idx=0; idx < list.size(); idx++){
+			List<Dreamerscomment> dr = dreamersService.getDreamerscommentById(list.get(idx).getId(), 0);
+			list.get(idx).setDreamerscomment_list(dr);
+			if(currentUser != null){
+				Dreamerslike dreamerslike = new Dreamerslike();
+				dreamerslike.setDreamers_id(list.get(idx).getId());
+				dreamerslike.setUser_id(currentUser.getUser_id());
+				if(dreamersService.checkDreamerslike(dreamerslike)){
+					list.get(idx).setLike_checked(1);
+				}else{
+					list.get(idx).setLike_checked(0);
+				}
+				Dreamersbookmark dreamersbookmark = new Dreamersbookmark();
+				dreamersbookmark.setDreamers_id(list.get(idx).getId());
+				dreamersbookmark.setUser_id(currentUser.getUser_id());
+				if(dreamersService.checkDreamersbookmark(dreamersbookmark)){
+					list.get(idx).setBookmark_checked(1);
+				}else{
+					list.get(idx).setBookmark_checked(0);
+				}
+			}
+		}
+		
+		return new ResponseEntity<List<Dreamers>>(list, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping("Dreamersedit")
 	public ResponseEntity<Dreamers> Dreamersedit(
 			@RequestParam(value="id", required = false)int id

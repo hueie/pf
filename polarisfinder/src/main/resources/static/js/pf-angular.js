@@ -59,6 +59,10 @@ app.config(function($routeProvider, $httpProvider) {
 				controller : 'userController',
 				templateUrl : "/user/signup.html",
 				resolve : { }
+			}).when("/mypage", {
+				controller : 'mypageController',
+				templateUrl : "/pf-mypage.html",
+				resolve : { }
 			});
 		});
 		
@@ -125,6 +129,12 @@ app.config(function($routeProvider, $httpProvider) {
 			
 		}]);
 		
+		app.controller('mypageController', [ '$rootScope', '$scope',
+			function($rootScope, $scope) {
+			$scope.init = function(){
+
+			}
+		}]);
 		
 		app.controller('tortugaislandController', [ '$rootScope', '$scope',
 			function($rootScope, $scope) {

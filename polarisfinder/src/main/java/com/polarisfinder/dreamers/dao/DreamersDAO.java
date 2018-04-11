@@ -12,6 +12,7 @@ public interface DreamersDAO {
 
     void createDreamers(Dreamers Dreamers);
 	List<Dreamers> getDreamersById(int id, int paging);
+	List<Dreamers> getDreamersByObj(Dreamers Dreamers, int paging);
 	void deleteDreamers(Dreamers Dreamers);
 	
 	

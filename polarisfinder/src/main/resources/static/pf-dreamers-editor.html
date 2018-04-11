@@ -4,8 +4,13 @@
         <div class="container">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center">
+					<a href="#!mypage" style="margin:10px;color:gray;"><i class="fas fa-th"></i> 드리머 내 글 보기</a>
+					<span style="margin:10px;color:black;font-weight: bold;"><i class="far fa-edit"></i> 드리머 글 쓰기</span>
+					<a href="#!dreamers-editor/0" style="margin:10px;color:gray;"><i class="fas fa-map-marker-alt"></i> 칫챗펍 내 글 보기</a>
+            	</div>
+            	<div class="col-lg-8 col-lg-offset-2 text-center">
 					<div ng-click="publish_article()" class='edit_black_32' style='float:right;vertical-align:bottom;'></div>
-					<div ng-click="delete_article()" class='eraser_black_32' style='float:right;vertical-align:bottom;'></div>
+					<div ng-show="id != 0" ng-click="delete_article()" class='eraser_black_32' style='float:right;vertical-align:bottom;'></div>
             	</div>
                 <div class="col-lg-8 col-lg-offset-2">
 					<div id="content"></div>

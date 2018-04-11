@@ -11,6 +11,7 @@ import com.polarisfinder.dreamers.entity.Dreamerslike;
 public interface DreamersService {
 	boolean createDreamers(Dreamers Dreamers);
 	List<Dreamers> getDreamersById(int id, int paging);
+	List<Dreamers> getDreamersByObj(Dreamers Dreamers, int paging);
 	boolean deleteDreamers(Dreamers Dreamers);
 	
 	boolean createDreamerscomment(Dreamerscomment Dreamerscomment);

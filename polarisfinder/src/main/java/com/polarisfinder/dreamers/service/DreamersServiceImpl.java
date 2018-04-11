@@ -24,6 +24,11 @@ public class DreamersServiceImpl implements DreamersService {
 	}
 
 	@Override
+	public List<Dreamers> getDreamersByObj(Dreamers Dreamers, int paging) {
+		return DreamersDAO.getDreamersByObj(Dreamers, paging);
+	}
+	
+	@Override
 	public List<Dreamers> getDreamersById(int id, int paging) {
 		return DreamersDAO.getDreamersById(id, paging);
 	}

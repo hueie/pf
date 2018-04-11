@@ -54,7 +54,30 @@ public class DreamersDAOImpl  implements DreamersDAO {
 		}
 	}
 	
-
+	@SuppressWarnings("unchecked") //Ignore Warnings
+	@Override
+	public List<Dreamers> getDreamersByObj(Dreamers Dreamers, int paging) {
+		String hql;
+		hql = "FROM Dreamers WHERE 1 = 1 ";
+		if(Dreamers.getId() != 0 ) {
+			hql += " AND id = :id ";
+		}
+		if(Dreamers.getUser_id() != 0 ) {
+			hql += " AND user_id = :user_id ";
+		}
+		Query q = entityManager.createQuery(hql);
+		q.setFirstResult(paging*5);
+		q.setMaxResults(5);		
+		if(Dreamers.getId() != 0 ) {
+			q.setParameter("id", Dreamers.getId());
+		}	
+		if(Dreamers.getUser_id() != 0 ) {
+			q.setParameter("user_id", Dreamers.getUser_id());
+		}
+		
+		return (List<Dreamers>) q.getResultList();
+	}
+	
 	@Override
 	public void deleteDreamers(Dreamers Dreamers) {
 		if(Dreamers.getId() != 0){

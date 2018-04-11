@@ -12,6 +12,12 @@ app.service('dreamersService', ['$http', function($http){
 				    params: { id: id, paging: paging }
 				});
 			}
+			this.getDreamersListByObj = function(id, paging){
+				return $http.get('/dreamers/DreamersListByObj', {
+				    params: { id: id, paging: paging }
+				});
+			}
+			
 			this.dreamerslike = function(dreamers_id){
 				return $http.get('/dreamers/Dreamerslike', {
 				    params: { dreamers_id: dreamers_id }
@@ -46,6 +52,15 @@ app.service('dreamersService', ['$http', function($http){
 			}
 		}]);
 		app.controller('dreamersController', [ '$rootScope','$scope', '$location','$compile', 'dreamersService', function($rootScope, $scope, $location, $compile, dreamersService) {
+			$scope.initMypage = function(){
+				var height = $("body").prop("clientHeight");
+				$('.old_newspaper').css('min-height', height+'px');
+
+				$scope.paging = 0;
+				$scope.id = 0;
+				this.getMypageDreamersList();
+				console.log('Loading dreamers');
+			}
 			$scope.init = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -115,8 +130,7 @@ app.service('dreamersService', ['$http', function($http){
 		                html += " style='margin:5px;cursor: pointer;'></div>";
 		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
 		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
-		                
-		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"' ng-show='authenticated'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
+		                //html += "<a href='#!/dreamers-editor/"+obj[idx].id+"' ng-show='authenticated'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
 		                
 		                html += "<div id='bookmark_"+obj[idx].id+"'";
 		                if(obj[idx].bookmark_checked == 1){
@@ -141,6 +155,84 @@ app.service('dreamersService', ['$http', function($http){
 		                html += "<textarea id='dreamerscomment_"+obj[idx].id+"' name='dreamerscomment_"+obj[idx].id+"' rows='1' cols='' class='form-control '  placeholder='Reply!'></textarea>";
 		                html += "<duv class='input-group-addon' ng-click='addDreamersComment("+obj[idx].id+")' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
 		                html += "</div>";
+		                html += "</div>";
+		                
+		        	}
+	                angular.element(el).append( $compile(html)($scope) );
+	                
+		        	if(obj.length < 5){
+		        		$("#morebtn").css("display", "none");
+		        	} else{
+		            	$("#morebtn").css("display", "block");
+		        	}
+				},function (error){
+					alert('something went wrong!!!');
+				});
+				for(var idx in $scope.dreamers_ids){
+					this.getDreamerscommentList($scope.dreamers_ids[idx],0);
+				}
+				
+			}
+			
+			
+			$scope.getMypageDreamersList = function(){
+				dreamersService.getDreamersListByObj($scope.id, $scope.paging)
+				.then(function (response) {
+					$scope.paging = $scope.paging + 1;
+		        	if($scope.paging == 1){
+		            	$("#list").html("");
+		        	} 
+		        	var obj = response.data;// objs.data;
+		        	var html = "";
+		        	var el = document.getElementById('list');
+	                for(var idx in obj){
+		        		var myContent = obj[idx].content;
+		                var substr = myContent;
+		                html += "<div class='well'>";
+		                html += "<div class='blog_content'>" + substr + "</div>";
+		                html += "<div>";
+		                html += "<div id='like_"+obj[idx].id+"'";
+		                html += "class='like_red_32'";
+		                /*
+		                if(obj[idx].like_checked == 1){
+		                	html += "ng-click='dreamerslike("+obj[idx].id+")' class='like_red_32'";
+		                } else{
+		                	html += "ng-click='dreamerslike("+obj[idx].id+")' class='like_black_32'";
+		                }
+		                */
+		                html += " style='margin:5px;cursor: pointer;'></div>";
+		                html += "<span id='like_text_"+obj[idx].id+"'>"+obj[idx].like_cnt+"</span>";
+		                //html += "<a href='#'><div class='chat_black_32' style='margin:10px 0px;'></div></a>";
+		                
+		                html += "<a href='#!/dreamers-editor/"+obj[idx].id+"' ng-show='authenticated'><div class='edit_black_32' style='margin:5px; float:right;'></div></a>";
+		                
+		                html += "<div id='bookmark_"+obj[idx].id+"'";
+		                html += "class='bookmark_red_32'";
+		                /*
+		                if(obj[idx].bookmark_checked == 1){
+		                	html += "ng-click='dreamersbookmark("+obj[idx].id+")' class='bookmark_red_32'";
+		                } else{
+		                	html += "ng-click='dreamersbookmark("+obj[idx].id+")' class='bookmark_black_32'";
+		                }
+		                */
+		                html += " style='margin:5px;cursor: pointer; float:right;'></div>";
+		                html += "<span id='bookmark_text_"+obj[idx].id+"' style='float:right'>"+obj[idx].bookmark_cnt+"</span>";
+		                
+		                html += "</div>";
+		                
+		                //Commoent Div Start
+		                html += "<div id='dreamerscommentlist_"+obj[idx].id+"'>";
+		                for( var idx2 in obj[idx].dreamerscomment_list){
+		                	html += obj[idx].dreamerscomment_list[idx2].dreamers_comment + "<br>";
+		                }
+		                html += "</div>";
+		                //Commoent Div End
+		                /*
+		                html += "<div class='input-group'>";
+		                html += "<textarea id='dreamerscomment_"+obj[idx].id+"' name='dreamerscomment_"+obj[idx].id+"' rows='1' cols='' class='form-control '  placeholder='Reply!'></textarea>";
+		                html += "<duv class='input-group-addon' ng-click='addDreamersComment("+obj[idx].id+")' style='vertical-align:bottom;cursor: pointer;'><div class='chat_black_16' style='margin:0px;'></div></div>";
+		                html += "</div>";
+		                */
 		                html += "</div>";
 		                
 		        	}
