@@ -1,14 +1,25 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Polaris Finder</title>
+<title>Polarxy</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-    
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />  
+<link rel="icon" href="favicon.ico?v=1" />
+<link rel="shortcut icon" href="favicon.ico?v=1" />  
+<!-- 
+<link rel="shortcut icon" href="favicon.ico" />  
+<link rel="shortcut icon" href="favicon.ico?v=2" />  
+<link rel="icon" href="favicon.ico?v=2" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />  
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+     -->
+     
 <link rel="stylesheet" type="text/css" href="/css/pf-chitchatpub.css">
 
 <script src="/js/angular-1.6.5.min.js"></script>
@@ -25,12 +36,9 @@
 <link href="/pfa/css/roadmap101.css" rel="stylesheet">
 
 
-
-
 <script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/jquery.cookie.js"></script>
 
-
+	<script src="/js/jquery.cookie.js"></script>
 	<!-- AIzaSyDD8VYV12Ujz_-Z_WNqAhMRouzkUewoO60 AIzaSyDNcQb-eCy_XhJiDmEB4WOzNW2ypBEp96g-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNRWBzMpnyMO9Z8o9hq4OUSnbZ0IEZ-70&libraries=places"></script>
 	<script src="/vendor/googlemap/js/markerclusterer.js" type="text/javascript"></script>
@@ -38,10 +46,6 @@
     <link href="/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
-    
-    
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
@@ -64,30 +68,26 @@
 	<script src="/vendor/summernote-0.8.9/dist/summernote.js"></script>
 	<script src="/vendor/summernote-0.8.9/dist/lang/summernote-ko-KR.js"></script>
 
-	<!--  medium editor start -->
-	<!-- https://github.com/orthes/medium-editor-insert-plugin/wiki/v2.x-Getting-Started -->
-	<!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
-	<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.css">
+	<script defer src="/vendor/fontawesome-free-5.0.10/js/fontawesome-all.js"></script>    
 	
-	<!-- CSS -->
+
+
+	<!--  medium editor start 
+	<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.css">
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="/vendor/medium-editor-master/dist/css/medium-editor.min.css">
 	<link rel="stylesheet" href="/vendor/medium-editor-master/dist/css/themes/default.css">
 	<link rel="stylesheet" href="/vendor/medium-editor-insert-plugin-2.4.1/dist/css/medium-editor-insert-plugin.min.css">
 	<link rel="stylesheet" href="/vendor/medium-editor-insert-plugin-2.4.1/dist/css/medium-editor-insert-plugin-frontend.min.css">
-	
-	<!-- JS -->
-	<!-- <script src="/vendor/jquery/dist/jquery.min.js"></script> -->
+	<script src="/vendor/jquery/dist/jquery.min.js"></script>
 	<script src="/vendor/medium-editor-master/dist/js/medium-editor.js"></script>
-	
 	<script src="/vendor/handlebars/handlebars.runtime-v4.0.11.js"></script>
 	<script src="/vendor/jquery-sortable-master/source/js/jquery-sortable-min.js"></script>
-	
-	<!-- Unfortunately, jQuery File Upload Plugin has a few more dependencies itself -->
 	<script src="/vendor/jQuery-File-Upload-9.20.0/js/vendor/jquery.ui.widget.js"></script>
 	<script src="/vendor/jQuery-File-Upload-9.20.0/js/jquery.iframe-transport.js"></script>
 	<script src="/vendor/jQuery-File-Upload-9.20.0/js/jquery.fileupload.js"></script>
-
 	<script src="/vendor/medium-editor-insert-plugin-2.4.1/dist/js/medium-editor-insert-plugin.min.js"></script>
+	 -->
 	<!--  medium editor edn -->
 
 </head>
@@ -100,7 +100,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#/!">Polaris Finder</a>
+                <a class="navbar-brand page-scroll" href="#/!">Polarxy</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

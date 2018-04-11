@@ -10,8 +10,10 @@
 		app.controller('treasuremapController', [ '$rootScope', '$scope', 'treasuremapService', 
 			function($rootScope, $scope, treasuremapService) {
 			$scope.init = function(){
+				/*
 				var height = $("body").prop("clientWidth")/3*2-30;
 				$('.old_worldmap').css('min-height', height+'px');
+				*/
 				console.log('Loading treasuremap');
 				this.getCountry();
 			}
@@ -48,8 +50,10 @@
 				$scope.listDiv="";
 				$scope.countrycode = countrycode;
 				console.log(countrycode);
+				/*
 				var height = $("body").prop("clientWidth")/3*2-30;
 				$('.old_'+countrycode+'_map').css('min-height', height+'px');
+				*/
 				console.log('Loading treasuremap');
 				this.getCountryInfos(countrycode);
 			}
