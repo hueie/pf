@@ -372,7 +372,7 @@ app.service('dreamersService', ['$http', function($http){
 				$('.old_newspaper').css('min-height', height+'px');
 				
 				$('#content').summernote({
-			        placeholder: 'Hello stand alone ui',
+			        placeholder: '당신의 꿈을 적어주세요.',
 			        tabsize: 2,
 			        height: 300,                 // set editor height
 			        minHeight: null,             // set minimum height of editor
