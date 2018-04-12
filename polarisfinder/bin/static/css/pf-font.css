@@ -1,0 +1,21 @@
+
+@font-face{
+font-family:TmonTium;
+/*src:url('/webfont/BM_JUA.eot');*/
+src:local(※), url('/font/TmonTium.woff') format('woff');
+}
+@font-face{
+font-family:TmonMonsori;
+/*src:url('/webfont/BM_JUA.eot');*/
+src:local(※), url('/font/TmonMonsori.woff') format('woff');
+}
+@font-face{
+font-family:YanoljaYacheB;
+/*src:url('/webfont/BM_JUA.eot');*/
+src:local(※), url('/font/YanoljaYacheB.woff') format('woff');
+}
+@font-face{
+font-family:YanoljaYacheR;
+/*src:url('/webfont/BM_JUA.eot');*/
+src:local(※), url('/font/YanoljaYacheR.woff') format('woff');
+}

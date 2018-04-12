@@ -3,13 +3,19 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+.well{
+	border-radius: 0px;
+} 
+ 
 html,
 body {
   height: 100%;
   width: 100%;
 }
+
+
 body {
-  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+  font-family: YanoljaYacheR, YanoljaYacheB, TmonTium, TmonMonsori, 'Black Han Sans', 'Nanum Gothic','Do Hyeon', 'Jua', 'Open Sans', 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 hr {
   border-color: #FFFFFF;
@@ -48,7 +54,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  /*font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;*/
 }
 p {
   font-size: 16px;
