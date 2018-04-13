@@ -92,6 +92,11 @@ app.config(function($routeProvider, $httpProvider) {
 					//$location.path("/");
 				  });
 			}
+			$(".collapsebtn").click(function(event) {
+				if($("#navbar-toggle").css("display") != "none" ){
+					$("#navbar-toggle").click(); 
+				}
+			});
 		}]);
 		app.service('mainService', ['$http', function($http){
 			this.init = function(){

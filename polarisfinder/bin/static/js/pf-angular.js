@@ -78,10 +78,14 @@ app.config(function($routeProvider, $httpProvider) {
 				    $rootScope.authenticated = false;
 				  });
 			}
+			$(".collapsebtn").click(function(event) {
+				if($("#navbar-toggle").css("display") != "none" ){
+					$("#navbar-toggle").click(); 
+				}
+			});
 		}]);
 		app.service('mainService', ['$http', function($http){
 			this.init = function(){
-				
 			}
 			this.user = function(){
 				return $http.get('/user/user');
