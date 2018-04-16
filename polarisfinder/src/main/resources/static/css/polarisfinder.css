@@ -48,14 +48,6 @@ a:hover,
 a:focus {
   color: rgba(0, 0, 0, 0.7);
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  /*font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;*/
-}
 p {
   font-size: 16px;
   line-height: 1.5;
