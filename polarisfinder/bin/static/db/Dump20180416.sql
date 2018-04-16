@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `polarisfinder` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `polarisfinder`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: polarisfinder
+-- Host: 52.79.105.142    Database: polarisfinder
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.5.58
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +14,33 @@ USE `polarisfinder`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `anchor`
+--
+
+DROP TABLE IF EXISTS `anchor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `anchor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) DEFAULT NULL COMMENT '1 : notice\n2 : produce 101\n',
+  `related_id` int(11) DEFAULT NULL,
+  `url` varchar(45) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `anchor`
+--
+
+LOCK TABLES `anchor` WRITE;
+/*!40000 ALTER TABLE `anchor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `anchor` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `chitchatpub`
@@ -30,8 +55,11 @@ CREATE TABLE `chitchatpub` (
   `placelongitude` varchar(45) DEFAULT NULL,
   `placelatitude` varchar(45) DEFAULT NULL,
   `placecomment` varchar(45) DEFAULT NULL,
+  `star_tot_cnt` int(11) DEFAULT '0',
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,8 +68,35 @@ CREATE TABLE `chitchatpub` (
 
 LOCK TABLES `chitchatpub` WRITE;
 /*!40000 ALTER TABLE `chitchatpub` DISABLE KEYS */;
-INSERT INTO `chitchatpub` (`id`, `placename`, `placelongitude`, `placelatitude`, `placecomment`) VALUES (3,'오스트레일리아 뉴사우스웨일스 주 시드니 시 시드니 오페라 하우스','0','0','보스가 성격이 안좋아요'),(4,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','음식 맛이 없네요!'),(5,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','집 상태가 안좋아요! 룸메이트는 깔끔해서 좋아요!'),(7,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','호주는 눈이 부실 정도로 햇빛이 비쳐요!'),(8,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','오늘은 비가 많이오네요.'),(9,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','오늘 불꽃 놀이 축제를 많이해요! 명당자리는 하버브릿지 아래!'),(10,'Sydney 뉴사우스웨일스 주 오스트레일리아','0','0','하우스키핑 일 너무 힘들어요.ㅠㅠ'),(11,'미국 뉴욕','0','0','뉴욕 펍 좋아요'),(12,'','0','0',''),(13,'','0','0','뮻ㅇㅇㅇ'),(14,NULL,'0','0',NULL),(15,NULL,'0','0',NULL),(16,'','0','0','ㄹㅇㄴㅁ'),(17,'오스트레일리아 뉴사우스웨일스 주 시드니 시','0','0','ㅎㄹㅇㄴ'),(18,'오스트레일리아 뉴사우스웨일스 주 시드니 시','0','0','ㄹㅇㄴㅁ'),(19,'오스트레일리아 뉴사우스웨일스 주 시드니 시','0','0','1111111111111111111111'),(22,'','0','0','fdsafdsa'),(23,'','0','0','fdsa'),(24,'','0','0','fdsa111');
+INSERT INTO `chitchatpub` (`id`, `placename`, `placelongitude`, `placelatitude`, `placecomment`, `star_tot_cnt`, `user_id`, `reg_dt`) VALUES (27,'오스트레일리아 뉴사우스웨일스 주 시드니','151.20929','-33.86882','ㅁㅁ',0,23,NULL);
 /*!40000 ALTER TABLE `chitchatpub` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `chitchatpubstar`
+--
+
+DROP TABLE IF EXISTS `chitchatpubstar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `chitchatpubstar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `chitchatpub_id` int(11) DEFAULT NULL,
+  `star_cnt` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chitchatpubstar`
+--
+
+LOCK TABLES `chitchatpubstar` WRITE;
+/*!40000 ALTER TABLE `chitchatpubstar` DISABLE KEYS */;
+/*!40000 ALTER TABLE `chitchatpubstar` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,7 +115,7 @@ CREATE TABLE `dreamers` (
   `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +124,7 @@ CREATE TABLE `dreamers` (
 
 LOCK TABLES `dreamers` WRITE;
 /*!40000 ALTER TABLE `dreamers` DISABLE KEYS */;
-INSERT INTO `dreamers` (`id`, `content`, `like_cnt`, `bookmark_cnt`, `user_id`, `reg_dt`) VALUES (8,'<p>testddddddffffsss</p><!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',6,0,0,NULL),(9,'<p>a</p> <!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',0,0,0,NULL),(10,'<p>d</p> <!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',0,0,0,NULL),(11,'<p>c</p> <!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',3,0,0,NULL),(12,'<p>dqq</p> <!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',4,-1,0,NULL),(13,'<p>ddddeeeee</p> <!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',19,-1,0,NULL),(14,'<p>fdsafdsa</p><!-- {{fooObj.content}} -->\n					\n					<div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',1,1,22,NULL),(15,'<p>fdsafdsafdsa</p><div class=\"medium-insert-embeds\" contenteditable=\"false\">\n	<figure>\n		<div class=\"medium-insert-embed\">\n			<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"https://www.youtube.com/embed/zIwLWfaAg-8?rel=0&amp;showinfo=0\" style=\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\" allowfullscreen=\"\" scrolling=\"no\"></iframe></div>\n		</div>\n	</figure>\n	<div class=\"medium-insert-embeds-overlay\"></div>\n</div><!-- {{fooObj.content}} -->\n					\n					<p><br></p><div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"left: 35px; top: 75.4667px; display: none;\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none;\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',5,0,22,NULL),(19,'<p>fdsafdsa</p><div class=\"medium-insert-buttons\" contenteditable=\"false\" style=\"display: none\">\n    <button class=\"medium-insert-buttons-show\" type=\"button\"><span>+</span></button>\n    <ul class=\"medium-insert-buttons-addons\" style=\"display: none\">\n            <li><button data-addon=\"images\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-camera\"></span></button></li>\n            <li><button data-addon=\"embeds\" data-action=\"add\" class=\"medium-insert-action\" type=\"button\"><span class=\"fa fa-youtube-play\"></span></button></li>\n    </ul>\n</div>',5,0,22,'2018-03-15 09:26:10');
+INSERT INTO `dreamers` (`id`, `content`, `like_cnt`, `bookmark_cnt`, `user_id`, `reg_dt`) VALUES (28,'<p>첫번째 게시물이에요! 잘 지켜 봐주세요!</p>',0,0,23,'2018-04-11 09:32:42'),(29,'<p style=\"text-align: center; \"><img style=\"width: 550px;\" src=\"/files/23/20180416/20180416080237183.jpg\"></p><p><br></p><p>까만 하늘에 별이 <span style=\"color: rgb(255, 214, 99);\">참 예쁘네요!</span></p><p><br></p><p style=\"text-align: right; \"><span style=\"color: rgb(255, 255, 0);\">어제와 다른</span> 오늘 열심히 또 화이팅!</p><p style=\"text-align: center; \"><span style=\"color: rgb(156, 198, 239);\">하루가 다르게 성장하고 발전하는 내 모습</span></p>',0,0,23,'2018-04-16 08:06:20');
 /*!40000 ALTER TABLE `dreamers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +184,35 @@ INSERT INTO `dreamerscomment` (`id`, `dreamers_id`, `dreamers_comment`, `user_id
 UNLOCK TABLES;
 
 --
+-- Table structure for table `dreamersfile`
+--
+
+DROP TABLE IF EXISTS `dreamersfile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dreamersfile` (
+  `dreamersfile_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dreamersfile_ext` text,
+  `dreamersfile_orign_nm` text,
+  `dreamersfile_serv_nm` text,
+  `dreamersfile_serv_path` text,
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`dreamersfile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dreamersfile`
+--
+
+LOCK TABLES `dreamersfile` WRITE;
+/*!40000 ALTER TABLE `dreamersfile` DISABLE KEYS */;
+INSERT INTO `dreamersfile` (`dreamersfile_id`, `dreamersfile_ext`, `dreamersfile_orign_nm`, `dreamersfile_serv_nm`, `dreamersfile_serv_path`, `user_id`, `reg_dt`) VALUES (1,'jpg','polarxy.jpg','20180416075418318.jpg','/files/23/20180416/20180416075418318.jpg',23,'2018-04-16 07:54:18'),(2,'jpg','polarxy.jpg','20180416075435868.jpg','/files/23/20180416/20180416075435868.jpg',23,'2018-04-16 07:54:35'),(3,'jpg','depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416075547327.jpg','/files/23/20180416/20180416075547327.jpg',23,'2018-04-16 07:55:47'),(4,'jpg','polarxy.jpg','20180416080237183.jpg','/files/23/20180416/20180416080237183.jpg',23,'2018-04-16 08:02:37');
+/*!40000 ALTER TABLE `dreamersfile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `dreamerslike`
 --
 
@@ -156,28 +240,86 @@ INSERT INTO `dreamerslike` (`id`, `dreamers_id`, `user_id`, `reg_dt`) VALUES (61
 UNLOCK TABLES;
 
 --
--- Table structure for table `fileupload`
+-- Table structure for table `follow`
 --
 
-DROP TABLE IF EXISTS `fileupload`;
+DROP TABLE IF EXISTS `follow`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fileupload` (
-  `fileupload_id` int(11) NOT NULL AUTO_INCREMENT,
-  `file_nm` text,
-  `file_path` text,
-  `fileupload_reg_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`fileupload_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `follow` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `following_user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fileupload`
+-- Dumping data for table `follow`
 --
 
-LOCK TABLES `fileupload` WRITE;
-/*!40000 ALTER TABLE `fileupload` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fileupload` ENABLE KEYS */;
+LOCK TABLES `follow` WRITE;
+/*!40000 ALTER TABLE `follow` DISABLE KEYS */;
+INSERT INTO `follow` (`id`, `user_id`, `following_user_id`, `reg_dt`) VALUES (1,23,22,NULL),(2,23,23,'2018-03-29 17:56:32');
+/*!40000 ALTER TABLE `follow` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `to_user_id` int(11) DEFAULT NULL,
+  `send_user_id` int(11) DEFAULT NULL,
+  `subject` varchar(100) DEFAULT NULL,
+  `content` text,
+  `star` tinyint(1) DEFAULT '0',
+  `status` int(11) DEFAULT '0',
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` (`id`, `to_user_id`, `send_user_id`, `subject`, `content`, `star`, `status`, `reg_dt`) VALUES (1,23,23,'ad','ff',1,0,'2018-03-28 16:20:36'),(2,22,23,'abc','111',0,0,'2018-03-29 10:11:40'),(3,22,23,'aaaaa','aaaa',0,0,'2018-03-29 16:08:34');
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notice`
+--
+
+DROP TABLE IF EXISTS `notice`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(200) DEFAULT NULL,
+  `content` text,
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notice`
+--
+
+LOCK TABLES `notice` WRITE;
+/*!40000 ALTER TABLE `notice` DISABLE KEYS */;
+INSERT INTO `notice` (`id`, `subject`, `content`, `user_id`, `reg_dt`) VALUES (1,'공지사항1 제목','공지사항1 내용',23,'2018-04-02 13:06:23'),(2,'[긴급!] :  Australia Visa 701 변경되었습니다.!','변경내용입니다.',22,'2018-04-06 09:10:32');
+/*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -205,6 +347,36 @@ INSERT INTO `role` (`role_id`, `role`) VALUES (1,'ADMIN');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `task`
+--
+
+DROP TABLE IF EXISTS `task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) DEFAULT NULL,
+  `related_id` varchar(45) DEFAULT NULL,
+  `subject` varchar(200) DEFAULT NULL,
+  `content` text,
+  `status` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `reg_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `task`
+--
+
+LOCK TABLES `task` WRITE;
+/*!40000 ALTER TABLE `task` DISABLE KEYS */;
+INSERT INTO `task` (`id`, `type`, `related_id`, `subject`, `content`, `status`, `user_id`, `reg_dt`) VALUES (5,'notice','1','공지사항1 제목','',0,23,'2018-04-03 13:38:30'),(6,'roadmap','1','워킹홀리세이란','',0,23,'2018-04-03 16:31:26'),(7,'roadmap','2','CIC 계정 만들기','',0,23,'2018-04-03 16:36:29'),(8,'roadmap','2','CIC 계정 만들기','',0,22,'2018-04-06 09:09:39'),(9,'roadmap','1','워킹홀리세이란','',0,22,'2018-04-06 09:09:43'),(10,'notice','2','[긴급!] :  Australia Visa 701 변경되었습니다.!','',0,22,'2018-04-06 09:10:35');
+/*!40000 ALTER TABLE `task` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -217,8 +389,10 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `oauthid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +401,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`user_id`, `active`, `username`, `nickname`, `password`) VALUES (22,1,'admin23@google.com','afdsa','$2a$10$whBI5jx9CvlkP1yPBY/iSelmiONd.ZyVyfu.zAQSYxHhGOzduup5q');
+INSERT INTO `user` (`user_id`, `active`, `username`, `nickname`, `password`, `type`, `oauthid`) VALUES (22,1,'admin23@google.com','관리자1','$2a$10$whBI5jx9CvlkP1yPBY/iSelmiONd.ZyVyfu.zAQSYxHhGOzduup5q',NULL,NULL),(23,1,'a@a.a','관리자','$2a$10$Jn09iSooXQK16pXVLtkc.OztHM2keUxMJ3wxsKO8EjARBKgnOWJ36',NULL,NULL),(24,0,'hueieglobal@gmail.com','hueieglobal@gmail.com','hueieglobal@gmail.com','facebook','347041749114471');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +428,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (22,1);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (22,1),(23,1),(24,1);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -267,4 +441,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-15 15:27:41
+-- Dump completed on 2018-04-16 17:10:47
