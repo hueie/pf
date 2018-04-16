@@ -380,6 +380,9 @@ app.service('dreamersService', ['$http', function($http){
 			        focus: true,                  // set focus to editable area after initializing summernote
 			        lang: 'ko-KR',
 			        callbacks: {
+			        	onInit:function(){
+			                $('body > .note-popover').appendTo(".note-editing-area");
+			            },
 			            onImageUpload: function(files, editor, welEditable) {
 			            	for(var i =0; i<files.length; i++){
 			            		var data = new FormData();

@@ -26,14 +26,15 @@ public class Dreamersfile implements Serializable {
 	@Column(name="dreamersfile_id")
     private int dreamersfile_id;  
 
-	@Column(name="dreamers_id")
-    private int dreamers_id;  
+	@Column(name="user_id")
+	private int user_id;
+	
+	
+	@Column(name="dreamersfile_ext")
+    private String dreamersfile_ext;
 	
 	@Column(name="dreamersfile_orign_nm")
     private String dreamersfile_orign_nm;
-
-	@Column(name="dreamersfile_orign_path")
-    private String dreamersfile_orign_path;
 	
 	@Column(name="dreamersfile_serv_nm")
     private String dreamersfile_serv_nm;
@@ -41,8 +42,6 @@ public class Dreamersfile implements Serializable {
 	@Column(name="dreamersfile_serv_path")
     private String dreamersfile_serv_path;
 	
-	@Column(name="user_id")
-	private int user_id;
 
 	@Column (name="reg_dt", columnDefinition="datetime", insertable=true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
@@ -100,20 +99,12 @@ public class Dreamersfile implements Serializable {
 		return serialVersionUID;
 	}
 
-	public final int getDreamers_id() {
-		return dreamers_id;
+	public final String getDreamersfile_ext() {
+		return dreamersfile_ext;
 	}
 
-	public final void setDreamers_id(int dreamers_id) {
-		this.dreamers_id = dreamers_id;
-	}
-
-	public final String getDreamersfile_orign_path() {
-		return dreamersfile_orign_path;
-	}
-
-	public final void setDreamersfile_orign_path(String dreamersfile_orign_path) {
-		this.dreamersfile_orign_path = dreamersfile_orign_path;
+	public final void setDreamersfile_ext(String dreamersfile_ext) {
+		this.dreamersfile_ext = dreamersfile_ext;
 	}
 
 }

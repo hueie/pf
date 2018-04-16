@@ -28,6 +28,7 @@ import com.polarisfinder.common.util.DateUtil;
 import com.polarisfinder.dreamers.entity.Dreamers;
 import com.polarisfinder.dreamers.entity.Dreamersbookmark;
 import com.polarisfinder.dreamers.entity.Dreamerscomment;
+import com.polarisfinder.dreamers.entity.Dreamersfile;
 import com.polarisfinder.dreamers.entity.Dreamerslike;
 import com.polarisfinder.dreamers.service.DreamersService;
 import com.polarisfinder.user.entity.CurrentUser;
@@ -69,6 +70,16 @@ public class DreamersController {
 		String newFileName = DateUtil.getCurrentDateMillisecondTime() + "." + fileExt;
 		
         String uploadpath = "/files/" + currentUser.getUser_id() + "/" + DateUtil.getCurrentDate() + "/";
+        
+        Dreamersfile df = new Dreamersfile();
+        df.setDreamersfile_orign_nm(orgFileName);
+        df.setDreamersfile_serv_nm(newFileName);
+        df.setDreamersfile_serv_path(uploadpath+newFileName);
+        df.setUser_id(currentUser.getUser_id());
+        df.setReg_dt(new Date());
+        df.setDreamersfile_ext(fileExt);
+        dreamersService.createDreamersfile(df);
+        
         try {
             abspath = saveUploadedFiles(uploadpath, uploadfiles, newFileName);
         } catch (IOException e) {
@@ -99,36 +110,48 @@ public class DreamersController {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
         // Get file name
-        String uploadedFileName="";
+        String orgFileName="";
+        String strjson="";
         for(int i=0; i<uploadfiles.size(); i++) {
-        	uploadedFileName = uploadfiles.get(i).getOriginalFilename();
-        	System.out.println(uploadedFileName);
-        }
-        if (StringUtils.isEmpty(uploadedFileName)) {
-            return new ResponseEntity("please select a file!", HttpStatus.OK);
-        }
+        	orgFileName = uploadfiles.get(i).getOriginalFilename();
+        	System.out.println(orgFileName);
         
-        String abspath = "";
-        String uploadpath = "/files/" + currentUser.getUser_id() + "/";
-        try {
-            abspath = saveUploadedFiles(uploadpath, uploadfiles);
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        if (StringUtils.isEmpty(orgFileName)) {
+	            return new ResponseEntity("please select a file!", HttpStatus.OK);
+	        }
+	        
+	        String abspath = "";
+	        String fileExt = orgFileName.substring(orgFileName.lastIndexOf(".") + 1);
+			String newFileName = DateUtil.getCurrentDateMillisecondTime() + "." + fileExt;
+			
+	        String uploadpath = "/files/" + currentUser.getUser_id() + "/" + DateUtil.getCurrentDate() + "/";
+	        
+	        Dreamersfile df = new Dreamersfile();
+	        df.setDreamersfile_orign_nm(orgFileName);
+	        df.setDreamersfile_serv_nm(newFileName);
+	        df.setDreamersfile_serv_path(uploadpath+newFileName);
+	        df.setUser_id(currentUser.getUser_id());
+	        df.setDreamersfile_ext(fileExt);
+	        df.setReg_dt(new Date());
+	        dreamersService.createDreamersfile(df);
+	        try {
+	            abspath = saveUploadedFiles(uploadpath, uploadfiles);
+	        } catch (IOException e) {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	
+	        strjson = ""+
+	        		"{ " + 
+	        		"  \"files\":" + 
+	        		"    [" + 
+	        		"      {" + 
+	        		"        \"url\": \""+abspath+"\"" + 
+	        		"      }" + 
+	        		"    ]" + 
+	        		"}";
         }
-
-        String strjson = ""+
-        		"{ " + 
-        		"  \"files\":" + 
-        		"    [" + 
-        		"      {" + 
-        		"        \"url\": \""+abspath+"\"" + 
-        		"      }" + 
-        		"    ]" + 
-        		"}";
-        System.out.println(strjson);
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(strjson);
-        
         return new ResponseEntity(json, HttpStatus.OK);
 	}
 
