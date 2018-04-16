@@ -98,9 +98,9 @@
 
 <body ng-app="myApp">
 	
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" ng-controller="navigation">
-        <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.3);">
-            <div class="navbar-header">
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" ng-controller="navigationController" data-ng-init="init()">
+        <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.5);">
+            <div class="navbar-header" >
                 <button type="button" class="navbar-toggle collapsed" id="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
                 </button>

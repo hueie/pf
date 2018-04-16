@@ -66,8 +66,15 @@ app.config(function($routeProvider, $httpProvider) {
 			});
 		});
 		
-		app.controller('navigation', [ '$rootScope', '$scope', '$location','$http',
-			function($rootScope, $scope, $location, $http) {
+		app.service('navigationService', ['$http', function($http){
+			this.init = function(){
+			}
+			this.user = function(){
+				return $http.get('/user/user');
+			}
+		}])
+		app.controller('navigationController', [ '$rootScope', '$scope', '$location','$http', 'navigationService',
+			function($rootScope, $scope, $location, $http, navigationService) {
 			$scope.logout = function() {
 				  $http.get('/user/logout', {})
 				  .then(function() {
@@ -83,7 +90,32 @@ app.config(function($routeProvider, $httpProvider) {
 					$("#navbar-toggle").click(); 
 				}
 			});
+			$scope.user = function(){
+				navigationService.user()
+				.then(function(response) {
+			    	  $rootScope.currentuser = response.data;
+			      if ($rootScope.currentuser.username) {
+			    	  $rootScope.username = $rootScope.currentuser.username;
+			    	  $rootScope.authenticated = true;
+			      } else {
+			    	  $rootScope.authenticated = false;
+			      }
+			    }, function() {
+			    	//alert("계정을 확인해주세요");
+			    	$rootScope.authenticated = false;
+			    });
+			}
+			$scope.init = function(){
+				console.log("navi init");
+				/*
+				if (window.location.hash && window.location.hash == '#_=_') {
+			        window.location.hash = '';
+			    }
+				$scope.user();
+				*/
+			}
 		}]);
+		
 		app.service('mainService', ['$http', function($http){
 			this.init = function(){
 			}
@@ -109,10 +141,13 @@ app.config(function($routeProvider, $httpProvider) {
 			    });
 			}
 			$scope.init = function(){
+				console.log("main init");
 				if (window.location.hash && window.location.hash == '#_=_') {
 			        window.location.hash = '';
 			    }
 				$scope.user();
+				//지워야함
+				//$location.path("/signin");
 			}
 			$scope.init2 = function(){
 				$.ajaxSetup({

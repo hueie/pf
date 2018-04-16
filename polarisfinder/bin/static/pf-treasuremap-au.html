@@ -1,16 +1,58 @@
-    <div class="layer"></div>
-    <section class="" id="old_au_map" ng-controller="treasuremapCountryController" data-ng-init="init('au')">
+    <!-- <div class="layer"></div> -->
+    <section class="old_worldmap" id="old_ca_map" ng-controller="treasuremapCountryController" data-ng-init="init('ca')">
    		<div class="container">
             <div class="row">
-            	<div ng-repeat="topic in topiclist" ng-click="getinfo('{{countrycode}}', '{{topic.name}}')" class="col-lg-3 text-center well" style="cursor:pointer; margin:20px; background-color:transparent;">
-            		<h1>{{topic.name}}</h1>
+            	<div class="col-lg-12 text-center" >
+	            	<h3 style="margin:10px;color:black;">Australia</h3>
+	            	<!-- 
+	            	<a href="#!treasuremap-au" style="margin:10px;">Australia</a>
+	            	<a href="#!treasuremap-ca" style="margin:10px;">Canada</a>
+	            	<a href="#!treasuremap-ca" style="margin:10px;">Canada</a>
+	            	 -->
             	</div>
             </div>
             <div class="row">
-            	<div id="info" class="col-lg-12 text-center well" style="display:none;">
-					<h1>VISA</h1>
-            	</div>
-            	<div ng-bind-html="listDiv"></div>
+            	<div id="submenu" class="col-lg-2 text-center" >
+					<div class="lptr_FFCC80" ng-click="roadmap_page = 1" style="cursor:pointer">
+					<span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">호주 세후 계산기</span>
+					</div>
+					<div class="lptr_FFB74D" ng-click="roadmap_page = 2" style="cursor:pointer" >
+					<span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">호주 워홀 비자 받기</span></div>
+					<!-- 
+					<div class="lptr_FFA726" ng-click="roadmap_page = 3" style="cursor:pointer" ><span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">프로파일 제출하기</span></div>
+					<div class="lptr_FF9800" ng-click="roadmap_page = 4" style="cursor:pointer" ><span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">인비테이션 수락하기</span></div>
+					<div class="lptr_FB8C00" ng-click="roadmap_page = 5" style="cursor:pointer" ><span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">신체검사 예약,정보</span></div>
+					<div class="lptr_F57C00" ng-click="roadmap_page = 6" style="cursor:pointer" ><span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">최종 합격</span></div>
+					<div class="lptr_EF6C00" ng-click="roadmap_page = 7" style="cursor:pointer" ><span style="position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%);">지역 선정</span></div>
+					 -->
+				</div>
+				<div  class="col-lg-8 text-center" >
+					<div ng-show="roadmap_page == 1" id="au-wh-1" style="display:block;">
+						<div ng-include="'/subpage/info_au_1.html'"></div>
+					</div>
+					<div ng-show="roadmap_page == 2" id="au-wh-2" style="display:block;">
+						<div ng-include="'/subpage/info_au_2.html'"></div>
+					</div>
+					<!-- 
+					<div ng-show="roadmap_page == 3" id="ca-wh-3" style="display:block;">
+					프로파일 제출하기
+					</div>
+					<div ng-show="roadmap_page == 4" id="ca-wh-4" style="display:block;">
+					인비테이션 수락하기
+					</div>
+					<div ng-show="roadmap_page == 5" id="ca-wh-5" style="display:block;">
+					신체검사 예약,정보
+					</div>
+					<div ng-show="roadmap_page == 6" id="ca-wh-6" style="display:block;">
+					최종 합격
+					</div>
+					<div ng-show="roadmap_page == 7" id="ca-wh-7" style="display:block;">
+					지역 선정
+					</div>		
+					 -->			
+				</div>
+	            <div  class="col-lg-2 text-center" >
+	            </div>
             </div>
         </div>
     </section>

@@ -79,6 +79,7 @@ public class CalendarController {
 			User user = userService.findById( list.get(idx).getSend_user_id());
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
+			tmpuser.setNickname(user.getNickname());
 			tmpuser.setUser_id(user.getUser_id());
 			list.get(idx).setSend_user(tmpuser);
 		}
@@ -97,6 +98,7 @@ public class CalendarController {
 			User user = userService.findById( list.get(idx).getTo_user_id());
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
+			tmpuser.setNickname(user.getNickname());
 			tmpuser.setUser_id(user.getUser_id());
 			list.get(idx).setTo_user(tmpuser);
 		}
@@ -114,6 +116,7 @@ public class CalendarController {
 			User user = userService.findById( list.get(idx).getSend_user_id());
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
+			tmpuser.setNickname(user.getNickname());
 			tmpuser.setUser_id(user.getUser_id());
 			list.get(idx).setSend_user(tmpuser);
 		}

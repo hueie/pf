@@ -62,6 +62,7 @@ public class NoticeController {
 		User user = userService.findById( list.getUser_id());
 		User tmpuser = new User();
 		tmpuser.setUsername(user.getUsername());
+		tmpuser.setNickname(user.getNickname());
 		tmpuser.setUser_id(user.getUser_id());
 		list.setUser(tmpuser);
 			

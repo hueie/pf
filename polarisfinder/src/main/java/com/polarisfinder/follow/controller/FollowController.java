@@ -78,6 +78,7 @@ public class FollowController {
 			User user = userService.findById( list.get(idx).getFollowing_user_id());
 			User tmpuser = new User();
 			tmpuser.setUsername(user.getUsername());
+			tmpuser.setNickname(user.getNickname());
 			tmpuser.setUser_id(user.getUser_id());
 			list.get(idx).setUser(tmpuser);
 		}
