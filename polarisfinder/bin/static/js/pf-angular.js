@@ -73,8 +73,8 @@ app.config(function($routeProvider, $httpProvider) {
 				return $http.get('/user/user');
 			}
 		}])
-		app.controller('navigationController', [ '$rootScope', '$scope', '$location','$http', 'navigationService',
-			function($rootScope, $scope, $location, $http, navigationService) {
+		app.controller('navigationController', [ '$rootScope', '$scope', '$location','$http', '$window', 'navigationService',
+			function($rootScope, $scope, $location, $http, $window, navigationService) {
 			$scope.logout = function() {
 				  $http.get('/user/logout', {})
 				  .then(function() {
@@ -107,6 +107,21 @@ app.config(function($routeProvider, $httpProvider) {
 			}
 			$scope.init = function(){
 				console.log("navi init");
+				
+				if($window.innerWidth < 768){
+					$rootScope.isMobile = true;
+			    } else{
+			    	$rootScope.isMobile = false;
+			    }
+				angular.element($window).bind('resize', function(){
+					if($window.innerWidth < 768){
+						$rootScope.isMobile = true;
+				    } else{
+				    	$rootScope.isMobile = false;
+				    }
+					console.log($rootScope.isMobile);
+				});
+				
 				/*
 				if (window.location.hash && window.location.hash == '#_=_') {
 			        window.location.hash = '';

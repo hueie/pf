@@ -20,7 +20,8 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 				}
 			}
 			$scope.connector = function(){
-				var tmpurl = "wss://"+global_url+"/chatroom";
+				var tmpurl = "ws://"+global_url+"/chatroom";
+				//var tmpurl = "wss://"+global_url+"/chatroom";
 				//alert(tmpurl);
 				ws = new WebSocket(tmpurl);
 				ws.onopen = function() {

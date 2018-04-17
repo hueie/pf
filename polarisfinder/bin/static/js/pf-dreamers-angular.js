@@ -51,7 +51,8 @@ app.service('dreamersService', ['$http', function($http){
 				return $http.post('/dreamers/DreamerscommentAdd', data, config);
 			}
 		}]);
-		app.controller('dreamersController', [ '$rootScope','$scope', '$location','$compile', 'dreamersService', function($rootScope, $scope, $location, $compile, dreamersService) {
+		app.controller('dreamersController', [ '$rootScope','$scope', '$window', '$location','$compile', '$window', 'dreamersService', 
+			function($rootScope, $scope, $window, $location, $compile, $window, dreamersService) {
 			$scope.initMypage = function(){
 				var height = $("body").prop("clientHeight");
 				$('.old_newspaper').css('min-height', height+'px');
@@ -69,6 +70,17 @@ app.service('dreamersService', ['$http', function($http){
 				$scope.id = 0;
 				this.getDreamersList();
 				console.log('Loading dreamers');
+				
+				/*
+				angular.element($window).bind('resize', function(){
+					console.log($rootScope.isMobile);
+					if($rootScope.isMobile){
+						$(".blog_content img").addClass("img-responsive");
+				    } else{
+				    	$(".blog_content img").removeClass("img-responsive");
+				    }
+			    });
+			    */  
 			}
 			$scope.addDreamersComment = function(dreamers_id){
 				if($rootScope.authenticated){
@@ -120,7 +132,7 @@ app.service('dreamersService', ['$http', function($http){
 		                var substr = myContent;
 		                html += "<div class='well'>";
 		                html += "<div>" + obj[idx].user.nickname + "<span style='float:right'>{{"+obj[idx].reg_dt+" | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>";
-		                html += "<div class='blog_content'>" + substr + "</div>";
+		                html += "<div class='clearfix blog_content'>" + substr + "</div>";
 		                html += "<div>";
 		                html += "<div id='like_"+obj[idx].id+"'";
 		                if(obj[idx].like_checked == 1){
@@ -166,12 +178,19 @@ app.service('dreamersService', ['$http', function($http){
 		        	} else{
 		            	$("#morebtn").css("display", "block");
 		        	}
+		        	
+		        	if($rootScope.isMobile){ //Mobile
+						$(".blog_content img").addClass("img-responsive");
+						
+						$(".blog_content iframe").addClass("embed-responsive-item");
+				    }
 				},function (error){
 					alert('something went wrong!!!');
 				});
 				for(var idx in $scope.dreamers_ids){
 					this.getDreamerscommentList($scope.dreamers_ids[idx],0);
 				}
+				
 				
 			}
 			
@@ -190,7 +209,8 @@ app.service('dreamersService', ['$http', function($http){
 		        		var myContent = obj[idx].content;
 		                var substr = myContent;
 		                html += "<div class='well'>";
-		                html += "<div class='blog_content'>" + substr + "</div>";
+		                html += "<div>" + obj[idx].user.nickname + "<span style='float:right'>{{"+obj[idx].reg_dt+" | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>";
+		                html += "<div class='clearfix blog_content'>" + substr + "</div>";
 		                html += "<div>";
 		                html += "<div id='like_"+obj[idx].id+"'";
 		                html += "class='like_red_32'";
@@ -378,10 +398,41 @@ app.service('dreamersService', ['$http', function($http){
 			        minHeight: null,             // set minimum height of editor
 			        maxHeight: null,             // set maximum height of editor
 			        focus: true,                  // set focus to editable area after initializing summernote
+			        dialogsInBody: true,
+			        fontNames: ['Do Hyeon','Jua','Black Han Sans','TmonMonsori','YanoljaYacheR','YanoljaYacheB','TmonTium','Nanum Gothic','Open Sans',
+			        	'Merriweather','Arial','Arial Black'],
+			        fontNamesIgnoreCheck: ['Do Hyeon','Jua','Black Han Sans','TmonMonsori','YanoljaYacheR','YanoljaYacheB','TmonTium','Nanum Gothic','Open Sans'],
 			        lang: 'ko-KR',
+			        toolbar:[
+			            ['style', ['bold', 'italic', 'underline', 'clear']],
+			            ['font', ['strikethrough', 'superscript', 'subscript']],
+			            ['fontstyle', ['fontname','fontsize','color','height']],
+			            ['para', ['style','ul','ol','paragraph']],
+			            ['table', ['table','hr']],
+			            ['insert',['link','picture','video','videoAttributes']],
+			            ['view', ['fullscreen', 'codeview','undo','redo','help']]
+			        ],
+			        popover: {
+						image: [
+							['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
+							/* ['float', ['floatLeft', 'floatRight', 'floatNone']], */
+							['floatBS', ['floatBSLeft', 'floatBSRight','floatBSNone']],
+							['remove', ['removeMedia']],
+						],
+						link: [
+						    ['link', ['linkDialogShow', 'unlink']]
+						],
+						air: [
+						  ['color', ['color']],
+						  ['font', ['bold', 'underline', 'clear']],
+						  ['para', ['ul', 'paragraph']],
+						  ['table', ['table']],
+						  ['insert', ['link', 'picture']]
+						]
+					},
 			        callbacks: {
 			        	onInit:function(){
-			                $('body > .note-popover').appendTo(".note-editing-area");
+			                //$('body > .note-popover').appendTo(".note-editing-area");
 			            },
 			            onImageUpload: function(files, editor, welEditable) {
 			            	for(var i =0; i<files.length; i++){

@@ -1,18 +1,15 @@
 package com.polarisfinder.chatroom.controller;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
-import javax.servlet.ServletContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
-
-import com.polarisfinder.user.entity.CurrentUser;
 
 public class ChatroomHandler extends AbstractWebSocketHandler {
 	
@@ -20,30 +17,35 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 	//ServletContext context;
 
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+    private String animalName;
+    private LinkedList<String> animalList = new LinkedList<String>();
     
 	@Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String sessionName = session.getPrincipal().getName();
-		//System.out.println("Session Name : "+sessionName);
-		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
-		//CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//String sessionName = session.getPrincipal().getName();
 		for(WebSocketSession sess : sessionList){
-			sess.sendMessage(new TextMessage(sessionName+"|"+message.getPayload()));
+			sess.sendMessage(new TextMessage(this.animalName+"|"+message.getPayload()));
+			//sess.sendMessage(new TextMessage(sessionName+"|"+message.getPayload()));
 		}
     }
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		String sessionName = session.getPrincipal().getName();
-		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
+		Scanner sc = new Scanner(new File("/txt/animals.txt"));
+		this.animalName = sc.nextLine();
+		//String sessionName = session.getPrincipal().getName();
 		for(int i=0; i<sessionList.size(); i++) {
-			session.sendMessage(new TextMessage("add"+"|"+sessionList.get(i).getPrincipal().getName()));
+			//참가자 초기화
+			session.sendMessage(new TextMessage("add"+"|"+animalList.get(i)));
+			//session.sendMessage(new TextMessage("add"+"|"+sessionList.get(i).getPrincipal().getName()));
 		}
+		animalList.add(this.animalName);
 		sessionList.add(session);
 		for(WebSocketSession sess : sessionList){
-			sess.sendMessage(new TextMessage("add"+"|"+sessionName));
+			sess.sendMessage(new TextMessage("add"+"|"+this.animalName));
+			//sess.sendMessage(new TextMessage("add"+"|"+sessionName));
 		}
-		System.out.println("채팅방 입장자: "+sessionName);
+		System.out.println("채팅방 입장자: "+this.animalName);
 	}
 	
 	@Override
@@ -54,13 +56,14 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		String sessionName = session.getPrincipal().getName();
+		//String sessionName = session.getPrincipal().getName();
 		//CurrentUser currentUser = (CurrentUser) session.getPrincipal();
+		animalList.remove(this.animalName);
 		sessionList.remove(session);
 		for(WebSocketSession sess : sessionList){
-			
-			sess.sendMessage(new TextMessage("del"+"|"+sessionName));
+			sess.sendMessage(new TextMessage("del"+"|"+this.animalName));
+			//sess.sendMessage(new TextMessage("del"+"|"+sessionName));
 		}
-		System.out.println("채팅방 퇴장자: "+sessionName);
+		System.out.println("채팅방 퇴장자: "+this.animalName);
 	}
 }

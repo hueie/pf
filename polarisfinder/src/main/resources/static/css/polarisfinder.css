@@ -3,6 +3,10 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+.no-after:after{content:none;}
+.no-before:before{content:none;}
+.no-padding:{padding:0;}
+
 .well{
 	border-radius: 0px;
 } 
@@ -11,11 +15,12 @@ html,
 body {
   height: 100%;
   width: 100%;
+  color: black;
 }
 
 
 body {
-  font-family: 'Do Hyeon','Jua','Black Han Sans',TmonMonsori, YanoljaYacheR, YanoljaYacheB, TmonTium,  'Nanum Gothic',  'Open Sans', 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Do Hyeon','Jua','Black Han Sans','TmonMonsori', 'YanoljaYacheR', 'YanoljaYacheB', 'TmonTium',  'Nanum Gothic',  'Open Sans', 'Merriweather', 'Arial';
 }
 hr {
   border-color: #FFFFFF;
@@ -47,11 +52,6 @@ a {
 a:hover,
 a:focus {
   color: rgba(0, 0, 0, 0.7);
-}
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 10px;
 }
 .bg-primary {
   background-image: url('/img/header.jpg');

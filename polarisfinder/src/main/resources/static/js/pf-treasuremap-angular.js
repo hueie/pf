@@ -42,18 +42,17 @@
 				return $http.get('/test/getok');
 			}
 		}]);
-		app.controller('treasuremapCountryController', [ '$scope', '$compile','$templateCache', 'treasuremapCountryService', 
-			function($scope, $compile, $templateCache, treasuremapCountryService) {
+		app.controller('treasuremapCountryController', [ '$rootScope', '$scope', '$window', '$compile','$templateCache', 'treasuremapCountryService', 
+			function($rootScope, $scope, $window, $compile, $templateCache, treasuremapCountryService) {
 			
 			$scope.init = function(countrycode){
 				$scope.roadmap_page = 0;
 				$scope.listDiv="";
 				$scope.countrycode = countrycode;
+				$scope.isClicked=false;
+
 				console.log(countrycode);
-				/*
-				var height = $("body").prop("clientWidth")/3*2-30;
-				$('.old_'+countrycode+'_map').css('min-height', height+'px');
-				*/
+				
 				console.log('Loading treasuremap');
 				this.getCountryInfos(countrycode);
 			}

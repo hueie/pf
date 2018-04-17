@@ -34,8 +34,13 @@ public class UserController {
 	
 	@GetMapping("user")
 	public ResponseEntity<CurrentUser>user() {
-		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("hi! : "+currentUser.getUsername());
+		CurrentUser currentUser = null;
+		try{
+			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			System.out.println("hi! : "+currentUser.getUsername());
+		} catch(Exception e){
+			currentUser = null;
+		}
 		return new ResponseEntity<CurrentUser>(currentUser, HttpStatus.OK);
 	}
 	

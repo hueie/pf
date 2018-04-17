@@ -234,7 +234,8 @@ public class DreamersController {
 	public ResponseEntity<Void> DreamersAddContent(
 			@RequestParam(value="id", required = false)int id, 
 			@RequestParam(value="content", required = false)String content
-			) throws Exception {
+			) {
+		
 		CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Dreamers dreamers = new Dreamers();
 		dreamers.setContent(content);

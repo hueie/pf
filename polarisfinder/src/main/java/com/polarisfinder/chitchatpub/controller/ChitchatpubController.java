@@ -68,10 +68,8 @@ public class ChitchatpubController {
 		CurrentUser currentUser = null;
 		try{
 			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			System.out.println("DreamersList : "+currentUser.getUsername());
 		} catch(Exception e){
 			currentUser = null;
-			System.out.println("null");
 		}
 		
 		Chitchatpub chitchatpub = new Chitchatpub();
