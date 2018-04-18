@@ -103,14 +103,14 @@
 	
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top" ng-controller="navigationController" data-ng-init="init()">
         <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.5);">
-            <div class="navbar-header" >
+            <div ng-class="{ 'mobile-header-margin': isMobile }" class="navbar-header"  >
                 <button type="button" class="navbar-toggle collapsed" id="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="sr-only">Toggle navigation</span> MENU <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#/!">POLARXY</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="navbar-collapse">
+            <div ng-class="{ 'mobile-header-margin': isMobile }" class="collapse navbar-collapse"  id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="collapsebtn" href="#!dreamers">Dreamers</a>

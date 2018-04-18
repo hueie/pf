@@ -1,7 +1,5 @@
-	<input type="hidden" id="id" value="0">
-	
     <section class="old_newspaper" ng-controller="dreamerseditController" data-ng-init="init()">
-        <div class="container" style="padding:0;">
+        <div class="container" ng-class="{ 'no-padding': isMobile }">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center" style="margin-bottom:25px;">
 					<a href="#!mypage" style="margin:10px;color:gray;"><i class="fas fa-th"></i> 드리머 내 글 보기</a>

@@ -10,7 +10,7 @@
     </header>
 
     <section ng-controller="mainController"  data-ng-init="init()">
-        <div class="container">
+        <div class="container" ng-class="{ 'no-padding': isMobile }">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
                     <h2 class="section-heading">조기유학, 유학, 해외취업, 이민하고 싶은 사람들은 모두 모여라 !</h2>

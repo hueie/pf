@@ -1,6 +1,6 @@
     
     <section class="old_newspaper" ng-controller="dreamersController" data-ng-init="initMypage()">
-        <div class="container"  style="padding:0;">
+        <div class="container" ng-class="{ 'no-padding': isMobile }">
             <div class="row">
             	<div class="col-lg-8 col-lg-offset-2 text-center" style="margin-bottom:25px;">
 					<span style="margin:10px;color:black;font-weight: bold;"><i class="fas fa-th"></i> 드리머 내 글 보기</span>

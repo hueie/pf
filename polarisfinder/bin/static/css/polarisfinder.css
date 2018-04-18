@@ -3,10 +3,17 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-.no-after:after{content:none;}
-.no-before:before{content:none;}
-.no-padding:{padding:0;}
-
+.no-after:after{content:none !important;}
+.no-before:before{content:none !important;}
+.no-padding:{padding:0 !important;}
+/*
+.container > .navbar-header, 
+.container > .navbar-collapse, 
+*/
+.mobile-header-margin{
+	margin-right: 0px !important;
+    margin-left: -15px !important;
+}
 .well{
 	border-radius: 0px;
 } 
