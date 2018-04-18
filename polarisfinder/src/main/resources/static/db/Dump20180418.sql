@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 52.79.105.142    Database: polarisfinder
+-- Host: localhost    Database: polarisfinder
 -- ------------------------------------------------------
--- Server version	5.5.58
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,30 @@ CREATE TABLE `anchor` (
 LOCK TABLES `anchor` WRITE;
 /*!40000 ALTER TABLE `anchor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `anchor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `animals`
+--
+
+DROP TABLE IF EXISTS `animals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `animals` (
+  `animals_id` int(11) NOT NULL,
+  `animals_nm` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`animals_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `animals`
+--
+
+LOCK TABLES `animals` WRITE;
+/*!40000 ALTER TABLE `animals` DISABLE KEYS */;
+INSERT INTO `animals` (`animals_id`, `animals_nm`) VALUES (1,'난쟁이 Dwarf'),(2,'거인 Giant'),(3,'도깨비 Goblin'),(4,'마귀할멈 Hag'),(5,'집요정 House-elf'),(6,'님프 Nymph'),(7,'뱀파이어 Vampire'),(8,'벨라 Veela'),(9,'애크로맨툴라 Acromantula'),(10,'애쉬와인더 Ashwinder'),(11,'어거레이 Augurey'),(12,'바실리스크 Basilisk'),(13,'빌리위그 Billywig'),(14,'폭탄꼬리스크루트 Blast-EndedSkrewt'),(15,'보우트러클 Bowtruckle'),(16,'번디먼 Bundimun'),(17,'켄타우로스 Centaur'),(18,'키메라 Chimera'),(19,'치즈퍼플 Chizpurfle'),(20,'클래버트 Clabbert'),(21,'코카트리스 Cokatrice'),(22,'크럽 Crup'),(23,'데미가이즈 Demiguise'),(24,'디리코울 Diricawl'),(25,'독시 Doxy'),(26,'용 Dragon'),(27,'더그보그 Dugbog'),(28,'어클링 Erkling'),(29,'에럼펀트 Erumpent'),(30,'요정 Fairy'),(31,'불게 FireCrab'),(32,'플로버웜 Flobberworm'),(33,'프우퍼 Fwooper'),(34,'지니 Genie'),(35,'구울 Ghoul'),(36,'글럼범블 Glumbumble'),(37,'땅신령 Gnome'),(38,'골든스니젯 GoldenSnidget'),(39,'그래폰 Graphorn'),(40,'그리핀 Griffin'),(41,'그라인딜로우 Grindylow'),(42,'하이드비하인드 Hidebehind'),(43,'히포캠퍼스 Hippocampus'),(44,'히포그리프 Hippogriff'),(45,'호닥 Hodac'),(46,'호클럼프 Horklump'),(47,'혼드서펀트 HornedSerpent'),(48,'임프 Imp'),(49,'자베이 Jarvey'),(50,'자버놀 Jobberknoll'),(51,'갓파 Kappa'),(52,'켈피 Kelpie'),(53,'날 Knarl'),(54,'니즐 Kneazle'),(55,'레프러콘 Leprechaun'),(56,'레시폴드 Lethifold'),(57,'로바러그 Lobalug'),(58,'맥클리드말라클로우 MackledMalaclaw'),(59,'만티코어 Manticore'),(60,'인어 Merpeople'),(61,'모크 Moke'),(62,'문카프 Mooncalf'),(63,'머트랩 Murtlap'),(64,'니플러 Niffler'),(65,'녹테일 Nogtail'),(66,'눈두 Nundu'),(67,'오캐미 Occamy'),(68,'오거 Ogre'),(69,'부엉이,올빼미 Owl'),(70,'불사조 Phoenix'),(71,'픽시 Pixie'),(72,'플림피 Plimpy'),(73,'포그레빈 Pogrebin'),(74,'폴락 Porlock'),(75,'퍼프스캔 Puffskein'),(76,'퀸타페드 Quintaped'),(77,'라모라 Ramora'),(78,'레드캡 RedCap'),(79,'리엠 Re\'em'),(80,'런에스푸어 Runespoor'),(81,'살라맨더 Salamander'),(82,'바다뱀 SeaSerpent'),(83,'쉬레이크 Shrake'),(84,'스낼리개스터 Snallygaster'),(85,'스핑크스 Sphinx'),(86,'스트릴러 Streeler'),(87,'스우핑이블 SwoopingEvil'),(88,'테보 Tebo'),(89,'천둥새 Thunderbird'),(90,'트롤 Troll'),(91,'유니콘 Unicorn'),(92,'웜퍼스캣 WampusCat'),(93,'늑대인간 Werewolf'),(94,'화이트강의괴물 WhiteRiverMonster'),(95,'날개달린말 Wingedhorse'),(96,'아브라산 Abraxan'),(97,'애토난 Aethonan'),(98,'그라니안 Granian'),(99,'세스트랄 Thestrals'),(100,'예티 Yeti'),(101,'유령 Ghost'),(102,'인페리우스 Inferius'),(103,'밴시 Banshee'),(104,'보가트 Boggart'),(105,'디멘터 Dementor'),(106,'소리의요정 Poltergeist'),(107,'옵스큐러스 Obscurus');
+/*!40000 ALTER TABLE `animals` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -115,7 +139,7 @@ CREATE TABLE `dreamers` (
   `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +148,7 @@ CREATE TABLE `dreamers` (
 
 LOCK TABLES `dreamers` WRITE;
 /*!40000 ALTER TABLE `dreamers` DISABLE KEYS */;
-INSERT INTO `dreamers` (`id`, `content`, `like_cnt`, `bookmark_cnt`, `user_id`, `reg_dt`) VALUES (28,'<p>첫번째 게시물이에요! 잘 지켜 봐주세요!</p>',0,0,23,'2018-04-11 09:32:42'),(29,'<p style=\"text-align: center; \"><img style=\"width: 550px;\" src=\"/files/23/20180416/20180416080237183.jpg\"></p><p><br></p><p>까만 하늘에 별이 <span style=\"color: rgb(255, 214, 99);\">참 예쁘네요!</span></p><p><br></p><p style=\"text-align: right; \"><span style=\"color: rgb(255, 255, 0);\">어제와 다른</span> 오늘 열심히 또 화이팅!</p><p style=\"text-align: center; \"><span style=\"color: rgb(156, 198, 239);\">하루가 다르게 성장하고 발전하는 내 모습</span></p>',0,0,23,'2018-04-16 08:06:20');
+INSERT INTO `dreamers` (`id`, `content`, `like_cnt`, `bookmark_cnt`, `user_id`, `reg_dt`) VALUES (30,'<p>abc</p>',0,0,23,'2018-04-10 16:49:41'),(31,'<p>저는 admin이에요 잘부탁 드릴께요!!!</p>',0,0,22,'2018-04-11 12:00:53'),(32,'<p><img src=\"/files/23/20180416/20180416160658904.jpg\" style=\"width: 550px; float: right;\" class=\"note-float-right pull-right\"></p><p>test hh</p><p><br></p>',0,0,23,'2018-04-17 13:17:39'),(33,'<p>test fload&nbsp;<img style=\"width: 550px;\" src=\"/files/23/20180417/20180417131836410.jpg\" class=\"pull-right\"></p>',0,0,23,'2018-04-17 13:18:42'),(35,'<p>dsa</p><div class=\"embed-responsive embed-responsive-16by9\" style=\"float: none;\"><iframe frameborder=\"0\" src=\"//www.youtube.com/embed/np1XQY4T5Zs?&amp;loop=0\" width=\"auto\" height=\"auto\" class=\"embed-responsive note-video-clip\"></iframe></div><p><br></p>',0,0,23,'2018-04-17 16:27:06'),(36,'<p>ㅅㄷㄴㅅ</p><div class=\"embed-responsive embed-responsive-16by9\" style=\"float: none;\"><iframe frameborder=\"0\" src=\"//www.youtube.com/embed/np1XQY4T5Zs?&amp;loop=0\" width=\"auto\" height=\"auto\" class=\"embed-responsive note-video-clip\"></iframe></div><p><br></p>',0,0,23,'2018-04-17 16:29:02'),(37,'<p>tests<span style=\"font-family: &quot;Black Han Sans&quot;;\">﻿</span></p><p><span style=\"font-family: &quot;Black Han Sans&quot;;\"><br></span></p><p><span style=\"font-family: &quot;Black Han Sans&quot;;\">Black Yack&nbsp;</span></p><p><span style=\"font-size: 24px;\">﻿gdsafdsaf1111</span><span style=\"font-family: &quot;Black Han Sans&quot;;\"><br></span></p>',0,0,23,'2018-04-17 17:43:20');
 /*!40000 ALTER TABLE `dreamers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,14 +216,14 @@ DROP TABLE IF EXISTS `dreamersfile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `dreamersfile` (
   `dreamersfile_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dreamersfile_ext` text,
   `dreamersfile_orign_nm` text,
   `dreamersfile_serv_nm` text,
   `dreamersfile_serv_path` text,
   `user_id` int(11) DEFAULT NULL,
   `reg_dt` datetime DEFAULT NULL,
+  `dreamersfile_ext` text,
   PRIMARY KEY (`dreamersfile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +232,7 @@ CREATE TABLE `dreamersfile` (
 
 LOCK TABLES `dreamersfile` WRITE;
 /*!40000 ALTER TABLE `dreamersfile` DISABLE KEYS */;
-INSERT INTO `dreamersfile` (`dreamersfile_id`, `dreamersfile_ext`, `dreamersfile_orign_nm`, `dreamersfile_serv_nm`, `dreamersfile_serv_path`, `user_id`, `reg_dt`) VALUES (1,'jpg','polarxy.jpg','20180416075418318.jpg','/files/23/20180416/20180416075418318.jpg',23,'2018-04-16 07:54:18'),(2,'jpg','polarxy.jpg','20180416075435868.jpg','/files/23/20180416/20180416075435868.jpg',23,'2018-04-16 07:54:35'),(3,'jpg','depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416075547327.jpg','/files/23/20180416/20180416075547327.jpg',23,'2018-04-16 07:55:47'),(4,'jpg','polarxy.jpg','20180416080237183.jpg','/files/23/20180416/20180416080237183.jpg',23,'2018-04-16 08:02:37');
+INSERT INTO `dreamersfile` (`dreamersfile_id`, `dreamersfile_orign_nm`, `dreamersfile_serv_nm`, `dreamersfile_serv_path`, `user_id`, `reg_dt`, `dreamersfile_ext`) VALUES (1,'polarxy.jpg','20180416160229209.jpg','/files/23/20180416/20180416160229209.jpg',23,NULL,NULL),(2,'polarxy.jpg','20180416160658904.jpg','/files/23/20180416/20180416160658904.jpg',23,'2018-04-16 16:06:59','jpg'),(3,'polarxy.jpg','20180416162333133.jpg','/files/23/20180416/20180416162333133.jpg',23,'2018-04-16 16:23:33','jpg'),(4,'polarxy.jpg','20180416162410039.jpg','/files/23/20180416/20180416162410039.jpg',23,'2018-04-16 16:24:10','jpg'),(5,'polarxy.jpg','20180416162643201.jpg','/files/23/20180416/20180416162643201.jpg',23,'2018-04-16 16:26:43','jpg'),(6,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416163412032.jpg','/files/23/20180416/20180416163412032.jpg',23,'2018-04-16 16:34:12','jpg'),(7,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416163510027.jpg','/files/23/20180416/20180416163510027.jpg',23,'2018-04-16 16:35:10','jpg'),(8,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416163836484.jpg','/files/23/20180416/20180416163836484.jpg',23,'2018-04-16 16:38:36','jpg'),(9,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416163952223.jpg','/files/23/20180416/20180416163952223.jpg',23,'2018-04-16 16:39:52','jpg'),(10,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416164416179.jpg','/files/23/20180416/20180416164416179.jpg',23,'2018-04-16 16:44:16','jpg'),(11,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416164511417.jpg','/files/23/20180416/20180416164511417.jpg',23,'2018-04-16 16:45:11','jpg'),(12,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180416164556317.jpg','/files/23/20180416/20180416164556317.jpg',23,'2018-04-16 16:45:56','jpg'),(13,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180417105750831.jpg','/files/23/20180417/20180417105750831.jpg',23,'2018-04-17 10:57:51','jpg'),(14,'polarxy.jpg','20180417131836410.jpg','/files/23/20180417/20180417131836410.jpg',23,'2018-04-17 13:18:36','jpg'),(15,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180417132821772.jpg','/files/23/20180417/20180417132821772.jpg',23,'2018-04-17 13:28:22','jpg'),(16,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180417133413364.jpg','/files/23/20180417/20180417133413364.jpg',23,'2018-04-17 13:34:13','jpg'),(17,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180417133433577.jpg','/files/23/20180417/20180417133433577.jpg',23,'2018-04-17 13:34:34','jpg'),(18,'depositphotos_168693914-stock-photo-purple-color-tone-shading-curve.jpg','20180417133447678.jpg','/files/23/20180417/20180417133447678.jpg',23,'2018-04-17 13:34:48','jpg'),(19,'polarxy.jpg','20180417133602640.jpg','/files/23/20180417/20180417133602640.jpg',23,'2018-04-17 13:36:03','jpg'),(20,'polarxy.jpg','20180417135019668.jpg','/files/23/20180417/20180417135019668.jpg',23,'2018-04-17 13:50:20','jpg'),(21,'polarxy.jpg','20180417170741656.jpg','/files/23/20180417/20180417170741656.jpg',23,'2018-04-17 17:07:42','jpg'),(22,'header.jpg','20180417174208757.jpg','/files/23/20180417/20180417174208757.jpg',23,'2018-04-17 17:42:09','jpg');
 /*!40000 ALTER TABLE `dreamersfile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +333,7 @@ CREATE TABLE `notice` (
   `user_id` int(11) DEFAULT NULL,
   `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,7 +342,7 @@ CREATE TABLE `notice` (
 
 LOCK TABLES `notice` WRITE;
 /*!40000 ALTER TABLE `notice` DISABLE KEYS */;
-INSERT INTO `notice` (`id`, `subject`, `content`, `user_id`, `reg_dt`) VALUES (1,'공지사항1 제목','공지사항1 내용',23,'2018-04-02 13:06:23'),(2,'[긴급!] :  Australia Visa 701 변경되었습니다.!','변경내용입니다.',22,'2018-04-06 09:10:32');
+INSERT INTO `notice` (`id`, `subject`, `content`, `user_id`, `reg_dt`) VALUES (1,'공지사항1 제목','공지사항1 내용',23,'2018-04-02 13:06:23');
 /*!40000 ALTER TABLE `notice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -363,7 +387,7 @@ CREATE TABLE `task` (
   `user_id` int(11) DEFAULT NULL,
   `reg_dt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,7 +396,7 @@ CREATE TABLE `task` (
 
 LOCK TABLES `task` WRITE;
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` (`id`, `type`, `related_id`, `subject`, `content`, `status`, `user_id`, `reg_dt`) VALUES (5,'notice','1','공지사항1 제목','',0,23,'2018-04-03 13:38:30'),(6,'roadmap','1','워킹홀리세이란','',0,23,'2018-04-03 16:31:26'),(7,'roadmap','2','CIC 계정 만들기','',0,23,'2018-04-03 16:36:29'),(8,'roadmap','2','CIC 계정 만들기','',0,22,'2018-04-06 09:09:39'),(9,'roadmap','1','워킹홀리세이란','',0,22,'2018-04-06 09:09:43'),(10,'notice','2','[긴급!] :  Australia Visa 701 변경되었습니다.!','',0,22,'2018-04-06 09:10:35');
+INSERT INTO `task` (`id`, `type`, `related_id`, `subject`, `content`, `status`, `user_id`, `reg_dt`) VALUES (5,'notice','1','공지사항1 제목','',0,23,'2018-04-03 13:38:30'),(6,'roadmap','1','워킹홀리세이란','',0,23,'2018-04-03 16:31:26'),(7,'roadmap','2','CIC 계정 만들기','',0,23,'2018-04-03 16:36:29');
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,7 +416,7 @@ CREATE TABLE `user` (
   `type` varchar(45) DEFAULT NULL,
   `oauthid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -401,7 +425,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`user_id`, `active`, `username`, `nickname`, `password`, `type`, `oauthid`) VALUES (22,1,'admin23@google.com','관리자1','$2a$10$whBI5jx9CvlkP1yPBY/iSelmiONd.ZyVyfu.zAQSYxHhGOzduup5q',NULL,NULL),(23,1,'a@a.a','관리자','$2a$10$Jn09iSooXQK16pXVLtkc.OztHM2keUxMJ3wxsKO8EjARBKgnOWJ36',NULL,NULL),(24,0,'hueieglobal@gmail.com','hueieglobal@gmail.com','hueieglobal@gmail.com','facebook','347041749114471');
+INSERT INTO `user` (`user_id`, `active`, `username`, `nickname`, `password`, `type`, `oauthid`) VALUES (22,1,'admin23@google.com','관리자1','$2a$10$whBI5jx9CvlkP1yPBY/iSelmiONd.ZyVyfu.zAQSYxHhGOzduup5q',NULL,NULL),(23,1,'a@a.a','관리자2','$2a$10$Jn09iSooXQK16pXVLtkc.OztHM2keUxMJ3wxsKO8EjARBKgnOWJ36',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +452,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (22,1),(23,1),(24,1);
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (22,1),(23,1);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -441,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-16 17:10:47
+-- Dump completed on 2018-04-18 16:45:37
