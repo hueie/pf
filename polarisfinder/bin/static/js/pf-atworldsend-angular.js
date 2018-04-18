@@ -3,6 +3,11 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 			var ws = null;
 			
 			$scope.init = function(){
+				$("#chatmembers").empty();
+				console.log("Chat init");
+				$("#chatdata").empty();
+				
+				
 				if ($rootScope.authenticated) {
 					this.connector();
 		        } else {
@@ -11,7 +16,7 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 		        }
 			}
 			$scope.sendText = function(){
-				ws.send($("#wsText").val());
+				ws.send( $rootScope.animalsname+"|"+ $("#wsText").val());
 				$("#wsText").val("");
 			}
 			$scope.myEnterPress = function(keyEvent) {
@@ -20,7 +25,7 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 				}
 			}
 			$scope.connector = function(){
-				var tmpurl = "ws://"+global_url+"/chatroom";
+				var tmpurl = "wss://"+global_url+"/chatroom";
 				//var tmpurl = "wss://"+global_url+"/chatroom";
 				//alert(tmpurl);
 				ws = new WebSocket(tmpurl);
@@ -47,18 +52,20 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 					message=strArray[1];
 					
 					var printHTML="";
-					if(sessionusername == 'add'){
-						var tmpmsg = message.replace("@", "_");
-						tmpmsg = tmpmsg.replace(".", "_");
-						printHTML += "<div id='"+tmpmsg+"'>";
+					if(sessionusername == 'init'){
+						//var tmpmsg = message.replace("@", "_").replace(".", "_");
+						var tmpmsg = message.split(' ');
+						$rootScope.animalsname = message;//tmpmsg[1];
+					}else if(sessionusername == 'add'){
+						var tmpmsg = message.split(' ');
+						printHTML += "<div id='"+tmpmsg[1]+"'>";
 						printHTML += message
 						printHTML += "</div>"
 						$("#chatmembers").append(printHTML);
 					} else if(sessionusername == 'del'){
-						var tmpmsg = message.replace("@", "_");
-						tmpmsg = tmpmsg.replace(".", "_");
-						$("#"+tmpmsg).remove();
-					} else if(sessionusername == $rootScope.username){
+						var tmpmsg = message.split(' ');
+						$("#"+tmpmsg[1]).remove();
+					} else if(sessionusername == $rootScope.animalsname){
 						printHTML += "<div style='text-align: right;'>";
 						//printHTML += "<strong style='background-color:yellow;'>["+sessionusername+"] -> "+message+"</strong>";
 						printHTML += "<strong style='border-radius:25px;padding:5px;background:#f5f5dc;'>"+message+"</strong>";
