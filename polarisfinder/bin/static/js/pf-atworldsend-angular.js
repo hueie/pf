@@ -18,6 +18,7 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 			$scope.sendText = function(){
 				ws.send( $rootScope.animalsname+"|"+ $("#wsText").val());
 				$("#wsText").val("");
+				$("#wsText").focus();
 			}
 			$scope.myEnterPress = function(keyEvent) {
 				if (keyEvent.which === 13){
@@ -25,7 +26,7 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 				}
 			}
 			$scope.connector = function(){
-				var tmpurl = "wss://"+global_url+"/chatroom";
+				var tmpurl = "ws://"+global_url+"/chatroom";
 				//var tmpurl = "wss://"+global_url+"/chatroom";
 				//alert(tmpurl);
 				ws = new WebSocket(tmpurl);
@@ -68,12 +69,12 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 					} else if(sessionusername == $rootScope.animalsname){
 						printHTML += "<div style='text-align: right;'>";
 						//printHTML += "<strong style='background-color:yellow;'>["+sessionusername+"] -> "+message+"</strong>";
-						printHTML += "<strong style='border-radius:25px;padding:5px;background:#f5f5dc;'>"+message+"</strong>";
+						printHTML += "<strong style='border-radius:25px;padding:5px;background:#f5f5dc;'>"+message+" ["+sessionusername+"]</strong>";
 						printHTML += "</div>";
 						$("#chatdata").append(printHTML);
 					}else{
 						printHTML += "<div style='text-align: left;'>";
-						printHTML += "<strong style='border-radius:25px;padding:5px;background:white;'>["+sessionusername+"] -> "+message+"</strong>";
+						printHTML += "<strong style='border-radius:25px;padding:5px;background:white;'>["+sessionusername+"] "+message+"</strong>";
 						printHTML += "</div>";
 						$("#chatdata").append(printHTML);
 					}

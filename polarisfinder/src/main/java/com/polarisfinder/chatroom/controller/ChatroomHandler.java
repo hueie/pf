@@ -82,12 +82,13 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 	
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+		session.close();/*
 		String sessionName = session.getPrincipal().getName();
 		if(sessionMap.containsKey(sessionName)){
 			String animalName = sessionMap.get(sessionName);
 			animalList.remove(animalName);
 			sessionList.remove(session);
-			session.close();
+			
 			sessionMap.remove(sessionName);
 			for(WebSocketSession sess : sessionList){
 				sess.sendMessage(new TextMessage("del"+"|"+animalName));
@@ -96,6 +97,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 
 			System.out.println("채팅방 퇴장자: "+animalName);
 		}
+		*/
 	}
 
 	@Override
