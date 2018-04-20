@@ -204,6 +204,7 @@
 				$scope.placelongitude = 0;
 				$scope.placename = '';
 				$scope.paging = 0;
+				$scope.showComment = false;
 				$scope.locations = [];
 				this.getChitChatpubList();
 				this.mapinit();
@@ -297,7 +298,9 @@
 					alert('something went wrong!!!');
 				});
 			}
-			
+			/*
+			 * Pending 인자를 markers 로해 한번에 Controller 단으로 던져서 한번에 DB에서 가져와야한다.
+			 */
 			$scope.getChitChatpubMarkeredList = function(pPaging, pMarker, isCenter){
 				if(isCenter==true){
 			        $scope.map.setCenter(pMarker.getPosition());
@@ -371,6 +374,7 @@
 						.then(function (response) {
 							alert("Chit! - Chat!");
 							$scope.getChitChatpubList(0);
+							$scope.showComment = false;
 						},function (error){
 							alert('something went wrong!!!');
 						});
