@@ -64,10 +64,14 @@
 				}
 			}
 			
-			$scope.mapinit = function(){
+			$scope.mapinit = function(initlat, initlng){
+				if(initlat == 0 && initlng== 0){
+					initlat = -25.363882;
+					initlng = 131.044922;
+				}
 				$scope.map = new google.maps.Map(document.getElementById('map'), {
 					center : {
-						lat: -25.363882, lng: 131.044922 //-28.024, 140.887 / -33.8688,  151.2195
+						lat: initlat, lng: initlng //-28.024, 140.887 / -33.8688,  151.2195
 					},
 					zoom : 3,//12
 					mapTypeId : 'roadmap'
@@ -207,7 +211,7 @@
 				$scope.showComment = false;
 				$scope.locations = [];
 				this.getChitChatpubList();
-				this.mapinit();
+				this.mapinit(0,0);
 				console.log('Loading chitchatpub');
 			}
 			$scope.setStarOnOff = function(id, starcnt){
@@ -373,6 +377,8 @@
 						chitchatpubService.addComment($scope.placename, $scope.placelatitude, $scope.placelongitude, placecomment)
 						.then(function (response) {
 							alert("Chit! - Chat!");
+							$("#placecomment").val("");
+							$scope.mapinit($scope.placelatitude,$scope.placelongitude);
 							$scope.getChitChatpubList(0);
 							$scope.showComment = false;
 						},function (error){

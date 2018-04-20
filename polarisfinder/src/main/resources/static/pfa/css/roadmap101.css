@@ -229,6 +229,238 @@
 	border-bottom: 20px solid transparent;
 }
 
+/*Orange Gradation End*/
+
+/*Blue Gradation Start*/
+.lptr_9FA8DA {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #9FA8DA;
+}
+/*
+.lptr_9FA8DA:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_9FA8DA:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #9FA8DA;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
 
 
+
+.lptr_7986CB {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #7986CB;
+}
+/* #FFCC80
+.lptr_7986CB:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_7986CB:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #7986CB;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+
+
+.lptr_5C6BC0 {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #5C6BC0;
+}
+/*#5C6BC0;
+.lptr_FFA726:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_5C6BC0:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #5C6BC0;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+
+
+.lptr_3F51B5 {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #3F51B5;
+}
+/*#FFA726;
+.lptr_3F51B5:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_3F51B5:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #3F51B5;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+
+
+.lptr_3949AB {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #3949AB;
+}
+/*#FF9800;
+.lptr_3949AB:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white; 
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_3949AB:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #3949AB;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+
+
+.lptr_303F9F {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #303F9F;
+}
+/*#FB8C00;
+.lptr_303F9F:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_303F9F:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #303F9F;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+
+
+.lptr_283593 {
+	white-space: nowrap;
+	min-width: 80px;
+	height: 40px;
+	position: relative;
+	background: #283593;
+}
+/*#F57C00;
+.lptr_283593:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid white;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+*/
+.lptr_283593:before {
+	content: "";
+	position: absolute;
+	right: -20px;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #283593;
+	border-top: 20px solid transparent;
+	border-bottom: 20px solid transparent;
+}
+/*Blue Gradation End*/
 

@@ -2,9 +2,10 @@
    		<div class="container" ng-class="{ 'no-padding': isMobile }" >
             <div class="row">
             	<div class="col-lg-12 text-center" >
-	            	<h3 style="margin:10px;color:black;">Canada</h3>
+	            	<a href="#!treasuremap-au" style="margin:10px;"><i class="fas fa-caret-left"></i></a>
+	            	<h3 style="margin:10px;color:black;display:inline-block;">Canada</h3>
+	            	<a href="#!treasuremap-au" style="margin:10px;"><i class="fas fa-caret-right"></i></a>
 	            	<!-- 
-	            	<a href="#!treasuremap-au" style="margin:10px;">Australia</a>
 	            	<a href="#!treasuremap-ca" style="margin:10px;">Canada</a>
 	            	<a href="#!treasuremap-ca" style="margin:10px;">Canada</a>
 	            	 -->
@@ -28,13 +29,13 @@
 					 -->
 				</div>
 				<div  class="col-lg-8 text-center">
-					<div ng-show="roadmap_page == 1 && isClicked" id="ca-wh-1" style="display:block;">
+					<div ng-show="roadmap_page == 1 && (! isMobile || isClicked)" id="ca-wh-1" style="display:block;">
 						<div ng-include="'/subpage/info_ca_1.html'"></div>
 					</div>
-					<div ng-show="roadmap_page == 2 && isClicked" id="ca-wh-2" style="display:block;">
+					<div ng-show="roadmap_page == 2 && (! isMobile || isClicked)" id="ca-wh-2" style="display:block;">
 						<div ng-include="'/subpage/info_ca_2.html'"></div>
 					</div>
-					<div ng-show="roadmap_page == 3 && isClicked" id="ca-wh-3" style="display:block;">
+					<div ng-show="roadmap_page == 3 && (! isMobile || isClicked)" id="ca-wh-3" style="display:block;">
 					프로파일 제출하기
 					</div>
 					<!-- 
