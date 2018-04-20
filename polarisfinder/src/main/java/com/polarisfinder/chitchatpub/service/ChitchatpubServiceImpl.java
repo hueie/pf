@@ -24,7 +24,11 @@ public class ChitchatpubServiceImpl implements ChitchatpubService {
 	public List<Chitchatpub> getChitchatpubByPlacelocation(Chitchatpub chitchatpub, int paging) {
 		return chitchatpubDAO.getChitchatpubByPlacelocation(chitchatpub, paging);
 	}
-	
+	@Override
+	public List<Chitchatpub> getMarkers(Chitchatpub chitchatpub) {
+		return chitchatpubDAO.getMarkers(chitchatpub);
+	}
+    
 	@Override
 	public Chitchatpubstar getChitchatpubstar(Chitchatpubstar chitchatpubstar) {
 		return chitchatpubDAO.getChitchatpubstar(chitchatpubstar);

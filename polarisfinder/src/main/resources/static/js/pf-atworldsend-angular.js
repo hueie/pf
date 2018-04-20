@@ -7,13 +7,15 @@ app.controller('atworldsendController', [ '$rootScope', '$scope', '$location',
 				console.log("Chat init");
 				$("#chatdata").empty();
 				
-				
+				this.connector();
+				/*
 				if ($rootScope.authenticated) {
 					this.connector();
 		        } else {
 					alert("로그인을 해주세요.");
 		        	$location.path("/signin");
 		        }
+		        */
 			}
 			$scope.sendText = function(){
 				ws.send( $rootScope.animalsname+"|"+ $("#wsText").val());

@@ -55,6 +55,12 @@ public class ChitchatpubDAOImpl  implements ChitchatpubDAO {
 			return null;
 		}
 	}
+	public List<Chitchatpub> getMarkers(Chitchatpub chitchatpub) {
+		String hql;
+		hql = "FROM Chitchatpub ORDER BY id DESC ";
+		Query q = entityManager.createQuery(hql);
+		return (List<Chitchatpub>) q.getResultList();
+	}
 	
 	@SuppressWarnings("unchecked") //Ignore Warnings
 	@Override

@@ -102,6 +102,22 @@ public class ChitchatpubController {
 		
 		return new ResponseEntity<List<Chitchatpub>>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("getMarkers")
+	public ResponseEntity<List<Chitchatpub>> getMarkers(
+			) {
+		CurrentUser currentUser = null;
+		try{
+			currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		} catch(Exception e){
+			currentUser = null;
+		}
+		
+		Chitchatpub chitchatpub = new Chitchatpub();
+		List<Chitchatpub> list = chitchatpubService.getMarkers(chitchatpub);
+		return new ResponseEntity<List<Chitchatpub>>(list, HttpStatus.OK);
+	}
+	
 	@GetMapping("Chitchatpubstar")
 	public ResponseEntity<Void> Chitchatpubstar(
 			@RequestParam(value="id", required = false)int chitchatpub_id, 
