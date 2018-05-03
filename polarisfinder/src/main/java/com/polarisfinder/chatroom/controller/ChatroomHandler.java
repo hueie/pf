@@ -29,12 +29,11 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
     
 	@Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		//String sessionName = session.getPrincipal().getName();
+		String sessionName = session.getPrincipal().getName();
 		for(WebSocketSession sess : sessionList){
 			if(sess.isOpen()){
 				sess.sendMessage(new TextMessage(message.getPayload()));
 			}
-			//sess.sendMessage(new TextMessage(sessionName+"|"+message.getPayload()));
 		}
     }
 	
@@ -43,7 +42,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 		String sessionName ="";
 		//InetSocketAddress isa = session.getRemoteAddress();
 		//sessionName = isa.getAddress().getHostAddress();
-		//sessionName = session.getPrincipal().getName();
+		sessionName = session.getPrincipal().getName();
 			/*
 			 * nginx 프록시를 사용하여 session의 remoteaddress가 127.0.0.1 로 뜸 
 			 * 설정을 바꿨는데도 request ip로 안온다.
@@ -51,7 +50,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 			InetSocketAddress isa = session.getRemoteAddress();
 			sessionName = isa.getAddress().getHostAddress();
 			*/
-		sessionName = session.getRemoteAddress().toString().substring(1);
+		//sessionName = session.getRemoteAddress().toString().substring(1);
 
 		if(!sessionMap.containsKey(sessionName)){
 			List<Animals> anis = AnimalsService.getRandomAnimals();
@@ -109,7 +108,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 		String sessionName ="";
 		//InetSocketAddress isa = session.getRemoteAddress();
 		//sessionName = isa.getAddress().getHostAddress();
-		//sessionName = session.getPrincipal().getName();
+		sessionName = session.getPrincipal().getName();
 			/*
 			 * nginx 프록시를 사용하여 session의 remoteaddress가 127.0.0.1 로 뜸 
 			 * 설정을 바꿨는데도 request ip로 안온다.
@@ -117,7 +116,7 @@ public class ChatroomHandler extends AbstractWebSocketHandler {
 			InetSocketAddress isa = session.getRemoteAddress();
 			sessionName = isa.getAddress().getHostAddress();
 			*/
-		sessionName = session.getRemoteAddress().toString().substring(1);
+		//sessionName = session.getRemoteAddress().toString().substring(1);
 		if(sessionMap.containsKey(sessionName)){
 			String animalName = sessionMap.get(sessionName);
 			animalList.remove(animalName);
