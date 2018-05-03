@@ -1,6 +1,6 @@
 ## Development Environment
-MySQL: 5.7
-JDK: 1.8.0_151
+- [MySQL: 5.7]
+[JDK: 1.8.0_151]
 Spring Tool Suite: 3.8.4.RELEASE
 STS Plugin : Dashboard -> Manage -> IDE Extension -> Gradle (STS Legacy) Support 
 Project Right Click -> Configure -> Convert to Gradle Project
