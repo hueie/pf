@@ -11,11 +11,11 @@
 
 Mysql DB Dump
 
-src/main/resources/static/db/Dumpxxxxxxxx.sql
+> src/main/resources/static/db/Dumpxxxxxxxx.sql
 
 Change application.properties
 
-src/main/resources/static/application.properties
+> src/main/resources/static/application.properties
 
 ## Deployment
 
