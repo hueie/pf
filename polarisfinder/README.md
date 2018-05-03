@@ -20,15 +20,15 @@ Change application.properties
 ## Deployment
 
 > $ cd $PROJECT_LOCATION
-
+>
 > $ gradlew clean build
-
+>
 > $ cd build
-
+>
 > $ cp . $DEPLOY_LOCATION
-
+>
 > $ cd $DEPLOY_LOCATION
-
+>
 > $ nohup java -jar libs/polarxy-0.1.0.jar &
 
 
