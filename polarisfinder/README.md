@@ -20,6 +20,7 @@ Change application.properties
 ## Deployment
 
 > $ cd $PROJECT_LOCATION
+>
 > $ gradlew clean build
 >
 > $ cd build
