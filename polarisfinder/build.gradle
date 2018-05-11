@@ -14,8 +14,17 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+/* if you use this, */
+sourceSets {
+   main.java.srcDir "src/main/java"
+   main.resources.srcDir "src/main/resources"
+   test.java.srcDir "src/test/java"
+   test.resources.srcDir "src/test/resources"
+}
+
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 jar {
     baseName = 'polarxy'
@@ -47,7 +56,6 @@ dependencies {
 	//compile("com.fasterxml.jackson.core:jackson-databind:2.0.1")  
 	    
 	compile('mysql:mysql-connector-java')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
 	
 	compile('com.googlecode.json-simple:json-simple:1.1.1')
 	
@@ -61,6 +69,19 @@ dependencies {
 	//compile('org.springframework.social:spring-social-twitter')
 	//compile('org.springframework.social:spring-social-linkedin')
 	compile('org.springframework.social:spring-social-google:1.0.0.RELEASE')
+
+	//compile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
+	
+	compile('org.springframework.boot:spring-boot-starter-test')
+	compile('org.springframework.security:spring-security-test')
+	compile('junit:junit')
+	compile('org.hsqldb:hsqldb')
+	
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.security:spring-security-test')
+	testCompile('junit:junit')
+	testCompile('org.hsqldb:hsqldb')
+	//testCompile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
 	
 	
     //compile("org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE")
@@ -70,5 +91,11 @@ dependencies {
 	//compile files('libs/opencv-320.jar')
     //compile fileTree(dir: 'libs', include: '*.jar')
     compile fileTree(dir: 'libs', include: '*.*')
+    
+    
+    
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5.1'
+}
