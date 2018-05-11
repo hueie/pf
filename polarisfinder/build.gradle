@@ -70,7 +70,7 @@ dependencies {
 	//compile('org.springframework.social:spring-social-linkedin')
 	compile('org.springframework.social:spring-social-google:1.0.0.RELEASE')
 
-	//compile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
+	compile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
 	
 	compile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.security:spring-security-test')
@@ -81,7 +81,7 @@ dependencies {
 	testCompile('org.springframework.security:spring-security-test')
 	testCompile('junit:junit')
 	testCompile('org.hsqldb:hsqldb')
-	//testCompile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
+	testCompile('org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.1.0-alpha')
 	
 	
     //compile("org.springframework.security.oauth:spring-security-oauth2:2.0.11.RELEASE")
