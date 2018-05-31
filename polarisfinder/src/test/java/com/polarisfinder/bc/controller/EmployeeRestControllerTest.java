@@ -1,7 +1,9 @@
 package com.polarisfinder.bc.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +14,29 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.polarisfinder.bc.controller.EmployeeRestController;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
 @AutoConfigureMockMvc
 //@Import(EmployeeRestController.class)
 public class EmployeeRestControllerTest {
-
+	private int VAL=0;
+	private boolean returnFlag=false;
 	@Autowired
 	private MockMvc mvc;
 
 	@MockBean
 	private EmployeeRestController employeeRestController;
 
+	@Before
+	public void beforeEachTest(){
+		VAL = 1;
+	}
+	
 	@Test 
 	public void testEmployee(){
-		System.out.println("h");
+		System.out.println("VAL : "+VAL);
+		assertTrue("Nothing should be printed",returnFlag);
 		assertThat(employeeRestController).isNotNull();
 	}
 	/*

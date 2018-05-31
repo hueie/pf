@@ -36,6 +36,9 @@
 	                
 	                <div ng-show="!isMobile || showComment" style="margin-bottom:20px;">
 		                <textarea id="placecomment" name="placecomment"  rows="5" cols="" class="form-control"  placeholder="Chit! Chat! about this place!"></textarea>
+		                <form>
+		                	<div class="g-recaptcha" data-sitekey="6Lck9VkUAAAAAD8V2mTg6tE3FSvOoQ3-8_2Ii_97"></div>
+		                </form>
 		                <button class="btn btn-primary btn-block" type="button" ng-click="addComment();">CHiT! CHaT!</button>
                 	</div>
                 	<div ng-show="isMobile && !showComment" style="margin-bottom:20px;">
